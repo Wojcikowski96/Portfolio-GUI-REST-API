@@ -5,6 +5,7 @@ import com.example.service.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Configuration
 public class SecurityConfig {
   @Autowired
   private final JwtAthFilter jwtAuthFilter;
@@ -30,11 +32,13 @@ public class SecurityConfig {
   private final MyUserDetailsService myService;
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.cors().and()
-        .authorizeHttpRequests((requests)-> {
+        .authorizeHttpRequests((requests) -> {
           try {
-            requests.requestMatchers("/user", "/register").permitAll().and().
+            requests.requestMatchers("/user", "/register", "/authenticate").permitAll()
+                .requestMatchers("/hello").hasAuthority("ROLE_ADMIN")
+                .and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -49,10 +53,11 @@ public class SecurityConfig {
 
 
   @Bean
-  public AuthenticationManager authenticationManager (AuthenticationConfiguration config) throws Exception{
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+      throws Exception {
     return config.getAuthenticationManager();
   }
-  
+
   @Bean
   public AuthenticationProvider authenticationProvider() {
     final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -63,7 +68,7 @@ public class SecurityConfig {
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder(){
+  public PasswordEncoder passwordEncoder() {
 
     return new BCryptPasswordEncoder(15);
 
@@ -79,7 +84,8 @@ public class SecurityConfig {
 
   @Bean
   public DefaultWebSecurityExpressionHandler myWebSecurityExpressionHandler() {
-    DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
+    DefaultWebSecurityExpressionHandler expressionHandler =
+        new DefaultWebSecurityExpressionHandler();
     expressionHandler.setRoleHierarchy(roleHierarchy());
     return expressionHandler;
   }

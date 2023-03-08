@@ -33,6 +33,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
   @Autowired
   private PrivilageRepository privilegeRepository;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   @Override
   @Transactional
   public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -54,7 +57,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     User user = new User();
     user.setFirstName("Test");
     user.setLastName("Test");
-    user.setPassword("test");
+    user.setPassword(passwordEncoder.encode("test"));
     user.setEmail("test@test.com");
     user.setRoles(List.of(adminRole.get()));
     user.setEnabled(true);

@@ -8,7 +8,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @ServletComponentScan
 @SpringBootApplication(scanBasePackages = {"com.example"})
 @EntityScan("com.example")
-
 public class Application {
 
   public static void main(String[] args) {
