@@ -126,7 +126,7 @@ components:
           format: int64
         tittle:
           type: string
-        description:
+        content:
           type: string
         modificationDate:
           type: string

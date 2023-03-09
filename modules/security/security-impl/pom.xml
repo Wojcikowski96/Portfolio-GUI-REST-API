@@ -10,6 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.example</groupId>
     <artifactId>security-impl</artifactId>
     <dependencies>
         <dependency>
@@ -29,6 +30,12 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>utils</artifactId>
+            <groupId>com.example</groupId>
+            <scope>compile</scope>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

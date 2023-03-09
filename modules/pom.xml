@@ -8,9 +8,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>modules</artifactId>
+    <groupId>com.example</groupId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

@@ -1,7 +1,5 @@
 package com.example.filter;
 
-
-import com.example.filter.JwtUtils;
 import com.example.service.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,26 +21,40 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class JwtAthFilter extends OncePerRequestFilter {
   private final MyUserDetailsService myUserDetailsService;
   private final JwtUtils jwtUtils;
+
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                  FilterChain filterChain) throws
       ServletException, IOException {
+
     final String authHeader, userMail, jwtToken;
+
     authHeader = request.getHeader(AUTHORIZATION);
-    if(authHeader == null || !authHeader.startsWith("Bearer")){
+
+    if (authHeader == null || !authHeader.startsWith("Bearer")) {
       filterChain.doFilter(request, response);
       return;
     }
+
     jwtToken = authHeader.substring(7);
+
     userMail = jwtUtils.extractUsername(jwtToken);
-    if(userMail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+
+    if (userMail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
       UserDetails userDetails = myUserDetailsService.loadUserByUsername(userMail);
 
-      if(jwtUtils.isTokenValid(jwtToken, userDetails)){
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,null, userDetails.getAuthorities());
+      if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
+        UsernamePasswordAuthenticationToken authToken =
+            new UsernamePasswordAuthenticationToken(userDetails, null,
+                userDetails.getAuthorities());
+
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
         SecurityContextHolder.getContext().setAuthentication(authToken);
       }
     }
+
     filterChain.doFilter(request, response);
 
   }

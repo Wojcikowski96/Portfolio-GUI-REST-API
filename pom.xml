@@ -47,6 +47,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<artifactId>mapstruct</artifactId>
+			<groupId>org.mapstruct</groupId>
+			<version>1.5.3.Final</version>
+		</dependency>
+
 		<!-- log4j -->
 		<dependency>
 			<artifactId>log4j-core</artifactId>
@@ -139,16 +145,27 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.5.3.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.5.3.Final</version>
+		</dependency>
 
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
 			<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-jar-plugin</artifactId>
@@ -161,6 +178,33 @@
 				</archive>
 			</configuration>
 			</plugin>
+<!--			<plugin>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<annotationProcessorPaths>-->
+<!--						<path>-->
+<!--							<artifactId>lombok-mapstruct-binding</artifactId>-->
+<!--							<groupId>org.projectlombok</groupId>-->
+<!--							<version>0.2.0</version>-->
+<!--						</path>-->
+<!--						<path>-->
+<!--							<artifactId>mapstruct-processor</artifactId>-->
+<!--							<groupId>org.mapstruct</groupId>-->
+<!--							<version>1.5.3.Final</version>-->
+<!--						</path>-->
+<!--					</annotationProcessorPaths>-->
+<!--					<compilerArgs>-->
+<!--						<arg>-->
+<!--							-Amapstruct.defaultComponentModel=spring-->
+<!--						</arg>-->
+<!--					</compilerArgs>-->
+<!--					<showWarnings>true</showWarnings>-->
+<!--					<source>${maven.compiler.source}</source>-->
+<!--					<target>${maven.compiler.target}</target>-->
+<!--				</configuration>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<version>3.8.1</version>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 

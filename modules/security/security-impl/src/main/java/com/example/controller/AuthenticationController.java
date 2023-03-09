@@ -4,10 +4,7 @@ import com.example.filter.JwtUtils;
 import com.example.model.UserRequest;
 import com.example.service.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +26,7 @@ public class AuthenticationController {
 
   @PostMapping("/authenticate")
   public ResponseEntity<String> authenticate(@RequestBody UserRequest request) {
+
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 

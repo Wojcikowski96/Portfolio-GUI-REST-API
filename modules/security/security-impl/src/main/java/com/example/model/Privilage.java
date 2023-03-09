@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class Privilage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
