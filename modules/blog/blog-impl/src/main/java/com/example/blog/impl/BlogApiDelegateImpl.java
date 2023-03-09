@@ -3,6 +3,7 @@ package com.example.blog.impl;
 import com.example.BlogApiDelegate;
 import com.example.BlogModuleApi;
 import com.example.blog.mapper.BlogEntryMapper;
+import com.example.model.BlogEntryDTO;
 import com.example.model.GetBlogEntries200Response;
 import com.example.model.RequestData;
 import java.util.stream.Collectors;
@@ -49,5 +50,13 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
                 Collectors.toList()));
 
     return ResponseEntity.ok(response);
+  }
+
+  @Override
+  public ResponseEntity<Void> saveBlogEntry(BlogEntryDTO blogEntryDTO) {
+
+    blogApi.saveBlogEntry(blogEntryMapper.restToDomain(blogEntryDTO));
+
+    return ResponseEntity.noContent().build();
   }
 }

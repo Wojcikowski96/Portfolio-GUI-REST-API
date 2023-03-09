@@ -11,29 +11,41 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class BlogApiImpl implements BlogModuleApi {
-  @Autowired
-  BlogEntryRepository repository;
+    @Autowired
+    BlogEntryRepository repository;
 
-  @Autowired
-  BlogSearchSpecification blogSearchSpecification;
+    @Autowired
+    BlogSearchSpecification blogSearchSpecification;
 
-  @Autowired
-  BlogEntryMapper blogEntryMapper;
+    @Autowired
+    BlogEntryMapper blogEntryMapper;
 
-  @Override
-  public Page getBlogEntries(BlogEntryDomain blogEntryDomain, Pageable pageable) {
+    @Override
+    public Page getBlogEntries(BlogEntryDomain blogEntryDomain, Pageable pageable) {
 
-    Page<BlogEntryModel> blogEntryModels =
-        repository.findAll(blogSearchSpecification.getEntries(blogEntryDomain), pageable);
+        Page<BlogEntryModel> blogEntryModels =
+                repository.findAll(blogSearchSpecification.getEntries(blogEntryDomain), pageable);
 
-    BlogEntryDomainImpl impl=blogEntryMapper.modelToDomain(blogEntryModels.getContent().get(0));
+        BlogEntryDomainImpl impl = blogEntryMapper.modelToDomain(blogEntryModels.getContent().get(0));
 
 
-    Page<BlogEntryDomain> blogEntryDomainPage =
-        blogEntryModels.map((blogEntry) -> blogEntryMapper.modelToDomain(blogEntry));
+        Page<BlogEntryDomain> blogEntryDomainPage =
+                blogEntryModels.map((blogEntry) -> blogEntryMapper.modelToDomain(blogEntry));
 
-    return blogEntryDomainPage;
-  }
+        return blogEntryDomainPage;
+    }
+
+    @Override
+    public void saveBlogEntry(BlogEntryDomain blogEntryDomain) {
+        if (blogEntryDomain.getId() == null) {
+            repository.save(blogEntryMapper.domainToModel(blogEntryDomain));
+        } else {
+            Optional<BlogEntryModel> blogEntryModelOptonal = repository.findById(blogEntryDomain.getId());
+
+        }
+    }
 }

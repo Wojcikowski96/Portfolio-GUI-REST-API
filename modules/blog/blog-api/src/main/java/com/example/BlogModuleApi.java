@@ -5,4 +5,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface BlogModuleApi {
   Page getBlogEntries(BlogEntryDomain blogEntryDomain, Pageable pageable);
+
+  void saveBlogEntry(BlogEntryDomain blogEntryDomain);
 }
