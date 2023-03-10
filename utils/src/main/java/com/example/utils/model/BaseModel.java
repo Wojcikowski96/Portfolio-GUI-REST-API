@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Version;
 import java.time.LocalDateTime;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -27,6 +28,7 @@ public class BaseModel {
   /**
    * Numer wersji encji
    */
+  @Version
   @Column(precision = 10, name = "VERSION")
   private Integer version;
 

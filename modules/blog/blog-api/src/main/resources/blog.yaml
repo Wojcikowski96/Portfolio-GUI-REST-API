@@ -40,6 +40,29 @@ paths:
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+    delete:
+      summary: Usuwa wpisy
+      description: Usuwanie dla roli administratora
+      operationId: deleteBlogEntries
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+          required: true
+      responses:
+        '201':
+          description: Usunięto
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
 
   /blog/entry:
     post:

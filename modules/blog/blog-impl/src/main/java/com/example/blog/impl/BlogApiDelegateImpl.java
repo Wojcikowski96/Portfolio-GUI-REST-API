@@ -6,6 +6,7 @@ import com.example.blog.mapper.BlogEntryMapper;
 import com.example.model.BlogEntryDTO;
 import com.example.model.GetBlogEntries200Response;
 import com.example.model.RequestData;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,14 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
   public ResponseEntity<Void> saveBlogEntry(BlogEntryDTO blogEntryDTO) {
 
     blogApi.saveBlogEntry(blogEntryMapper.restToDomain(blogEntryDTO));
+
+    return ResponseEntity.noContent().build();
+  }
+
+  @Override
+  public ResponseEntity<Void> deleteBlogEntries(List<Long> entryId) {
+
+    blogApi.deleteEntries(entryId);
 
     return ResponseEntity.noContent().build();
   }

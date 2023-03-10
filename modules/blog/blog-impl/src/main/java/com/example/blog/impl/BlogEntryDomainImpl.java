@@ -6,11 +6,13 @@ import java.util.Set;
 
 public class BlogEntryDomainImpl implements BlogEntryDomain {
 
-  String content;
+  Long id;
 
   String tittle;
 
-  Long id;
+  String content;
+
+  Integer version;
 
   Set<CommentDomain> commentDomainSet;
 
@@ -37,6 +39,11 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
   @Override
   public Long getId() {
     return this.id;
+  }
+
+  @Override
+  public void setId(Long id) {
+    this.id = id;
   }
 
   @Override

@@ -14,6 +14,8 @@ public interface BlogEntryDomain {
 
   Long getId();
 
+  void setId(Long id);
+
   Set<CommentDomain> getComments();
 
   void setComments(Set<CommentDomain> comments);

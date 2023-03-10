@@ -6,6 +6,8 @@ import com.example.blog.mapper.BlogEntryMapper;
 import com.example.blog.model.BlogEntryModel;
 import com.example.blog.repository.BlogEntryRepository;
 import com.example.blog.specification.BlogSearchSpecification;
+import com.example.utils.Updater;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,10 +44,24 @@ public class BlogApiImpl implements BlogModuleApi {
     @Override
     public void saveBlogEntry(BlogEntryDomain blogEntryDomain) {
         if (blogEntryDomain.getId() == null) {
+
             repository.save(blogEntryMapper.domainToModel(blogEntryDomain));
+
         } else {
             Optional<BlogEntryModel> blogEntryModelOptonal = repository.findById(blogEntryDomain.getId());
 
+            BlogEntryModel blogEntryModelFromDomain = blogEntryMapper.domainToModel(blogEntryDomain);
+
+            BlogEntryModel mergedBlogEntryModel = Updater.updater(blogEntryModelOptonal.get(), blogEntryModelFromDomain);
+
+            repository.save(mergedBlogEntryModel);
+
         }
+    }
+
+    @Override
+    public void deleteEntries(List<Long> ids) {
+
+        repository.deleteAllById(ids);
     }
 }
