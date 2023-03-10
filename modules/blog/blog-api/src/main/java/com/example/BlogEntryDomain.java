@@ -19,4 +19,8 @@ public interface BlogEntryDomain {
   Set<CommentDomain> getComments();
 
   void setComments(Set<CommentDomain> comments);
+
+  ImageDomain getImage();
+
+  void setImage(ImageDomain imageDomain);
 }

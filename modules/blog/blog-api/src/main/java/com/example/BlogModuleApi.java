@@ -10,4 +10,6 @@ public interface BlogModuleApi {
   void saveBlogEntry(BlogEntryDomain blogEntryDomain);
 
   void deleteEntries(List<Long> ids);
+
+  void uploadImage(ImageDomain imageDomain, Long entryId);
 }

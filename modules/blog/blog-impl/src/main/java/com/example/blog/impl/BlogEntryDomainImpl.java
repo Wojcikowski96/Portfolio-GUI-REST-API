@@ -2,6 +2,7 @@ package com.example.blog.impl;
 
 import com.example.BlogEntryDomain;
 import com.example.CommentDomain;
+import com.example.ImageDomain;
 import java.util.Set;
 
 public class BlogEntryDomainImpl implements BlogEntryDomain {
@@ -15,6 +16,8 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
   Integer version;
 
   Set<CommentDomain> commentDomainSet;
+
+  ImageDomainImpl image;
 
   @Override
   public String getContent() {
@@ -54,5 +57,15 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
   @Override
   public void setComments(Set<CommentDomain> comments) {
     this.commentDomainSet = comments;
+  }
+
+  @Override
+  public ImageDomain getImage() {
+    return this.image;
+  }
+
+  @Override
+  public void setImage(ImageDomain imageDomain) {
+    this.image = (ImageDomainImpl) imageDomain;
   }
 }

@@ -1,9 +1,11 @@
 package com.example.blog.mapper;
 
 import com.example.BlogEntryDomain;
+import com.example.ImageDomain;
 import com.example.blog.impl.BlogEntryDomainImpl;
 import com.example.blog.model.BlogEntryModel;
 
+import com.example.blog.model.ImageModel;
 import com.example.model.BlogEntryDTO;
 import com.example.model.RequestData;
 import org.mapstruct.Mapper;
@@ -30,6 +32,8 @@ public abstract class BlogEntryMapper {
   public abstract BlogEntryDomainImpl modelToDomain(BlogEntryModel model);
 
   public abstract BlogEntryModel domainToModel(BlogEntryDomain domain);
+
+  public abstract ImageModel domainToModel(ImageDomain domain);
 
   public abstract BlogEntryDomainImpl filterRestToDomain(RequestData requestData);
 

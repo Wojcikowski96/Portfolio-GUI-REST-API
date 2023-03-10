@@ -85,6 +85,44 @@ paths:
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+  /blog/entry/uploadImage:
+    post:
+      summary: Modyfikuje wpis bloga pod kątem dodania obrazka
+      description: Modyfikacja wpisu dostępna dla roli Admin. Ustawia się data modyfikacji i stworzenia
+      operationId: uploadImage
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                fileByteString:
+                  type: string
+                  format: binary
+
+      responses:
+        '201':
+          description: Zmodyfikowano wpis
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
 
   /blog/entry/comment:
         post:

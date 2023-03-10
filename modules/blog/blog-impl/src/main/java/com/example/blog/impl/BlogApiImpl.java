@@ -2,8 +2,10 @@ package com.example.blog.impl;
 
 import com.example.BlogModuleApi;
 import com.example.BlogEntryDomain;
+import com.example.ImageDomain;
 import com.example.blog.mapper.BlogEntryMapper;
 import com.example.blog.model.BlogEntryModel;
+import com.example.blog.model.ImageModel;
 import com.example.blog.repository.BlogEntryRepository;
 import com.example.blog.specification.BlogSearchSpecification;
 import com.example.utils.Updater;
@@ -63,5 +65,22 @@ public class BlogApiImpl implements BlogModuleApi {
     public void deleteEntries(List<Long> ids) {
 
         repository.deleteAllById(ids);
+    }
+
+    @Override
+    public void uploadImage(ImageDomain imageDomain, Long entryId) {
+
+        Optional<BlogEntryModel> blogEntryModelOptional = repository.findById(entryId);
+
+        BlogEntryModel blogEntryModel = blogEntryModelOptional.get();
+
+        ImageModel imageModel = blogEntryMapper.domainToModel(imageDomain);
+
+        imageModel.setBlogEntryModel(blogEntryModelOptional.get());
+
+        blogEntryModel.setImage(imageModel);
+
+        repository.save(blogEntryModel);
+
     }
 }

@@ -37,7 +37,7 @@ public class SecurityConfig {
         .authorizeHttpRequests((requests) -> {
           try {
             requests.requestMatchers("/user", "/register", "/authenticate", "/blog/entries").permitAll()
-                .requestMatchers("/hello", "/blog/entry").hasAuthority("ROLE_ADMIN")
+                .requestMatchers( "/blog/entry/**", "/blog/entry/uploadImage").hasAuthority("ROLE_ADMIN")
                 .and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authenticationProvider(authenticationProvider())
