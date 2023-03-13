@@ -3,9 +3,6 @@ package com.example.blog.model;
 import com.example.utils.model.BaseModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -22,5 +19,8 @@ public class ImageModel extends BaseModel {
 
   @Column(name = "IMAGE", unique = false, nullable = false, length = 100000)
   private byte[] image;
+
+  @Column(name = "IMAGE_URL")
+  private String imageUrl;
 
 }

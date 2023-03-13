@@ -9,6 +9,7 @@ import com.example.blog.model.ImageModel;
 import com.example.model.BlogEntryDTO;
 import com.example.model.RequestData;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -25,15 +26,15 @@ public abstract class BlogEntryMapper {
   @Autowired
   private MessageSource messageSource;
 
+  @Mapping(source="url", target="imageUrl")
   public abstract BlogEntryDTO domainToRest(BlogEntryDomainImpl model);
 
   public abstract BlogEntryDomainImpl restToDomain(BlogEntryDTO dto);
 
+  @Mapping(source="image.imageUrl", target="url")
   public abstract BlogEntryDomainImpl modelToDomain(BlogEntryModel model);
 
   public abstract BlogEntryModel domainToModel(BlogEntryDomain domain);
-
-  public abstract ImageModel domainToModel(ImageDomain domain);
 
   public abstract BlogEntryDomainImpl filterRestToDomain(RequestData requestData);
 

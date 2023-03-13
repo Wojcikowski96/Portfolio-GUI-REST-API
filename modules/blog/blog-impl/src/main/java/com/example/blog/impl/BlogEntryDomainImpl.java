@@ -13,11 +13,9 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
 
   String content;
 
-  Integer version;
-
   Set<CommentDomain> commentDomainSet;
 
-//  ImageDomainImpl image;
+  String url;
 
   @Override
   public String getContent() {
@@ -59,13 +57,14 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
     this.commentDomainSet = comments;
   }
 
-//  @Override
-//  public ImageDomain getImage() {
-//    return this.image;
-//  }
-//
-//  @Override
-//  public void setImage(ImageDomain imageDomain) {
-//    this.image = (ImageDomainImpl) imageDomain;
-//  }
+  @Override
+  public String getUrl() {
+    return this.url;
+  }
+
+  @Override
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
 }

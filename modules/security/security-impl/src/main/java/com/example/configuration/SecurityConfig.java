@@ -36,8 +36,10 @@ public class SecurityConfig {
     http.cors().and()
         .authorizeHttpRequests((requests) -> {
           try {
-            requests.requestMatchers("/user", "/register", "/authenticate", "/blog/entries").permitAll()
-                .requestMatchers( "/blog/entry/**", "/blog/entry/uploadImage").hasAuthority("ROLE_ADMIN")
+            requests.requestMatchers("/user", "/register", "/authenticate", "/blog/entries",
+                    "/blog/image").permitAll()
+                .requestMatchers("/blog/entry/**", "/blog/entry/uploadImage")
+                .hasAuthority("ROLE_ADMIN")
                 .and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authenticationProvider(authenticationProvider())

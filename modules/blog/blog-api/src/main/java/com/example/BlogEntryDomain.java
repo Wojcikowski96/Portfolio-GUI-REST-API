@@ -20,7 +20,8 @@ public interface BlogEntryDomain {
 
   void setComments(Set<CommentDomain> comments);
 
-//  ImageDomain getImage();
-//
-//  void setImage(ImageDomain imageDomain);
+  String getUrl();
+
+  void setUrl(String url);
+
 }

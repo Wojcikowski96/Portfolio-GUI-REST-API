@@ -11,10 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,5 +94,15 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
     blogApi.uploadImage(imageDomain, entryId);
 
     return ResponseEntity.noContent().build();
+  }
+
+  @Override
+  public ResponseEntity<Resource> getImage(Long entryId) {
+
+    byte [] imageData = blogApi.getImage(entryId);
+
+    Resource res = new ByteArrayResource(imageData);
+
+    return ResponseEntity.status(HttpStatus.OK).body(res);
   }
 }

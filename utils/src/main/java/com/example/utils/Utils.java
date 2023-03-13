@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-public class Updater {
+public class Utils {
 
   public static <E> E updater(E oldEntity, E newEntity) {
 
@@ -54,5 +54,9 @@ public class Updater {
       }
     }
     return hashtable;
+  }
+
+  public static String generateImageUrl(Long entryID){
+    return "http://localhost:8080/blog/image?entryId="+entryID;
   }
 }

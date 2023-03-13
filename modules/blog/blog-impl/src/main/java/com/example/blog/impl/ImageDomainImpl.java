@@ -13,6 +13,8 @@ public class ImageDomainImpl implements ImageDomain {
 
   private byte[] image;
 
+  private String url;
+
   @Override
   public Long getId() {
     return this.id;
@@ -51,5 +53,16 @@ public class ImageDomainImpl implements ImageDomain {
   @Override
   public void setImage(byte[] image) {
     this.image = image;
+  }
+
+  @Override
+  public String getUrl() {
+    return this.url;
+  }
+
+  @Override
+  public void setUrl(String url) {
+    this.url = url;
+
   }
 }

@@ -19,5 +19,9 @@ public interface ImageDomain {
 
   void setImage(byte [] image);
 
+  String getUrl();
+
+  void setUrl(String url);
+
 
 }

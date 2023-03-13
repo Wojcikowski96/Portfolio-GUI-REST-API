@@ -59,8 +59,214 @@
 				{
 					"name": "GetEntries",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"ASC\",\r\n    \"sortBy\" : \"tittle\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entries",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"blog",
+								"entries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveOrUpdateEntry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"zmieniam content 3\",\r\n    \"tittle\": \"Jakaś tam treść\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"blog",
+								"entry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileByteString",
+									"type": "file",
+									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/test.jpg"
+								},
+								{
+									"key": "name",
+									"value": "test4",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": ".png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry/uploadImage?entryId=3",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"blog",
+								"entry",
+								"uploadImage"
+							],
+							"query": [
+								{
+									"key": "entry",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "entry",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "entryId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteEntries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entries?entryId=8324",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"blog",
+								"entries"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "8324"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImage",
+					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "entryId",
+								"value": "4",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/image?entryId=4",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"blog",
+								"image"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "4"
+								}
+							]
+						}
 					},
 					"response": []
 				}
