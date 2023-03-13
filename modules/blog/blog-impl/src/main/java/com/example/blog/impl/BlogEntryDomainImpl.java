@@ -17,7 +17,7 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
 
   Set<CommentDomain> commentDomainSet;
 
-  ImageDomainImpl image;
+//  ImageDomainImpl image;
 
   @Override
   public String getContent() {
@@ -59,13 +59,13 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
     this.commentDomainSet = comments;
   }
 
-  @Override
-  public ImageDomain getImage() {
-    return this.image;
-  }
-
-  @Override
-  public void setImage(ImageDomain imageDomain) {
-    this.image = (ImageDomainImpl) imageDomain;
-  }
+//  @Override
+//  public ImageDomain getImage() {
+//    return this.image;
+//  }
+//
+//  @Override
+//  public void setImage(ImageDomain imageDomain) {
+//    this.image = (ImageDomainImpl) imageDomain;
+//  }
 }

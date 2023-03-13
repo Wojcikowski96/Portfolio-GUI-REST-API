@@ -23,9 +23,4 @@ public class ImageModel extends BaseModel {
   @Column(name = "IMAGE", unique = false, nullable = false, length = 100000)
   private byte[] image;
 
-  @OneToOne
-  @MapsId
-  @JoinColumn(name="BLOG_ENTRY_ID")
-  private BlogEntryModel blogEntryModel;
-
 }
