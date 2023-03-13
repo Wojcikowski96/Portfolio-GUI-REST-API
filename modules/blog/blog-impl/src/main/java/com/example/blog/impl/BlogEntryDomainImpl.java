@@ -3,6 +3,7 @@ package com.example.blog.impl;
 import com.example.BlogEntryDomain;
 import com.example.CommentDomain;
 import com.example.ImageDomain;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class BlogEntryDomainImpl implements BlogEntryDomain {
@@ -16,6 +17,10 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
   Set<CommentDomain> commentDomainSet;
 
   String url;
+
+  LocalDateTime creationDate;
+
+  LocalDateTime modificationDate;
 
   @Override
   public String getContent() {
@@ -65,6 +70,26 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
   @Override
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  @Override
+  public LocalDateTime getCreationDate() {
+    return this.creationDate;
+  }
+
+  @Override
+  public LocalDateTime getModifiedDate() {
+    return this.modificationDate;
+  }
+
+  @Override
+  public void setCreationDate(LocalDateTime date) {
+    this.creationDate = date;
+  }
+
+  @Override
+  public void setModificationDate(LocalDateTime date) {
+    this.modificationDate = date;
   }
 
 }

@@ -1,5 +1,6 @@
 package com.example;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public interface BlogEntryDomain {
@@ -24,4 +25,11 @@ public interface BlogEntryDomain {
 
   void setUrl(String url);
 
+  LocalDateTime getCreationDate();
+
+  LocalDateTime getModifiedDate();
+
+  void setCreationDate(LocalDateTime date);
+
+  void setModificationDate(LocalDateTime date);
 }

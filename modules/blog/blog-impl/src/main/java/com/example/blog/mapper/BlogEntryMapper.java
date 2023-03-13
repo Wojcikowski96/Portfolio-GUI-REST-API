@@ -10,6 +10,7 @@ import com.example.model.BlogEntryDTO;
 import com.example.model.RequestData;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,9 @@ public abstract class BlogEntryMapper {
   @Autowired
   private MessageSource messageSource;
 
-  @Mapping(source="url", target="imageUrl")
+  @Mappings({@Mapping(source="url", target="imageUrl"),
+      @Mapping(source = "modifiedDate", target="modificationDate", dateFormat = "dd.MM.yyyy HH:mm"),
+      @Mapping(source = "creationDate", target = "creationDate", dateFormat = "dd.MM.yyyy HH:mm")})
   public abstract BlogEntryDTO domainToRest(BlogEntryDomainImpl model);
 
   public abstract BlogEntryDomainImpl restToDomain(BlogEntryDTO dto);
