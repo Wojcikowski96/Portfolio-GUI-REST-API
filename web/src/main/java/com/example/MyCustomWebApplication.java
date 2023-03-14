@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication(scanBasePackages = {"com.example"})
 @EntityScan("com.example")
 @EnableJpaAuditing
-public class Application {
+public class MyCustomWebApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
+    SpringApplication.run(MyCustomWebApplication.class, args);
   }
 }
