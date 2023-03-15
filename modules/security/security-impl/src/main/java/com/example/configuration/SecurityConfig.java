@@ -1,6 +1,7 @@
 package com.example.configuration;
 
 import com.example.filter.JwtAthFilter;
+import com.example.filter.JwtException;
 import com.example.service.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class SecurityConfig {
   @Autowired
   private final MyUserDetailsService myService;
 
+  @Autowired
+  private JwtException jwtException;
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.cors().and()
@@ -42,7 +46,7 @@ public class SecurityConfig {
                 .hasAuthority("ROLE_ADMIN")
                 .and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authenticationProvider(authenticationProvider())
+                .authenticationProvider(authenticationProvider()).exceptionHandling().authenticationEntryPoint(jwtException).and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
           } catch (Exception e) {
             throw new RuntimeException(e);

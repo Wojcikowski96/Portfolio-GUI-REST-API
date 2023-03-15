@@ -11,6 +11,7 @@ import com.example.blog.repository.BlogEntryRepository;
 import com.example.blog.repository.ImagesRepository;
 import com.example.blog.specification.BlogSearchSpecification;
 import com.example.utils.Utils;
+import com.example.utils.exception.ExceptionsFactory;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,6 +52,11 @@ public class BlogApiImpl implements BlogModuleApi {
     @Override
     public void saveBlogEntry(BlogEntryDomain blogEntryDomain) {
         if (blogEntryDomain.getId() == null) {
+
+            if(blogEntryRepository.findByTittle(blogEntryDomain.getTittle()) !=null){
+                throw ExceptionsFactory.createConflict("Entry with given name already exists",
+                    "666", null);
+            }
 
             blogEntryRepository.save(blogEntryMapper.domainToModel(blogEntryDomain));
 

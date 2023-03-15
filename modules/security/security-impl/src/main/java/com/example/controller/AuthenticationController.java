@@ -3,9 +3,12 @@ package com.example.controller;
 import com.example.filter.JwtUtils;
 import com.example.model.UserRequest;
 import com.example.service.MyUserDetailsService;
+import com.example.utils.exception.ExceptionsFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,16 +30,21 @@ public class AuthenticationController {
   @PostMapping("/authenticate")
   public ResponseEntity<String> authenticate(@RequestBody UserRequest request) {
 
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+
+    try {
+      authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+    } catch (DisabledException e) {
+      throw ExceptionsFactory.createForbidden("User disabled", "UD", e);
+    } catch (BadCredentialsException e) {
+      throw ExceptionsFactory.createForbidden("Niepoprawne dane logowania", "NDL",
+          e);
+    }
 
     final UserDetails user = myUserDetailsService.loadUserByUsername(request.getEmail());
 
-    if (user != null) {
-      return ResponseEntity.ok(jwtUtils.generateToken(user));
-    }
+    return ResponseEntity.ok(jwtUtils.generateToken(user));
 
-    return ResponseEntity.status(400).body("Some error happened");
   }
 
 }
