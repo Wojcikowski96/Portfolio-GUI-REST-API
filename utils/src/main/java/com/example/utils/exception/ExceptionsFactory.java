@@ -14,6 +14,16 @@ public class ExceptionsFactory {
     return exception;
   }
 
+  public static ApplicationException createNotFound(String message, String code, Throwable cause){
+    ApplicationException exception = new ApplicationException(message, cause, code);
+
+    exception.setHttpStatus(HttpStatus.NOT_FOUND);
+
+    exception.setCode(code);
+
+    return exception;
+  }
+
   public static ApplicationException createUnauthorized(String message, String code, Throwable cause){
     ApplicationException exception = new ApplicationException(message, cause, code);
 

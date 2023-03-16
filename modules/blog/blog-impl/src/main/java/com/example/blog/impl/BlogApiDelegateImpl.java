@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class BlogApiDelegateImpl implements BlogApiDelegate {
+
 
   @Autowired
   BlogModuleApi blogApi;

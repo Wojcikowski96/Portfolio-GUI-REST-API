@@ -41,7 +41,7 @@ public class SecurityConfig {
         .authorizeHttpRequests((requests) -> {
           try {
             requests.requestMatchers("/user", "/register", "/authenticate", "/blog/entries",
-                    "/blog/image").permitAll()
+                    "/blog/image", "/email/send").permitAll()
                 .requestMatchers("/blog/entry/**", "/blog/entry/uploadImage")
                 .hasAuthority("ROLE_ADMIN")
                 .and().

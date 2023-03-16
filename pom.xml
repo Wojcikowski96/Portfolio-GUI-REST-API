@@ -13,6 +13,8 @@
 		<module>modules/security/security-api</module>
 		<module>modules/security/security-impl</module>
 		<module>modules</module>
+		<module>modules/emailjob/emailjob-api</module>
+		<module>modules/emailjob/emailjob-impl</module>
 	</modules>
 
     <parent>

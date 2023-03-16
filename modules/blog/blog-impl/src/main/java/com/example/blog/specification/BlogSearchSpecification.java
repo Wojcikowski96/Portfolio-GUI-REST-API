@@ -22,7 +22,7 @@ public class BlogSearchSpecification {
       if (domain.getContent() != null &&
           !domain.getContent().isEmpty()) {
         predicates.add(
-            criteriaBuilder.like(criteriaBuilder.lower(root.get("contentdsa")),
+            criteriaBuilder.like(criteriaBuilder.lower(root.get("content")),
                 "%" + domain.getContent().toLowerCase() + "%"));
       }
 

@@ -5,6 +5,7 @@ import com.example.model.UserRequest;
 import com.example.service.MyUserDetailsService;
 import com.example.utils.exception.ExceptionsFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
