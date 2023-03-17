@@ -1,5 +1,5 @@
 package com.example.emailjob;
 
 public interface EmailSenderApi {
-  void sendMessage();
+  void sendMessage(EmailDomain domain);
 }
