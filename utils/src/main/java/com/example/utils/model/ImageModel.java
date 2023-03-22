@@ -1,21 +1,21 @@
-package com.example.blog.model;
+package com.example.utils.model;
 
-import com.example.utils.model.BaseModel;
+import com.example.utils.enums.ImageType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "IMAGES")
+@Table(name = "IMAGE")
 @Data
 public class ImageModel extends BaseModel {
 
   @Column(name = "NAME")
   private String name;
 
-  @Column(name = "TYPE")
-  private String type;
+//  @Column(name = "TYPE")
+//  private ImageType type;
 
   @Column(name = "IMAGE", unique = false, nullable = false, length = 100000)
   private byte[] image;

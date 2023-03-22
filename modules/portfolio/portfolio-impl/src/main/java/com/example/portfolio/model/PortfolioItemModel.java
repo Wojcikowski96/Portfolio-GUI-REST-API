@@ -1,4 +1,4 @@
-package com.example.blog.model;
+package com.example.portfolio.model;
 
 import com.example.utils.model.BaseModel;
 import com.example.utils.model.ImageModel;
@@ -9,26 +9,30 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.Data;
 
 @Entity
-@Table(name = "BLOG_ENTRY")
+@Table(name = "PORTFOLIO_ENTRY")
 @Data
-public class BlogEntryModel extends BaseModel {
-
+public class PortfolioItemModel extends BaseModel {
   @Column(name = "TITTLE")
   private String tittle;
 
-  @Column(name= "CONTENT")
-  private String content;
-
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "ENTRY_ID")
-  private ImageModel image;
+  @JoinColumn(name = "PORTFOLIO_ID")
+  private PortfolioItemModelDetails portfolioItemModelDetails;
 
-  @OneToMany
-  @JoinColumn(name = "BLOG_ENTRY_ID")
-  private Set<BlogCommentModel> blogCommentModelSet;
+  @Column(name = "WOJEWODZTWO")
+  private String wojewodztwo;
+
+  @Column(name = "POWIAT")
+  private String powiat;
+
+  @Column(name = "PROJECT_TYPE")
+  private String projectType;
+
+
 
 }

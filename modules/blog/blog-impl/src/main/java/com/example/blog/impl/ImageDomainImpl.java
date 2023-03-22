@@ -1,7 +1,6 @@
 package com.example.blog.impl;
 
 import com.example.ImageDomain;
-import jakarta.persistence.Column;
 
 public class ImageDomainImpl implements ImageDomain {
 

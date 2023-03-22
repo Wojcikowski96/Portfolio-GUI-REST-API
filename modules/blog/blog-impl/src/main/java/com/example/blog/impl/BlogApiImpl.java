@@ -6,7 +6,7 @@ import com.example.ImageDomain;
 import com.example.blog.mapper.BlogEntryMapper;
 import com.example.blog.mapper.ImageMapper;
 import com.example.blog.model.BlogEntryModel;
-import com.example.blog.model.ImageModel;
+import com.example.utils.model.ImageModel;
 import com.example.blog.repository.BlogEntryRepository;
 import com.example.blog.repository.ImagesRepository;
 import com.example.blog.specification.BlogSearchSpecification;
@@ -91,7 +91,8 @@ public class BlogApiImpl implements BlogModuleApi {
 
             ImageModel imageModelFromEntry = blogEntryModel.getImage();
 
-            ImageModel mergedImageModel= Utils.updater(imageModelFromEntry, imageModelFromDomain);
+            ImageModel mergedImageModel = Utils.updater(imageModelFromEntry,
+                imageModelFromDomain);
 
             imagesRepository.save(mergedImageModel);
 

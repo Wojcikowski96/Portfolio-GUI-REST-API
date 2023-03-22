@@ -5,7 +5,7 @@ import com.example.BlogModuleApi;
 import com.example.blog.mapper.BlogEntryMapper;
 import com.example.model.BlogEntryDTO;
 import com.example.model.GetBlogEntries200Response;
-import com.example.model.RequestData;
+import com.example.model.BlogRequestData;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,21 +35,21 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
   BlogEntryMapper blogEntryMapper;
 
   @Override
-  public ResponseEntity<GetBlogEntries200Response> getBlogEntries(RequestData requestData) {
+  public ResponseEntity<GetBlogEntries200Response> getBlogEntries(BlogRequestData BlogRequestData) {
 
-    Sort sort = Sort.by(Sort.Direction.valueOf(requestData.getSortDir().getValue()),
-        requestData.getSortBy());
+    Sort sort = Sort.by(Sort.Direction.valueOf(BlogRequestData.getSortDir().getValue()),
+        BlogRequestData.getSortBy());
 
     Pageable pageable =
-        PageRequest.of(requestData.getPageNo() - 1, requestData.getPageSize(), sort);
+        PageRequest.of(BlogRequestData.getPageNo() - 1, BlogRequestData.getPageSize(), sort);
 
     Page<BlogEntryDomainImpl> blogEntryDomainPage =
-        blogApi.getBlogEntries(blogEntryMapper.filterRestToDomain(requestData), pageable);
+        blogApi.getBlogEntries(blogEntryMapper.filterRestToDomain(BlogRequestData), pageable);
 
     GetBlogEntries200Response response = new GetBlogEntries200Response();
 
-    response.setPageNo(requestData.getPageNo());
-    response.setPageSize(requestData.getPageSize());
+    response.setPageNo(BlogRequestData.getPageNo());
+    response.setPageSize(BlogRequestData.getPageSize());
     response.setTotalElements(blogEntryDomainPage.getTotalElements());
     response.setTotalPages(blogEntryDomainPage.getTotalPages());
 
@@ -78,7 +78,7 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
   }
 
   @Override
-  public ResponseEntity<Void> uploadImage(Long entryId, String name, String type,
+  public ResponseEntity<Void> uploadImageBlog(Long entryId, String name, String type,
                                           MultipartFile fileByteString){
 
     ImageDomainImpl imageDomain = new ImageDomainImpl();

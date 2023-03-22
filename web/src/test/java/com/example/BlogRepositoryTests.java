@@ -8,7 +8,7 @@ import com.example.blog.mapper.BlogEntryMapperImpl;
 import com.example.blog.model.BlogEntryModel;
 import com.example.blog.repository.BlogEntryRepository;
 import com.example.blog.specification.BlogSearchSpecification;
-import com.example.model.RequestData;
+import com.example.model.BlogRequestData;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -85,7 +85,7 @@ public class BlogRepositoryTests {
   @Test
   @DisplayName("Getting entry sorting asc by tittle")
   public void getEntriesASCByTittleWhenSearchCriteriaEmpty(){
-    RequestData data = new RequestData();
+    BlogRequestData data = new BlogRequestData();
 
     data.setSortBy("tittle");
 
@@ -106,11 +106,11 @@ public class BlogRepositoryTests {
   @Test
   @DisplayName("Getting entry sorting desc by tittle")
   public void getEntriesDESCByTittleWhenSearchCriteriaEmpty(){
-    RequestData data = new RequestData();
+    BlogRequestData data = new BlogRequestData();
 
     data.setSortBy("tittle");
 
-    data.setSortDir(RequestData.SortDirEnum.DESC);
+    data.setSortDir(BlogRequestData.SortDirEnum.DESC);
 
     Sort sort = Sort.by(Sort.Direction.valueOf(data.getSortDir().getValue()),
         data.getSortBy());
@@ -129,7 +129,7 @@ public class BlogRepositoryTests {
   @Test
   @DisplayName("Getting entry sorting asc by content")
   public void getEntriesASCByContentWhenSearchCriteriaEmpty(){
-    RequestData data = new RequestData();
+    BlogRequestData data = new BlogRequestData();
 
     data.setSortBy("content");
 
@@ -150,9 +150,9 @@ public class BlogRepositoryTests {
   @Test
   @DisplayName("Getting entry sorting desc by content")
   public void getEntriesDESCByContentWhenSearchCriteriaEmpty(){
-    RequestData data = new RequestData();
+    BlogRequestData data = new BlogRequestData();
 
-    data.setSortDir(RequestData.SortDirEnum.DESC);
+    data.setSortDir(BlogRequestData.SortDirEnum.DESC);
 
     data.setSortBy("content");
 
@@ -173,9 +173,9 @@ public class BlogRepositoryTests {
   @Test
   @DisplayName("Getting entry sorting desc by content")
   public void getEntriesDESCByContentSearchByContentMixedCase(){
-    RequestData data = new RequestData();
+    BlogRequestData data = new BlogRequestData();
 
-    data.setSortDir(RequestData.SortDirEnum.DESC);
+    data.setSortDir(BlogRequestData.SortDirEnum.DESC);
 
     data.setSortBy("content");
 
