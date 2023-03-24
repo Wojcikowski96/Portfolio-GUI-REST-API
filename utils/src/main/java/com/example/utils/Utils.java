@@ -56,7 +56,16 @@ public class Utils {
     return hashtable;
   }
 
-  public static String generateImageUrl(Long entryID){
-    return "http://localhost:8080/blog/image?entryId="+entryID;
+  public static String generateImageUrl(Long entryID, String imageName){
+
+    String url = null;
+
+    if(imageName == null){
+      url = "http://localhost:8080/images/image?entryId="+entryID;
+    }else{
+      url = "http://localhost:8080/images/image?entryId="+entryID+"?imageName="+imageName;
+    }
+
+    return url;
   }
 }

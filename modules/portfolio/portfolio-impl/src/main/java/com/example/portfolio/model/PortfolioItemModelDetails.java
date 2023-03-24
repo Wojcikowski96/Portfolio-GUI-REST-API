@@ -5,6 +5,7 @@ import com.example.utils.model.BaseModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -17,16 +18,16 @@ import lombok.Data;
 public class PortfolioItemModelDetails extends BaseModel {
 
   @Column(name= "ABOUT_LOCATION", columnDefinition = "text")
-  String aboutLocation;
+  private String aboutLocation;
 
   @Column(name= "COAT_OF_ARMS_DESCRIPTION", columnDefinition = "text")
-  String coatOfArmsDescription;
+  private String coatOfArmsDescription;
 
   @Column(name = "SYMBOLS_DESCRIPTION", columnDefinition = "text")
-  String symbolsDescription;
+  private String symbolsDescription;
 
   @Column(name = "HISTORY_DESCRIPTION", columnDefinition = "text")
-  String history;
+  private String history;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "portfolioItemModelDetails")
   private Set<PortfolioImageModel> portfolioImage;

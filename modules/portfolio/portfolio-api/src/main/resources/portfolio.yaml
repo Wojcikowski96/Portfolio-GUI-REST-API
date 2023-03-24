@@ -85,6 +85,27 @@ paths:
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
+    get:
+      operationId: getPortfolioDetails
+      summary: Pobiera szczegóły wpisu
+      description: Operacja dostępna dla wszystkich
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Widok po wejściu we wpis
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioEntryDetailsDTO'
+
   /portfolio/entry/uploadImage:
     post:
       summary: Modyfikuje wpis portfolio pod kątem dodania obrazka
@@ -116,6 +137,35 @@ paths:
       responses:
         '201':
           description: Zmodyfikowano wpis
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
+  /blog/image:
+    get:
+      summary: Pobiera obrazek dla konkretnego wpisu
+      description: Operacja dostępna dla wszystkich
+      operationId: getImage
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        '200':
+          description:
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
         '400':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
         '401':
@@ -197,6 +247,7 @@ paths:
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
   /portfolio/details/image:
     get:
       summary: Pobiera obrazek dla konkretnego wpisu po nazwie obrazka
@@ -231,6 +282,7 @@ paths:
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
 
 components:
   schemas:
@@ -267,6 +319,9 @@ components:
     PortfolioEntryDetailsDTO:
       type: object
       properties:
+        id:
+          type: integer
+          format: int64
         locationDetails:
           type: string
         coatOfArmsDescription:
@@ -275,7 +330,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImageDTO'
-        otherSymbolsDescription:
+        symbolsDescription:
           type: string
         history:
           type: string

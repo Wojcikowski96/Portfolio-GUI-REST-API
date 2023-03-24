@@ -233,11 +233,11 @@ components:
           type: string
         description:
           type: string
-    ImageDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        url:
-          type: string
+#    ImageDTO:
+#      type: object
+#      properties:
+#        id:
+#          type: integer
+#          format: int64
+#        url:
+#          type: string

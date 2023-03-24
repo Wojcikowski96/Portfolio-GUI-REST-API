@@ -6,7 +6,10 @@ import lombok.Getter;
 public enum ImageType {
 
   LEFT_PANE("left_pane"),
-  BODY("body");
+
+  BODY("body"),
+
+  TITTLE("tittle");
 
   public final String name;
 
@@ -18,6 +21,8 @@ public enum ImageType {
     switch (status) {
       case "body":
         return ImageType.BODY;
+      case "tittle":
+        return ImageType.TITTLE;
       default:
         return ImageType.LEFT_PANE;
     }

@@ -8,6 +8,8 @@ import com.example.blog.mapper.BlogImageMapper;
 import com.example.blog.model.BlogEntryModel;
 import com.example.blog.model.BlogImageModel;
 import com.example.blog.repository.BlogImageRepository;
+import com.example.utils.enums.ImageType;
+import com.example.utils.exception.ApplicationException;
 import com.example.utils.model.ImageModel;
 import com.example.blog.repository.BlogEntryRepository;
 import com.example.utils.repository.ImagesRepository;
@@ -87,30 +89,39 @@ public class BlogApiImpl implements BlogModuleApi {
 
     Optional<BlogEntryModel> blogEntryModelOptional = blogEntryRepository.findById(entryId);
 
-    BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(imageDomain);
+    try {
+      BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(imageDomain);
 
-    BlogEntryModel blogEntryModel = blogEntryModelOptional.get();
 
-    if (blogEntryModel.getBlogImage() != null && blogEntryModel.getBlogImage().getId() != null) {
+      BlogEntryModel blogEntryModel = blogEntryModelOptional.get();
 
-      Optional<BlogImageModel> blogImageModelToSave = imagesRepository.findById(blogEntryModel.getBlogImage().getId());
+      if (blogEntryModel.getBlogImage() != null && blogEntryModel.getBlogImage().getId() != null) {
 
-      blogImageModelToSave.get().setImage(imageDomain.getImage());
+        Optional<BlogImageModel> blogImageModelToSave =
+            imagesRepository.findById(blogEntryModel.getBlogImage().getId());
 
-      blogImageModelToSave.get().setName(imageDomain.getName());
+        blogImageModelToSave.get().setImage(imageDomain.getImage());
 
-      imagesRepository.save(blogImageModelToSave.get());
+        blogImageModelToSave.get().setName(imageDomain.getName());
 
-    } else {
+        blogImageModelToSave.get().setType(ImageType.valueOf(imageDomain.getType()));
 
-      imageModelFromDomain.setImageUrl(Utils.generateImageUrl(entryId));
+        imagesRepository.save(blogImageModelToSave.get());
 
-      blogEntryModel.setBlogImage(imageModelFromDomain);
+      } else {
 
-      blogEntryRepository.save(blogEntryModel);
+        imageModelFromDomain.setImageUrl(Utils.generateImageUrl(entryId,""));
+
+        blogEntryModel.setBlogImage(imageModelFromDomain);
+
+        blogEntryRepository.save(blogEntryModel);
+      }
+
+    } catch (IllegalArgumentException e) {
+
+      throw ExceptionsFactory.createInternalServerError(
+          "Brak zdefiniowanego typu obrazka " + imageDomain.getType(), "BZTO", null);
     }
-
-
   }
 
   @Override

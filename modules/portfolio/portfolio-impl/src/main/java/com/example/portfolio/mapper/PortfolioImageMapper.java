@@ -6,6 +6,8 @@ import com.example.utils.ImageDomainImpl;
 import com.example.utils.model.ImageModel;
 import com.example.model.ImageDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
@@ -14,10 +16,6 @@ public abstract class PortfolioImageMapper {
 
   @Autowired
   private MessageSource messageSource;
-
-  public abstract ImageDTO domainToRest(ImageDomainImpl model);
-
-  public abstract ImageDomainImpl restToDomain(ImageDTO dto);
 
   public abstract ImageDomainImpl modelToDomain(ImageModel model);
 

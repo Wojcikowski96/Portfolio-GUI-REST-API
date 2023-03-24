@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class PortfolioDetails implements PortfolioEntryDetailsDomain {
 
+  private Long id;
+
   private String aboutLocation;
 
   private String coatOfArmsDescription;
@@ -15,6 +17,7 @@ public class PortfolioDetails implements PortfolioEntryDetailsDomain {
   private String symbolsDescription;
 
   private String history;
+
 
 //  List<ImageDomainImpl> images;
 }
