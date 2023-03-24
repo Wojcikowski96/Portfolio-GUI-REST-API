@@ -1,6 +1,6 @@
 package com.example;
 
-public interface ImageDomain {
+public interface ImageDomainPortfolio {
   Long getId();
 
   void setId(Long id);
@@ -17,9 +17,9 @@ public interface ImageDomain {
 
   void setImage(byte [] image);
 
-  String getUrl();
+  String getImageUrl();
 
-  void setUrl(String url);
+  void setImageUrl(String url);
 
 
 }
