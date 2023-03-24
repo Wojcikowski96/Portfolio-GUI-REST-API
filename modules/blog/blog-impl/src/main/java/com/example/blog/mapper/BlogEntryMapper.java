@@ -30,7 +30,7 @@ public abstract class BlogEntryMapper {
 
   public abstract BlogEntryDomainImpl restToDomain(BlogEntryDTO dto);
 
-  @Mapping(source="image.imageUrl", target="url")
+  @Mapping(source="blogImage.imageUrl", target="url")
   public abstract BlogEntryDomainImpl modelToDomain(BlogEntryModel model);
 
   public abstract BlogEntryModel domainToModel(BlogEntryDomain domain);

@@ -1,8 +1,6 @@
 package com.example.portfolio.specification;
 
-import com.example.BlogEntryDomain;
 import com.example.PortfolioEntryDomain;
-import com.example.blog.model.BlogEntryModel;
 import com.example.portfolio.model.PortfolioItemModel;
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;

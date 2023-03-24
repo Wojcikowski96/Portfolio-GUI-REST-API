@@ -12,7 +12,7 @@ public interface PortfolioModuleApi {
 
   void deleteEntries(List<Long> ids);
 
-//  void uploadImage(ImageDomain imageDomain, Long entryId);
+  void uploadImage(ImageDomain imageDomain, Long entryId);
 //
 //  byte [] getImage(Long entryId);
 }

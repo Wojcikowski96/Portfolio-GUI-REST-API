@@ -1,11 +1,6 @@
 package com.example.portfolio.mapper;
 
-import com.example.BlogEntryDomain;
 import com.example.PortfolioEntryDomain;
-import com.example.blog.impl.BlogEntryDomainImpl;
-import com.example.blog.model.BlogEntryModel;
-import com.example.model.BlogEntryDTO;
-import com.example.model.BlogRequestData;
 import com.example.model.PortfolioEntryDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.impl.PortfolioEntryDomainImpl;

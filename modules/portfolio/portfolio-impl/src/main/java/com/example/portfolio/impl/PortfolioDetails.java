@@ -1,8 +1,6 @@
 package com.example.portfolio.impl;
 
 import com.example.PortfolioEntryDetailsDomain;
-import com.example.blog.impl.ImageDomainImpl;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 

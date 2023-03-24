@@ -15,7 +15,7 @@
 		<module>modules</module>
 		<module>modules/emailjob/emailjob-api</module>
 		<module>modules/emailjob/emailjob-impl</module>
-	</modules>
+    </modules>
 
     <parent>
 		<groupId>org.springframework.boot</groupId>

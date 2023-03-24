@@ -24,8 +24,8 @@ public class BlogEntryModel extends BaseModel {
   private String content;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "ENTRY_ID")
-  private ImageModel image;
+  @JoinColumn(name = "BLOG_IMAGE_ID")
+  private BlogImageModel blogImage;
 
   @OneToMany
   @JoinColumn(name = "BLOG_ENTRY_ID")

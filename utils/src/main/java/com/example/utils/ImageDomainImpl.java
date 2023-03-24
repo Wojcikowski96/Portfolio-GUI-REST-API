@@ -1,4 +1,4 @@
-package com.example.blog.impl;
+package com.example.utils;
 
 import com.example.ImageDomain;
 

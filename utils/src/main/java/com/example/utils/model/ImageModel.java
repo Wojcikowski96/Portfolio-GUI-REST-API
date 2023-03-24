@@ -2,13 +2,14 @@ package com.example.utils.model;
 
 import com.example.utils.enums.ImageType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
 
-@Entity
-@Table(name = "IMAGE")
+
 @Data
+@MappedSuperclass
 public class ImageModel extends BaseModel {
 
   @Column(name = "NAME")

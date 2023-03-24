@@ -1,22 +1,22 @@
 package com.example.portfolio.impl;
 
-import com.example.PortfolioApi;
 import com.example.PortfolioApiDelegate;
 import com.example.PortfolioModuleApi;
 import com.example.model.GetPortfolioEntries200Response;
-import com.example.model.PortfolioEntryDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
+import com.example.utils.ImageDomainImpl;
+import java.io.IOException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
@@ -68,6 +68,27 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
     portfolioModuleApi.savePortfolioEntry(portfolioEntryMapper.restToDomain(portfolioRequestData),
         portfolioEntryDetailsMapper.restToDomain(portfolioRequestData));
 
+
+    return ResponseEntity.noContent().build();
+  }
+
+  @Override
+  public ResponseEntity<Void> uploadImageToPortfolio(Long entryId, String name, String type,
+                                                     MultipartFile fileByteString) {
+
+    ImageDomainImpl imageDomain = new ImageDomainImpl();
+
+    imageDomain.setName(name);
+
+    imageDomain.setType(type);
+
+    try {
+      imageDomain.setImage(fileByteString.getBytes());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    portfolioModuleApi.uploadImage(imageDomain, entryId);
 
     return ResponseEntity.noContent().build();
   }
