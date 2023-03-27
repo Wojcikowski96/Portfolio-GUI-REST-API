@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.utils.ImageDomainImpl;
+import com.example.utils.BlogImageDomainImpl;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,13 +11,13 @@ public interface PortfolioModuleApi {
 
   PortfolioEntryDetailsDomain getPortfolioEntryDetails(Long id);
 
-  List<ImageDomainImpl> getPortfolioImageModels(Long entryId);
+  List<BlogImageDomainImpl> getPortfolioImageModels(Long entryId);
 
   void savePortfolioEntry(PortfolioEntryDomain portfolioEntryDomain, PortfolioEntryDetailsDomain entryDetails);
 
   void deleteEntries(List<Long> ids);
 
-  void uploadImage(ImageDomain imageDomain, Long entryId);
+  void uploadImage(BlogImageDomain blogImageDomain, Long entryId);
 
   byte [] getImage(Long entryId, String name);
 }

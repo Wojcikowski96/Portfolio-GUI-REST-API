@@ -40,7 +40,7 @@ public class SecurityConfig {
     http.cors().and()
         .authorizeHttpRequests((requests) -> {
           try {
-            requests.requestMatchers("/user", "/register", "/authenticate", "/blog/entries",
+            requests.requestMatchers( "/authenticate", "/blog/entries",
                     "/blog/image", "/portfolio/details/image", "/email/send", "/portfolio/entries", "/portfolio/entry/**").permitAll()
                 .requestMatchers("/blog/entry/**", "/blog/entry/uploadImage")
                 .hasAuthority("ROLE_ADMIN")

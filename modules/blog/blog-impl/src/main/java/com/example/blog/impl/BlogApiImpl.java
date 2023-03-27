@@ -1,18 +1,16 @@
 package com.example.blog.impl;
 
+import com.example.BlogImageDomain;
 import com.example.BlogModuleApi;
 import com.example.BlogEntryDomain;
-import com.example.ImageDomain;
 import com.example.blog.mapper.BlogEntryMapper;
 import com.example.blog.mapper.BlogImageMapper;
 import com.example.blog.model.BlogEntryModel;
 import com.example.blog.model.BlogImageModel;
 import com.example.blog.repository.BlogImageRepository;
 import com.example.utils.enums.ImageType;
-import com.example.utils.exception.ApplicationException;
 import com.example.utils.model.ImageModel;
 import com.example.blog.repository.BlogEntryRepository;
-import com.example.utils.repository.ImagesRepository;
 import com.example.blog.specification.BlogSearchSpecification;
 import com.example.utils.Utils;
 import com.example.utils.exception.ExceptionsFactory;
@@ -85,12 +83,12 @@ public class BlogApiImpl implements BlogModuleApi {
   }
 
   @Override
-  public void uploadImage(ImageDomain imageDomain, Long entryId) {
+  public void uploadImage(BlogImageDomain blogImageDomain, Long entryId) {
 
     Optional<BlogEntryModel> blogEntryModelOptional = blogEntryRepository.findById(entryId);
 
     try {
-      BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(imageDomain);
+      BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(blogImageDomain);
 
 
       BlogEntryModel blogEntryModel = blogEntryModelOptional.get();
@@ -100,11 +98,11 @@ public class BlogApiImpl implements BlogModuleApi {
         Optional<BlogImageModel> blogImageModelToSave =
             imagesRepository.findById(blogEntryModel.getBlogImage().getId());
 
-        blogImageModelToSave.get().setImage(imageDomain.getImage());
+        blogImageModelToSave.get().setImage(blogImageDomain.getImage());
 
-        blogImageModelToSave.get().setName(imageDomain.getName());
+        blogImageModelToSave.get().setName(blogImageDomain.getName());
 
-        blogImageModelToSave.get().setType(ImageType.valueOf(imageDomain.getType()));
+        blogImageModelToSave.get().setType(ImageType.valueOf(blogImageDomain.getType()));
 
         imagesRepository.save(blogImageModelToSave.get());
 
@@ -120,7 +118,7 @@ public class BlogApiImpl implements BlogModuleApi {
     } catch (IllegalArgumentException e) {
 
       throw ExceptionsFactory.createInternalServerError(
-          "Brak zdefiniowanego typu obrazka " + imageDomain.getType(), "BZTO", null);
+          "Brak zdefiniowanego typu obrazka " + blogImageDomain.getType(), "BZTO", null);
     }
   }
 

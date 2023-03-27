@@ -1,6 +1,6 @@
 package com.example;
 
-public interface ImageDomain {
+public interface BlogImageDomain {
   Long getId();
 
   void setId(Long id);

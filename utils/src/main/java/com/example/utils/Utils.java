@@ -2,6 +2,7 @@ package com.example.utils;
 
 import java.lang.reflect.Field;
 import java.util.Hashtable;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -60,10 +61,10 @@ public class Utils {
 
     String url = null;
 
-    if(imageName == null){
-      url = "http://localhost:8080/images/image?entryId="+entryID;
+    if(Objects.equals(imageName, "")){
+      url = "http://localhost:8080/blog/image?entryId="+entryID;
     }else{
-      url = "http://localhost:8080/images/image?entryId="+entryID+"?imageName="+imageName;
+      url = "http://localhost:8080/portfolio/details/image?entryId="+entryID+"?imageName="+imageName;
     }
 
     return url;

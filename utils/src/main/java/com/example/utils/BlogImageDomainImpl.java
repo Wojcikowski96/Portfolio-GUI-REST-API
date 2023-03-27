@@ -1,8 +1,8 @@
 package com.example.utils;
 
-import com.example.ImageDomain;
+import com.example.BlogImageDomain;
 
-public class ImageDomainImpl implements ImageDomain {
+public class BlogImageDomainImpl implements BlogImageDomain {
 
   Long id;
 
@@ -55,12 +55,12 @@ public class ImageDomainImpl implements ImageDomain {
   }
 
   @Override
-  public String getUrl() {
+  public String getImageUrl() {
     return this.url;
   }
 
   @Override
-  public void setUrl(String url) {
+  public void setImageUrl(String url) {
     this.url = url;
 
   }

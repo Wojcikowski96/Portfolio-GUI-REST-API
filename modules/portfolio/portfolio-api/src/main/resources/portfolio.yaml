@@ -144,35 +144,6 @@ paths:
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
 
-  /blog/image:
-    get:
-      summary: Pobiera obrazek dla konkretnego wpisu
-      description: Operacja dostępna dla wszystkich
-      operationId: getImage
-      parameters:
-        - in: query
-          name: entryId
-          explode: true
-          required: true
-          schema:
-            type: integer
-            format: int64
-
-      responses:
-        '200':
-          description:
-          content:
-            image/png:
-              schema:
-                type: string
-                format: binary
-        '400':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
-
   /portfolio/entry/uploadDocument:
     post:
       summary: Modyfikuje wpis portfolio pod kątem dodania obrazka

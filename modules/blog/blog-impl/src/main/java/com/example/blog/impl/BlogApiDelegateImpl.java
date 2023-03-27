@@ -6,7 +6,7 @@ import com.example.blog.mapper.BlogEntryMapper;
 import com.example.model.BlogEntryDTO;
 import com.example.model.GetBlogEntries200Response;
 import com.example.model.BlogRequestData;
-import com.example.utils.ImageDomainImpl;
+import com.example.utils.BlogImageDomainImpl;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class BlogApiDelegateImpl implements BlogApiDelegate {
-
 
   @Autowired
   BlogModuleApi blogApi;
@@ -80,7 +79,7 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
   public ResponseEntity<Void> uploadImageBlog(Long entryId, String name, String type,
                                           MultipartFile fileByteString){
 
-    ImageDomainImpl imageDomain = new ImageDomainImpl();
+    BlogImageDomainImpl imageDomain = new BlogImageDomainImpl();
 
     imageDomain.setName(name);
 

@@ -7,7 +7,7 @@ import com.example.model.PortfolioEntryDetailsDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
-import com.example.utils.ImageDomainImpl;
+import com.example.utils.BlogImageDomainImpl;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +80,7 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   public ResponseEntity<Void> uploadImageToPortfolio(Long entryId, String name, String type,
                                                      MultipartFile fileByteString) {
 
-    ImageDomainImpl imageDomain = new ImageDomainImpl();
+    BlogImageDomainImpl imageDomain = new BlogImageDomainImpl();
 
     imageDomain.setName(name);
 

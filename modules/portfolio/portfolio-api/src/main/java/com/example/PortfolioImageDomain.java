@@ -1,8 +1,6 @@
 package com.example;
 
-import jakarta.persistence.Column;
-
-public interface ImageDomain {
+public interface PortfolioImageDomain {
   Long getId();
 
   void setId(Long id);
@@ -19,9 +17,9 @@ public interface ImageDomain {
 
   void setImage(byte [] image);
 
-  String getUrl();
+  String getImageUrl();
 
-  void setUrl(String url);
+  void setImageUrl(String url);
 
 
 }
