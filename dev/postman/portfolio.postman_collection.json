@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e7733662-01e7-470a-a74c-f4485bf0c276",
+		"_postman_id": "95c787d5-0b60-4f62-8273-c9107bf96ee5",
 		"name": "portfolio",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9749664"
@@ -30,7 +30,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test\"\r\n}",
+							"raw": "{\r\n    \"email\": \"wojcikowski1@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -57,13 +57,13 @@
 			"name": "Blog",
 			"item": [
 				{
-					"name": "GetEntries",
+					"name": "getEntries",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"ASC\",\r\n    \"sortBy\" : \"tittle\",\r\n    \"content\":\"a\"\r\n}",
+							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"ASC\",\r\n    \"sortBy\" : \"tittle\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -86,7 +86,7 @@
 					"response": []
 				},
 				{
-					"name": "SaveOrUpdateEntry",
+					"name": "saveOrUpdateEntry",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -154,13 +154,13 @@
 								},
 								{
 									"key": "type",
-									"value": ".png",
+									"value": "BODY",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry/uploadImage?entryId=3",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry/uploadImage?entryId=4",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -174,17 +174,17 @@
 							"query": [
 								{
 									"key": "entry",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "entry",
-									"value": null,
+									"value": "",
 									"disabled": true
 								},
 								{
 									"key": "entryId",
-									"value": "3"
+									"value": "4"
 								}
 							]
 						}
@@ -266,7 +266,7 @@
 			"name": "Email",
 			"item": [
 				{
-					"name": "SendEmail",
+					"name": "sendEmail",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -289,6 +289,123 @@
 							"path": [
 								"email",
 								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Portfolio",
+			"item": [
+				{
+					"name": "getPortfolioEntries",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"ASC\",\r\n    \"sortBy\" : \"tittle\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entries",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPortfolioEntryDetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry?entryId=1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entry"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadImagePortfolioDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileByteString",
+									"type": "file",
+									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/test.jpg"
+								},
+								{
+									"key": "name",
+									"value": "drzewo",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "LEFT_PANE",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadImage?entryId=1",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entry",
+								"uploadImage"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "1"
+								}
 							]
 						}
 					},

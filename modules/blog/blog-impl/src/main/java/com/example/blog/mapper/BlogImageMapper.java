@@ -3,7 +3,7 @@ package com.example.blog.mapper;
 import com.example.BlogImageDomain;
 import com.example.blog.model.BlogImageModel;
 //import com.example.model.ImageDTO;
-import com.example.utils.BlogImageDomainImpl;
+import com.example.blog.impl.BlogImageDomainImpl;
 import com.example.utils.model.ImageModel;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

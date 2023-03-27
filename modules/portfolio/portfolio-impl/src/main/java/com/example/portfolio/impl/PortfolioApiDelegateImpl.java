@@ -1,5 +1,6 @@
 package com.example.portfolio.impl;
 
+import com.example.BlogImageDomain;
 import com.example.PortfolioApiDelegate;
 import com.example.PortfolioModuleApi;
 import com.example.model.GetPortfolioEntries200Response;
@@ -7,7 +8,6 @@ import com.example.model.PortfolioEntryDetailsDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
-import com.example.utils.BlogImageDomainImpl;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +80,7 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   public ResponseEntity<Void> uploadImageToPortfolio(Long entryId, String name, String type,
                                                      MultipartFile fileByteString) {
 
-    BlogImageDomainImpl imageDomain = new BlogImageDomainImpl();
+    PortfolioImageDomainImpl imageDomain = new PortfolioImageDomainImpl();
 
     imageDomain.setName(name);
 
@@ -112,7 +112,6 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
 
     PortfolioEntryDetailsDTO portfolioEntryDetailsDTO = portfolioEntryDetailsMapper.domainToRest(
         (PortfolioDetails) portfolioModuleApi.getPortfolioEntryDetails(entryId));
-
 
     portfolioEntryDetailsMapper.distributeImagesToDTO(portfolioModuleApi.getPortfolioImageModels(entryId), portfolioEntryDetailsDTO);
 

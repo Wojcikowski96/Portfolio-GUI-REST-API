@@ -6,8 +6,8 @@ import com.example.model.PortfolioEntryDetailsDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.impl.PortfolioDetails;
 import com.example.portfolio.impl.PortfolioEntryDomainImpl;
+import com.example.portfolio.impl.PortfolioImageDomainImpl;
 import com.example.portfolio.model.PortfolioItemModelDetails;
-import com.example.utils.BlogImageDomainImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.mapstruct.Mapper;
@@ -45,11 +45,11 @@ public abstract class PortfolioEntryDetailsMapper {
   public abstract PortfolioEntryDomainImpl filterRestToDomain(
       PortfolioRequestData portfolioRequestData);
 
-  List<ImageDTO> generateDTOs(List<BlogImageDomainImpl> models) {
+  List<ImageDTO> generateDTOs(List<PortfolioImageDomainImpl> models) {
 
     List<ImageDTO> imageDTOS = new ArrayList<>();
 
-    for (BlogImageDomainImpl model : models) {
+    for (PortfolioImageDomainImpl model : models) {
       ImageDTO dto = new ImageDTO();
 
       dto.setName(model.getName());
@@ -61,12 +61,12 @@ public abstract class PortfolioEntryDetailsMapper {
     return imageDTOS;
   }
 
-  public void distributeImagesToDTO(List<BlogImageDomainImpl> imageDomains, PortfolioEntryDetailsDTO dto) {
+  public void distributeImagesToDTO(List<PortfolioImageDomainImpl> imageDomains, PortfolioEntryDetailsDTO dto) {
 
-    List<BlogImageDomainImpl> body =
+    List<PortfolioImageDomainImpl> body =
         imageDomains.stream().filter(x -> x.getType().equals("BODY")).toList();
 
-    List<BlogImageDomainImpl> leftPane =
+    List<PortfolioImageDomainImpl> leftPane =
         imageDomains.stream().filter(x -> x.getType().equals("LEFT_PANE")).toList();
 
     dto.setImagesUrlsPageBody(generateDTOs(body));

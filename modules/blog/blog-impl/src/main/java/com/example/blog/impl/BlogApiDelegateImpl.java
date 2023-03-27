@@ -6,7 +6,6 @@ import com.example.blog.mapper.BlogEntryMapper;
 import com.example.model.BlogEntryDTO;
 import com.example.model.GetBlogEntries200Response;
 import com.example.model.BlogRequestData;
-import com.example.utils.BlogImageDomainImpl;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
