@@ -1,9 +1,8 @@
 package com.example.portfolio.impl;
 
-import com.example.BlogImageDomain;
 import com.example.PortfolioEntryDetailsDomain;
 import com.example.PortfolioEntryDomain;
-import com.example.PortfolioImageDomain;
+import com.example.PortfolioMediaDomain;
 import com.example.PortfolioModuleApi;
 import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
@@ -103,44 +102,44 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   }
 
   @Override
-  public void uploadImage(PortfolioImageDomain portfolioImageDomain, Long entryId) {
+  public void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
 
     Optional<PortfolioItemModelDetails> portfolioItemModelOptional =
         portfolioDetailsRepository.findById(entryId);
 
-    List<PortfolioImageDomainImpl> imagesList =
+    List<PortfolioMediaDomainImpl> imagesList =
         getPortfolioImageModels(entryId);
 
-    if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioImageDomain.getName()))) {
+    if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioMediaDomain.getName()))) {
       throw ExceptionsFactory.createInternalServerError(
           "Nazwy obrazków per wpis nie mogą się powtarzać", "NOPWNSP", null);
     }
 
     try {
-      PortfolioImageModel imageModel = portfolioImageMapper.domainToModel(portfolioImageDomain);
+      PortfolioImageModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
 
-      if (portfolioImageDomain.getId() == null) {
+      if (portfolioMediaDomain.getId() == null) {
 
         imageModel.setPortfolioItemModelDetails(portfolioItemModelOptional.get());
 
-        imageModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioImageDomain.getName()));
+        imageModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
 
         imagesRepository.save(imageModel);
 
       }
     } catch (IllegalArgumentException e) {
       throw ExceptionsFactory.createInternalServerError(
-          "Brak zdefiniowanego typu obrazka " + portfolioImageDomain.getType(), "BZTO", null);
+          "Brak zdefiniowanego typu obrazka " + portfolioMediaDomain.getType(), "BZTO", null);
     }
   }
 
   @Override
   public byte[] getImage(Long entryId, String name) {
 
-    List<PortfolioImageDomainImpl> imagesList =
+    List<PortfolioMediaDomainImpl> imagesList =
         getPortfolioImageModels(entryId);
 
-    Optional<PortfolioImageDomainImpl> model =
+    Optional<PortfolioMediaDomainImpl> model =
         imagesList.stream().filter(p -> p.getName().equals(name)).findFirst();
 
     if (!model.isPresent()) {
@@ -152,13 +151,13 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
   }
 @Override
-  public List<PortfolioImageDomainImpl> getPortfolioImageModels(Long entryId) {
+  public List<PortfolioMediaDomainImpl> getPortfolioImageModels(Long entryId) {
     Optional<List<PortfolioImageModel>> imagesList =
         imagesRepository.findByPortfolioItemModelDetailsId(entryId);
 
     List<PortfolioImageModel> models = imagesList.get();
 
-    List<PortfolioImageDomainImpl>
+    List<PortfolioMediaDomainImpl>
         imageDomains = models.stream().map(x->portfolioImageMapper.modelToDomain(x)).toList();
 
     return imageDomains;

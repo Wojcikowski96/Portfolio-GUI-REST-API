@@ -1,12 +1,12 @@
 package com.example.portfolio.mapper;
 
 import com.example.PortfolioEntryDetailsDomain;
-import com.example.model.ImageDTO;
+import com.example.model.MediaDTO;
 import com.example.model.PortfolioEntryDetailsDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.impl.PortfolioDetails;
 import com.example.portfolio.impl.PortfolioEntryDomainImpl;
-import com.example.portfolio.impl.PortfolioImageDomainImpl;
+import com.example.portfolio.impl.PortfolioMediaDomainImpl;
 import com.example.portfolio.model.PortfolioItemModelDetails;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,28 +45,28 @@ public abstract class PortfolioEntryDetailsMapper {
   public abstract PortfolioEntryDomainImpl filterRestToDomain(
       PortfolioRequestData portfolioRequestData);
 
-  List<ImageDTO> generateDTOs(List<PortfolioImageDomainImpl> models) {
+  List<MediaDTO> generateDTOs(List<PortfolioMediaDomainImpl> models) {
 
-    List<ImageDTO> imageDTOS = new ArrayList<>();
+    List<MediaDTO> MediaDTOS = new ArrayList<>();
 
-    for (PortfolioImageDomainImpl model : models) {
-      ImageDTO dto = new ImageDTO();
+    for (PortfolioMediaDomainImpl model : models) {
+      MediaDTO dto = new MediaDTO();
 
       dto.setName(model.getName());
 
       dto.setUrl(model.getImageUrl());
 
-      imageDTOS.add(dto);
+      MediaDTOS.add(dto);
     }
-    return imageDTOS;
+    return MediaDTOS;
   }
 
-  public void distributeImagesToDTO(List<PortfolioImageDomainImpl> imageDomains, PortfolioEntryDetailsDTO dto) {
+  public void distributeImagesToDTO(List<PortfolioMediaDomainImpl> imageDomains, PortfolioEntryDetailsDTO dto) {
 
-    List<PortfolioImageDomainImpl> body =
+    List<PortfolioMediaDomainImpl> body =
         imageDomains.stream().filter(x -> x.getType().equals("BODY")).toList();
 
-    List<PortfolioImageDomainImpl> leftPane =
+    List<PortfolioMediaDomainImpl> leftPane =
         imageDomains.stream().filter(x -> x.getType().equals("LEFT_PANE")).toList();
 
     dto.setImagesUrlsPageBody(generateDTOs(body));

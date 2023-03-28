@@ -1,9 +1,8 @@
-package com.example.blog.impl;
+package com.example.portfolio.impl;
 
-import com.example.BlogImageDomain;
+import com.example.PortfolioMediaDomain;
 
-public class BlogImageDomainImpl implements BlogImageDomain {
-
+public class PortfolioMediaDomainImpl implements PortfolioMediaDomain {
   Long id;
 
   private String name;

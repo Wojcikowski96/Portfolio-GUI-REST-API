@@ -1,6 +1,5 @@
 package com.example.portfolio.impl;
 
-import com.example.BlogImageDomain;
 import com.example.PortfolioApiDelegate;
 import com.example.PortfolioModuleApi;
 import com.example.model.GetPortfolioEntries200Response;
@@ -80,7 +79,7 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   public ResponseEntity<Void> uploadImageToPortfolio(Long entryId, String name, String type,
                                                      MultipartFile fileByteString) {
 
-    PortfolioImageDomainImpl imageDomain = new PortfolioImageDomainImpl();
+    PortfolioMediaDomainImpl imageDomain = new PortfolioMediaDomainImpl();
 
     imageDomain.setName(name);
 

@@ -1,8 +1,7 @@
 package com.example.portfolio.mapper;
 
-import com.example.BlogImageDomain;
-import com.example.PortfolioImageDomain;
-import com.example.portfolio.impl.PortfolioImageDomainImpl;
+import com.example.PortfolioMediaDomain;
+import com.example.portfolio.impl.PortfolioMediaDomainImpl;
 import com.example.portfolio.model.PortfolioImageModel;
 import com.example.utils.model.ImageModel;
 import org.mapstruct.Mapper;
@@ -15,9 +14,9 @@ public abstract class PortfolioImageMapper {
   @Autowired
   private MessageSource messageSource;
 
-  public abstract PortfolioImageDomainImpl modelToDomain(ImageModel model);
+  public abstract PortfolioMediaDomainImpl modelToDomain(ImageModel model);
 
-  public abstract PortfolioImageModel domainToModel(PortfolioImageDomain domain);
+  public abstract PortfolioImageModel domainToModel(PortfolioMediaDomain domain);
 
 
 }

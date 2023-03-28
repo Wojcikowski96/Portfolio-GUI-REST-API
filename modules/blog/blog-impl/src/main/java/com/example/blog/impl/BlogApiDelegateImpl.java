@@ -78,7 +78,7 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
   public ResponseEntity<Void> uploadImageBlog(Long entryId, String name, String type,
                                           MultipartFile fileByteString){
 
-    BlogImageDomainImpl imageDomain = new BlogImageDomainImpl();
+    BlogMediaDomainImpl imageDomain = new BlogMediaDomainImpl();
 
     imageDomain.setName(name);
 

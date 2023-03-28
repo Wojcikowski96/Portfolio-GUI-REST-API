@@ -300,7 +300,7 @@ components:
         imagesUrlsPageBody:
           type: array
           items:
-            $ref: '#/components/schemas/ImageDTO'
+            $ref: '#/components/schemas/MediaDTO'
         symbolsDescription:
           type: string
         history:
@@ -308,19 +308,12 @@ components:
         imagesUrlsPageLeftPane:
           type: array
           items:
-            $ref: '#/components/schemas/ImageDTO'
+            $ref: '#/components/schemas/MediaDTO'
         documents:
           type: array
           items:
-            $ref: '#/components/schemas/DocumentDTO'
-    ImageDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-    DocumentDTO:
+            $ref: '#/components/schemas/MediaDTO'
+    MediaDTO:
       type: object
       properties:
         name:

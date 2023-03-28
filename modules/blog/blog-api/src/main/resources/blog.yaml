@@ -187,7 +187,7 @@ paths:
         '200':
           description:
           content:
-            image/png:
+            application/pdf:
               schema:
                 type: string
                 format: binary

@@ -1,6 +1,6 @@
 package com.example.blog.impl;
 
-import com.example.BlogImageDomain;
+import com.example.BlogMediaDomain;
 import com.example.BlogModuleApi;
 import com.example.BlogEntryDomain;
 import com.example.blog.mapper.BlogEntryMapper;
@@ -83,12 +83,12 @@ public class BlogApiImpl implements BlogModuleApi {
   }
 
   @Override
-  public void uploadImage(BlogImageDomain blogImageDomain, Long entryId) {
+  public void uploadImage(BlogMediaDomain blogMediaDomain, Long entryId) {
 
     Optional<BlogEntryModel> blogEntryModelOptional = blogEntryRepository.findById(entryId);
 
     try {
-      BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(blogImageDomain);
+      BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(blogMediaDomain);
 
 
       BlogEntryModel blogEntryModel = blogEntryModelOptional.get();
@@ -98,11 +98,11 @@ public class BlogApiImpl implements BlogModuleApi {
         Optional<BlogImageModel> blogImageModelToSave =
             imagesRepository.findById(blogEntryModel.getBlogImage().getId());
 
-        blogImageModelToSave.get().setImage(blogImageDomain.getImage());
+        blogImageModelToSave.get().setImage(blogMediaDomain.getImage());
 
-        blogImageModelToSave.get().setName(blogImageDomain.getName());
+        blogImageModelToSave.get().setName(blogMediaDomain.getName());
 
-        blogImageModelToSave.get().setType(ImageType.valueOf(blogImageDomain.getType()));
+        blogImageModelToSave.get().setType(ImageType.valueOf(blogMediaDomain.getType()));
 
         imagesRepository.save(blogImageModelToSave.get());
 
@@ -118,7 +118,7 @@ public class BlogApiImpl implements BlogModuleApi {
     } catch (IllegalArgumentException e) {
 
       throw ExceptionsFactory.createInternalServerError(
-          "Brak zdefiniowanego typu obrazka " + blogImageDomain.getType(), "BZTO", null);
+          "Brak zdefiniowanego typu obrazka " + blogMediaDomain.getType(), "BZTO", null);
     }
   }
 
