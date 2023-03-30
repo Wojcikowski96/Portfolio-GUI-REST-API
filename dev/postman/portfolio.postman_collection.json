@@ -145,7 +145,7 @@
 								{
 									"key": "fileByteString",
 									"type": "file",
-									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/test.jpg"
+									"src": "/C:/Users/a884871/OneDrive - Atos/Dokumenty/Wójcikowski Łukasz - aneks nr 1 od 06.12.2022 do umowy zlecenie 01.10.2022.pdf"
 								},
 								{
 									"key": "name",
@@ -272,7 +272,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tittle\":\"Propozycja współpracy\",\r\n    \"content\":\"Jestem zainteresowany współpracą, proszę o więcej info\"\r\n}",
+							"raw": "{\r\n    \"tittle\":\"Propozycja współpracy\",\r\n    \"content\":\"Jestem zainteresowany współpracą, proszę o więcej info\",\r\n    \"email\":\"einfall@vp.pl\",\r\n    \"nick\": \"szatan666\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -334,7 +334,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry?entryId=1",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry?entryId=10002",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -347,7 +347,7 @@
 							"query": [
 								{
 									"key": "entryId",
-									"value": "1"
+									"value": "10002"
 								}
 							]
 						}
@@ -379,18 +379,18 @@
 								},
 								{
 									"key": "name",
-									"value": "drzewo",
+									"value": "Pieczęć",
 									"type": "text"
 								},
 								{
 									"key": "type",
-									"value": "LEFT_PANE",
+									"value": "IMAGE_BODY",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadImage?entryId=1",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadImage?entryId=10002",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -404,8 +404,104 @@
 							"query": [
 								{
 									"key": "entryId",
-									"value": "1"
+									"value": "10002"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadDocumentPortfolioDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileByteString",
+									"type": "file",
+									"src": "/C:/Users/a884871/OneDrive - Atos/Dokumenty/Wójcikowski Łukasz - aneks nr 1 od 06.12.2022 do umowy zlecenie 01.10.2022.pdf"
+								},
+								{
+									"key": "name",
+									"value": "Uzasadnienie1",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "DOCUMENT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadDocument?entryId=10002",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entry",
+								"uploadDocument"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "10002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadPortfolioEntry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tittle\":\"Miasto i gmina Chorzele\",\r\n    \"wojewodztwo\": \"województwo mazowieckie\",\r\n    \"powiat\": \"powiat ostrołęcki\",\r\n    \"locationDetails\": \"Gmina miejsko-wiejska w powiecie przasnyskim i województwie mazowieckim. Zamieszkuje ją około 10 200 osób, z czego w samym mieście około 3 100 osób. Miasto Chorzele, lokowane w XV wieku, było miastem królewskim Korony Królestwa polskiego. Prawa miejskie utraciło w 1870 roku i odzyskało w 1919 roku.\",\r\n    \"coatOfArmsDescription\": \"W polu srebrnym drzewo zielone o trzech korzeniach i dwóch konarach, z których prawy dodatkowo rozgałęziony na dwa mniejsze, na którego szczycie znajduje się owoc karczocha zielony; na lewo od pnia róg myśliwski czarny z okuciami, ustnikiem i wylotem złotymi, ułożony na opak w skos. Godło herbowe znane z XVI i XVII-wiecznych pieczęci miejskich. Motyw drzewa z karczochem zaczerpnięty został być może z medalionu królowej Bony autorstwa Jana Marii Padovano. Karczoch to symbol płodności i użyczenie tego motywu herbowi miasta mogło stanowić pomyślną wróżbę na przyszłość. Róg myśliwski dodano zapewne w nawiązaniu do obfitości zwierzyny w okolicznych lasach.\",\r\n    \"symbolsDescription\": \"Razem z herbem opracowane zostały także flaga, banner oraz pieczęcie: ogólna, burmistrza i rady miejskiej\",\r\n    \"history\":\"Herb oraz inne symbole gminy Chorzele zostały przyjęte 5 sierpnia 2012 roku.\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entry"
 							]
 						}
 					},
