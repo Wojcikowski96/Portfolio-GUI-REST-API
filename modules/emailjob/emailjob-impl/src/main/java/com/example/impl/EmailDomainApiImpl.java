@@ -10,4 +10,8 @@ public class EmailDomainApiImpl implements EmailDomain {
   String tittle;
 
   String content;
+
+  String email;
+
+  String nick;
 }

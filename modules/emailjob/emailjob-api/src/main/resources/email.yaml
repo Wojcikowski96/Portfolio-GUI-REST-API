@@ -35,6 +35,10 @@ components:
     EmailDTO:
       type: object
       properties:
+        nick:
+          type: string
+        email:
+          type: string
         tittle:
           type: string
         content:

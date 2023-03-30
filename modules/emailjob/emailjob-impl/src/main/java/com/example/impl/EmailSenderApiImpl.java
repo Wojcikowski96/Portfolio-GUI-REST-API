@@ -57,7 +57,8 @@ public class EmailSenderApiImpl implements EmailSenderApi {
     message.setFrom(senderServiceData.get().getEmail());
     message.setTo(user.get().getEmail());
     message.setSubject(domain.getTittle());
-    message.setText(domain.getContent());
+    message.setText(domain.getContent() + "\n" + "Email wysyłającego: " + domain.getEmail() + "\n" +
+        "Nick wysyłającego: " + domain.getNick());
 
     mailSender.send(message);
 
