@@ -106,9 +106,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/PortfolioEntryDetailsDTO'
 
+
   /portfolio/entry/uploadImage:
     post:
-      summary: Modyfikuje wpis portfolio pod kątem dodania obrazka
+      summary: Modyfikuje wpis portfolio pod kątem dodania media
       description: Modyfikacja wpisu dostępna dla roli Admin. Ustawia się data modyfikacji i stworzenia
       operationId: uploadImageToPortfolio
       parameters:
@@ -134,6 +135,7 @@ paths:
                 fileByteString:
                   type: string
                   format: binary
+
       responses:
         '201':
           description: Zmodyfikowano wpis
@@ -146,7 +148,7 @@ paths:
 
   /portfolio/entry/uploadDocument:
     post:
-      summary: Modyfikuje wpis portfolio pod kątem dodania obrazka
+      summary: Modyfikuje wpis portfolio pod kątem dodania media
       description: Modyfikacja wpisu dostępna dla roli Admin. Ustawia się data modyfikacji i stworzenia
       operationId: uploadDocumentToPortfolio
       parameters:

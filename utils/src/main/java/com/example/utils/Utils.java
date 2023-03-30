@@ -69,4 +69,13 @@ public class Utils {
 
     return url;
   }
+
+  public static String generateDocumentUrl(Long entryID, String documentName){
+
+    String url = null;
+
+    url = "http://localhost:8080/portfolio/details/document?entryId="+entryID+"&documentName="+documentName;
+
+    return url;
+  }
 }

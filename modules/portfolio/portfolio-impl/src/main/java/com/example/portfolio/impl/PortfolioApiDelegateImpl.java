@@ -7,7 +7,10 @@ import com.example.model.PortfolioEntryDetailsDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
+import com.example.portfolio.model.PortfolioItemModel;
+import com.example.portfolio.repository.PortfolioRepository;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -29,6 +32,9 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
 
   @Autowired
   PortfolioEntryMapper portfolioEntryMapper;
+
+  @Autowired
+  PortfolioRepository portfolioRepository;
 
   @Autowired
   PortfolioEntryDetailsMapper portfolioEntryDetailsMapper;
@@ -97,9 +103,41 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   }
 
   @Override
+  public ResponseEntity<Void> uploadDocumentToPortfolio(Long entryId, String name, String type,
+                                                     MultipartFile fileByteString) {
+    PortfolioMediaDomainImpl imageDomain = new PortfolioMediaDomainImpl();
+
+    imageDomain.setName(name);
+
+    imageDomain.setType(type);
+
+    try {
+      imageDomain.setImage(fileByteString.getBytes());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    portfolioModuleApi.uploadDocument(imageDomain, entryId);
+
+    return ResponseEntity.noContent().build();
+  }
+
+  @Override
+  public ResponseEntity<Resource> getDocumentForPortfolioDetails(Long entryId,
+                                                                 String documentName) {
+
+    byte [] imageData = portfolioModuleApi.getMedia(entryId, documentName);
+
+    Resource res = new ByteArrayResource(imageData);
+
+    return ResponseEntity.status(HttpStatus.OK).body(res);
+
+  }
+
+  @Override
   public ResponseEntity<Resource> getImageForPortfolioDetails(Long entryId, String imageName) {
 
-    byte [] imageData = portfolioModuleApi.getImage(entryId, imageName);
+    byte [] imageData = portfolioModuleApi.getMedia(entryId, imageName);
 
     Resource res = new ByteArrayResource(imageData);
 
@@ -112,7 +150,7 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
     PortfolioEntryDetailsDTO portfolioEntryDetailsDTO = portfolioEntryDetailsMapper.domainToRest(
         (PortfolioDetails) portfolioModuleApi.getPortfolioEntryDetails(entryId));
 
-    portfolioEntryDetailsMapper.distributeImagesToDTO(portfolioModuleApi.getPortfolioImageModels(entryId), portfolioEntryDetailsDTO);
+    portfolioEntryDetailsMapper.distributeMediaToDTO(portfolioModuleApi.getPortfolioImageModels(entryId), portfolioEntryDetailsDTO);
 
     return ResponseEntity.ok(portfolioEntryDetailsDTO);
   }

@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public enum ImageType {
 
-  LEFT_PANE("left_pane"),
+  IMAGE_LEFT_PANE("image_left_pane"),
 
-  BODY("body"),
+  IMAGE_BODY("image_body"),
 
-  TITTLE("tittle");
+  DOCUMENT("document");
 
   public final String name;
 
@@ -19,12 +19,12 @@ public enum ImageType {
 
   public static ImageType toImageType(String status) {
     switch (status) {
-      case "body":
-        return ImageType.BODY;
-      case "tittle":
-        return ImageType.TITTLE;
+      case "image_body":
+        return ImageType.IMAGE_BODY;
+      case "image_left_pane":
+        return ImageType.IMAGE_LEFT_PANE;
       default:
-        return ImageType.LEFT_PANE;
+        return ImageType.DOCUMENT;
     }
   }
 }

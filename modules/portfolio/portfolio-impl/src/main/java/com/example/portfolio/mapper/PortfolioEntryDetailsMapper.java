@@ -61,17 +61,22 @@ public abstract class PortfolioEntryDetailsMapper {
     return MediaDTOS;
   }
 
-  public void distributeImagesToDTO(List<PortfolioMediaDomainImpl> imageDomains, PortfolioEntryDetailsDTO dto) {
+  public void distributeMediaToDTO(List<PortfolioMediaDomainImpl> imageDomains, PortfolioEntryDetailsDTO dto) {
 
-    List<PortfolioMediaDomainImpl> body =
-        imageDomains.stream().filter(x -> x.getType().equals("BODY")).toList();
+    List<PortfolioMediaDomainImpl> imageBody =
+        imageDomains.stream().filter(x -> x.getType().equals("IMAGE_BODY")).toList();
 
-    List<PortfolioMediaDomainImpl> leftPane =
-        imageDomains.stream().filter(x -> x.getType().equals("LEFT_PANE")).toList();
+    List<PortfolioMediaDomainImpl> imageLeftPane =
+        imageDomains.stream().filter(x -> x.getType().equals("IMAGE_LEFT_PANE")).toList();
 
-    dto.setImagesUrlsPageBody(generateDTOs(body));
+    List<PortfolioMediaDomainImpl> documents =
+        imageDomains.stream().filter(x -> x.getType().equals("DOCUMENT")).toList();
 
-    dto.setImagesUrlsPageLeftPane(generateDTOs(leftPane));
+    dto.setImagesUrlsPageBody(generateDTOs(imageBody));
+
+    dto.setImagesUrlsPageLeftPane(generateDTOs(imageLeftPane));
+
+    dto.setDocuments(generateDTOs(documents));
 
 
   }

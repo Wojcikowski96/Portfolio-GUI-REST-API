@@ -104,11 +104,58 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   @Override
   public void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
 
+    List<PortfolioMediaDomainImpl> imagesList =
+        getPortfolioImageModels(entryId);
+
+    Optional<PortfolioItemModelDetails> portfolioOptional = Optional.ofNullable(
+        portfolioDetailsRepository.findById(entryId).orElseThrow(
+            () -> ExceptionsFactory.createNotFound(
+                "Nie znaleziono wpisu portfolio o id: "+ entryId, "NZWP", null)));
+
+    if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioMediaDomain.getName()))) {
+      throw ExceptionsFactory.createInternalServerError(
+          "Nazwy obrazków per wpis nie mogą się powtarzać", "NOPWNSP", null);
+    }
+
+    if (portfolioMediaDomain.getType().equals("DOCUMENT")) {
+      throw ExceptionsFactory.createInternalServerError(
+          "Błędny typ " + portfolioMediaDomain.getType() + " dla operacji dodania obrazka",
+          "BTDODO", null);
+    }
+
+    try {
+      PortfolioImageModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
+
+      if (portfolioMediaDomain.getId() == null) {
+
+        imageModel.setPortfolioItemModelDetails(portfolioOptional.get());
+
+        imageModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+
+        imagesRepository.save(imageModel);
+
+      }
+
+    } catch (IllegalArgumentException e) {
+      throw ExceptionsFactory.createInternalServerError(
+          "Brak zdefiniowanego typu obrazka " + portfolioMediaDomain.getType(), "BZTO", null);
+    }
+  }
+
+  @Override
+  public void uploadDocument(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
     Optional<PortfolioItemModelDetails> portfolioItemModelOptional =
         portfolioDetailsRepository.findById(entryId);
 
     List<PortfolioMediaDomainImpl> imagesList =
         getPortfolioImageModels(entryId);
+
+    if (!portfolioMediaDomain.getType().equals("DOCUMENT")) {
+      throw ExceptionsFactory.createInternalServerError(
+          "Błędny typ " + portfolioMediaDomain.getType() + " dla operacji dodania dokumentu",
+          "BTDODO", null);
+    }
+
 
     if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioMediaDomain.getName()))) {
       throw ExceptionsFactory.createInternalServerError(
@@ -122,19 +169,20 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
         imageModel.setPortfolioItemModelDetails(portfolioItemModelOptional.get());
 
-        imageModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+        imageModel.setImageUrl(Utils.generateDocumentUrl(entryId, portfolioMediaDomain.getName()));
 
         imagesRepository.save(imageModel);
 
       }
     } catch (IllegalArgumentException e) {
       throw ExceptionsFactory.createInternalServerError(
-          "Brak zdefiniowanego typu obrazka " + portfolioMediaDomain.getType(), "BZTO", null);
+          "Brak zdefiniowanego typu dokumentu " + portfolioMediaDomain.getType(), "BZTO", null);
     }
+
   }
 
   @Override
-  public byte[] getImage(Long entryId, String name) {
+  public byte[] getMedia(Long entryId, String name) {
 
     List<PortfolioMediaDomainImpl> imagesList =
         getPortfolioImageModels(entryId);
@@ -143,14 +191,15 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
         imagesList.stream().filter(p -> p.getName().equals(name)).findFirst();
 
     if (!model.isPresent()) {
-      ExceptionsFactory.createConflict("Nie znaleziono obrazka dla wpisu o nazwie " + name,
-          "NODWON", null);
+      ExceptionsFactory.createConflict("Nie znaleziono zasobu " + name,
+          "NZS", null);
     }
 
     return model.get().getImage();
 
   }
-@Override
+
+  @Override
   public List<PortfolioMediaDomainImpl> getPortfolioImageModels(Long entryId) {
     Optional<List<PortfolioImageModel>> imagesList =
         imagesRepository.findByPortfolioItemModelDetailsId(entryId);
@@ -158,7 +207,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
     List<PortfolioImageModel> models = imagesList.get();
 
     List<PortfolioMediaDomainImpl>
-        imageDomains = models.stream().map(x->portfolioImageMapper.modelToDomain(x)).toList();
+        imageDomains = models.stream().map(x -> portfolioImageMapper.modelToDomain(x)).toList();
 
     return imageDomains;
   }

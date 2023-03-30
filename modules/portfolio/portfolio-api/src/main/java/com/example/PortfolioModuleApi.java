@@ -18,5 +18,8 @@ public interface PortfolioModuleApi {
 
   void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId);
 
-  byte [] getImage(Long entryId, String name);
+  void uploadDocument(PortfolioMediaDomain portfolioMediaDomain, Long entryId);
+
+  byte [] getMedia(Long entryId, String name);
+
 }
