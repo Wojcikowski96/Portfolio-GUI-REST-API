@@ -40,13 +40,16 @@ public class SecurityConfig {
     http.cors().and()
         .authorizeHttpRequests((requests) -> {
           try {
-            requests.requestMatchers( "/authenticate", "/blog/entries",
-                    "/blog/image", "/portfolio/details/image","/portfolio/details/document", "/email/send", "/portfolio/entries", "/portfolio/entry/**").permitAll()
-                .requestMatchers("/blog/entry/**", "/blog/entry/uploadImage", "/blog/entry/uploadDocument")
-                .hasAuthority("ROLE_ADMIN")
+            requests.requestMatchers("/authenticate", "/blog/entries",
+                    "/blog/image", "/portfolio/details/image", "/portfolio/details/document",
+                    "/email/send", "/portfolio/entries", "/portfolio/entry/details").permitAll()
+                .requestMatchers("/portfolio/entry","/blog/entry","/blog/entry/uploadImage","/portfolio/entry/uploadImage",
+                    "/portfolio/entry/uploadDocument" , "/portfolio/entries/delete", "/blog/entries/delete").hasAuthority("ROLE_ADMIN")
+
                 .and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authenticationProvider(authenticationProvider()).exceptionHandling().authenticationEntryPoint(jwtException).and()
+                .authenticationProvider(authenticationProvider()).exceptionHandling()
+                .authenticationEntryPoint(jwtException).and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
           } catch (Exception e) {
             throw new RuntimeException(e);

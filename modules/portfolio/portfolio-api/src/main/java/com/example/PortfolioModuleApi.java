@@ -10,7 +10,7 @@ public interface PortfolioModuleApi {
 
   PortfolioEntryDetailsDomain getPortfolioEntryDetails(Long id);
 
-  List getPortfolioImageModels(Long entryId);
+  List getPortfolioMediaModels(Long entryId);
 
   void savePortfolioEntry(PortfolioEntryDomain portfolioEntryDomain, PortfolioEntryDetailsDomain entryDetails);
 

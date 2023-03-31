@@ -56,8 +56,8 @@ public class BlogApiImpl implements BlogModuleApi {
     if (blogEntryDomain.getId() == null) {
 
       if (blogEntryRepository.findByTittle(blogEntryDomain.getTittle()) != null) {
-        throw ExceptionsFactory.createConflict("Entry with given name already exists",
-            "666", null);
+        throw ExceptionsFactory.createConflict("Wpis z takim tytułem już istnieke",
+            "WZTJI", null);
       }
 
       blogEntryRepository.save(blogEntryMapper.domainToModel(blogEntryDomain));
@@ -85,7 +85,10 @@ public class BlogApiImpl implements BlogModuleApi {
   @Override
   public void uploadImage(BlogMediaDomain blogMediaDomain, Long entryId) {
 
-    Optional<BlogEntryModel> blogEntryModelOptional = blogEntryRepository.findById(entryId);
+    Optional<BlogEntryModel> blogEntryModelOptional = Optional.ofNullable(
+        blogEntryRepository.findById(entryId).orElseThrow(
+            () -> ExceptionsFactory.createNotFound(
+                "Nie znaleziono wpisu bloga o id: " + entryId, "NZWB", null)));
 
     try {
       BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(blogMediaDomain);
@@ -125,9 +128,12 @@ public class BlogApiImpl implements BlogModuleApi {
   @Override
   public byte[] getImage(Long entryId) {
 
-    Optional<BlogEntryModel> blogEntryModelOptional = blogEntryRepository.findById(entryId);
+    Optional<BlogEntryModel> portfolioItemModelOptional = Optional.ofNullable(
+        blogEntryRepository.findById(entryId).orElseThrow(
+            () -> ExceptionsFactory.createNotFound(
+                "Nie znaleziono wpisu bloga o id: " + entryId, "NZWB", null)));
 
-    ImageModel imageModel = blogEntryModelOptional.get().getBlogImage();
+    ImageModel imageModel = portfolioItemModelOptional.get().getBlogImage();
 
     return imageModel.getImage();
 

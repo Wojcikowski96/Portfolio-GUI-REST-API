@@ -30,6 +30,9 @@ public class PortfolioItemModel extends BaseModel {
   @Column(name = "PROJECT_TYPE")
   private String projectType;
 
+  @Column(name = "COAT_OF_ARMS_URL")
+  private String url;
+
 
 
 }

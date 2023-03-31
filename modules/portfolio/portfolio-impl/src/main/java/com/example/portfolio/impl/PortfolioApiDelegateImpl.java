@@ -7,10 +7,9 @@ import com.example.model.PortfolioEntryDetailsDTO;
 import com.example.model.PortfolioRequestData;
 import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
-import com.example.portfolio.model.PortfolioItemModel;
 import com.example.portfolio.repository.PortfolioRepository;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -150,8 +149,16 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
     PortfolioEntryDetailsDTO portfolioEntryDetailsDTO = portfolioEntryDetailsMapper.domainToRest(
         (PortfolioDetails) portfolioModuleApi.getPortfolioEntryDetails(entryId));
 
-    portfolioEntryDetailsMapper.distributeMediaToDTO(portfolioModuleApi.getPortfolioImageModels(entryId), portfolioEntryDetailsDTO);
+    portfolioEntryDetailsMapper.distributeMediaToDTO(portfolioModuleApi.getPortfolioMediaModels(entryId), portfolioEntryDetailsDTO);
 
     return ResponseEntity.ok(portfolioEntryDetailsDTO);
+  }
+
+  @Override
+  public ResponseEntity<Void> deletePortfolioEntries(List<Long> entryId) {
+
+    portfolioModuleApi.deleteEntries(entryId);
+
+    return ResponseEntity.noContent().build();
   }
 }

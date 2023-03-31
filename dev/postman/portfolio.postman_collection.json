@@ -30,7 +30,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"wojcikowski1@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
+							"raw": "{\r\n    \"email\": \"wojcikowski1@gmail.com\",\r\n    \"password\": \"test2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -102,7 +102,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\":234243,\r\n    \"tittle\": 23442343\r\n}",
+							"raw": "{\r\n    \"content\":234243,\r\n    \"tittle\": 545\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,7 +145,7 @@
 								{
 									"key": "fileByteString",
 									"type": "file",
-									"src": "/C:/Users/a884871/OneDrive - Atos/Dokumenty/Wójcikowski Łukasz - aneks nr 1 od 06.12.2022 do umowy zlecenie 01.10.2022.pdf"
+									"src": "/C:/Users/a884871/OneDrive - Atos/Dokumenty/Przekazywanie DTO.PNG"
 								},
 								{
 									"key": "name",
@@ -154,13 +154,13 @@
 								},
 								{
 									"key": "type",
-									"value": "BODY",
+									"value": "IMAGE_BODY",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry/uploadImage?entryId=4",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry/uploadImage?entryId=5",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -184,7 +184,7 @@
 								},
 								{
 									"key": "entryId",
-									"value": "4"
+									"value": "5"
 								}
 							]
 						}
@@ -207,7 +207,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entries?entryId=11",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entries/delete?entryId=7",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -215,12 +215,13 @@
 							"port": "{{port}}",
 							"path": [
 								"blog",
-								"entries"
+								"entries",
+								"delete"
 							],
 							"query": [
 								{
 									"key": "entryId",
-									"value": "11"
+									"value": "7"
 								}
 							]
 						}
@@ -306,7 +307,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"ASC\",\r\n    \"sortBy\" : \"tittle\"\r\n}",
+							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"DESC\",\r\n    \"sortBy\" : \"creationDate\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -334,7 +335,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry?entryId=10002",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/details?entryId=1",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -342,12 +343,13 @@
 							"port": "{{port}}",
 							"path": [
 								"portfolio",
-								"entry"
+								"entry",
+								"details"
 							],
 							"query": [
 								{
 									"key": "entryId",
-									"value": "10002"
+									"value": "1"
 								}
 							]
 						}
@@ -375,22 +377,22 @@
 								{
 									"key": "fileByteString",
 									"type": "file",
-									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/test.jpg"
+									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/tree-736885_960_720.jpg"
 								},
 								{
 									"key": "name",
-									"value": "Pieczęć",
+									"value": "Herb",
 									"type": "text"
 								},
 								{
 									"key": "type",
-									"value": "IMAGE_BODY",
+									"value": "IMAGE_LEFT_PANE",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadImage?entryId=10002",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadImage?entryId=1",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -404,7 +406,7 @@
 							"query": [
 								{
 									"key": "entryId",
-									"value": "10002"
+									"value": "1"
 								}
 							]
 						}
@@ -447,7 +449,7 @@
 							]
 						},
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadDocument?entryId=10002",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadDocument?entryId=1",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -461,7 +463,7 @@
 							"query": [
 								{
 									"key": "entryId",
-									"value": "10002"
+									"value": "1"
 								}
 							]
 						}
@@ -485,7 +487,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tittle\":\"Miasto i gmina Chorzele\",\r\n    \"wojewodztwo\": \"województwo mazowieckie\",\r\n    \"powiat\": \"powiat ostrołęcki\",\r\n    \"locationDetails\": \"Gmina miejsko-wiejska w powiecie przasnyskim i województwie mazowieckim. Zamieszkuje ją około 10 200 osób, z czego w samym mieście około 3 100 osób. Miasto Chorzele, lokowane w XV wieku, było miastem królewskim Korony Królestwa polskiego. Prawa miejskie utraciło w 1870 roku i odzyskało w 1919 roku.\",\r\n    \"coatOfArmsDescription\": \"W polu srebrnym drzewo zielone o trzech korzeniach i dwóch konarach, z których prawy dodatkowo rozgałęziony na dwa mniejsze, na którego szczycie znajduje się owoc karczocha zielony; na lewo od pnia róg myśliwski czarny z okuciami, ustnikiem i wylotem złotymi, ułożony na opak w skos. Godło herbowe znane z XVI i XVII-wiecznych pieczęci miejskich. Motyw drzewa z karczochem zaczerpnięty został być może z medalionu królowej Bony autorstwa Jana Marii Padovano. Karczoch to symbol płodności i użyczenie tego motywu herbowi miasta mogło stanowić pomyślną wróżbę na przyszłość. Róg myśliwski dodano zapewne w nawiązaniu do obfitości zwierzyny w okolicznych lasach.\",\r\n    \"symbolsDescription\": \"Razem z herbem opracowane zostały także flaga, banner oraz pieczęcie: ogólna, burmistrza i rady miejskiej\",\r\n    \"history\":\"Herb oraz inne symbole gminy Chorzele zostały przyjęte 5 sierpnia 2012 roku.\"\r\n\r\n}",
+							"raw": "{\r\n    \"tittle\":\"Miasto i gmina Chorzele\",\r\n    \"designedElements\":\"Herb, Pieczęć, Baner\",\r\n    \"wojewodztwo\": \"województwo mazowieckie\",\r\n    \"powiat\": \"powiat ostrołęcki\",\r\n    \"locationDetails\": \"Gmina miejsko-wiejska w powiecie przasnyskim i województwie mazowieckim. Zamieszkuje ją około 10 200 osób, z czego w samym mieście około 3 100 osób. Miasto Chorzele, lokowane w XV wieku, było miastem królewskim Korony Królestwa polskiego. Prawa miejskie utraciło w 1870 roku i odzyskało w 1919 roku.\",\r\n    \"coatOfArmsDescription\": \"W polu srebrnym drzewo zielone o trzech korzeniach i dwóch konarach, z których prawy dodatkowo rozgałęziony na dwa mniejsze, na którego szczycie znajduje się owoc karczocha zielony; na lewo od pnia róg myśliwski czarny z okuciami, ustnikiem i wylotem złotymi, ułożony na opak w skos. Godło herbowe znane z XVI i XVII-wiecznych pieczęci miejskich. Motyw drzewa z karczochem zaczerpnięty został być może z medalionu królowej Bony autorstwa Jana Marii Padovano. Karczoch to symbol płodności i użyczenie tego motywu herbowi miasta mogło stanowić pomyślną wróżbę na przyszłość. Róg myśliwski dodano zapewne w nawiązaniu do obfitości zwierzyny w okolicznych lasach.\",\r\n    \"symbolsDescription\": \"Razem z herbem opracowane zostały także flaga, banner oraz pieczęcie: ogólna, burmistrza i rady miejskiej\",\r\n    \"history\":\"Herb oraz inne symbole gminy Chorzele zostały przyjęte 5 sierpnia 2012 roku.\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -502,6 +504,38 @@
 							"path": [
 								"portfolio",
 								"entry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteEntries",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entries/delete?entryId=2",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entries",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "2"
+								},
+								{
+									"key": "entryId",
+									"value": "10003",
+									"disabled": true
+								}
 							]
 						}
 					},

@@ -19,6 +19,7 @@ import com.example.portfolio.mapper.PortfolioImageMapper;
 import com.example.utils.exception.ExceptionsFactory;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,7 +64,12 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   @Override
   public PortfolioEntryDetailsDomain getPortfolioEntryDetails(Long id) {
 
-    return portfolioDetailsEntryMapper.modelToDomain(portfolioDetailsRepository.findById(id).get());
+    Optional<PortfolioItemModelDetails> portfolioDetailsOptional = Optional.ofNullable(
+        portfolioDetailsRepository.findById(id).orElseThrow(
+            () -> ExceptionsFactory.createNotFound(
+                "Nie znaleziono wpisu portfolio o id: " + id, "NZWP", null)));
+
+    return portfolioDetailsEntryMapper.modelToDomain(portfolioDetailsOptional.get());
   }
 
   @Override
@@ -84,8 +90,10 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
     } else {
 
-      Optional<PortfolioItemModel> portfolioItemModelOptional =
-          portfolioRepository.findById(portfolioEntryDomain.getId());
+      Optional<PortfolioItemModel> portfolioItemModelOptional = Optional.ofNullable(
+          portfolioRepository.findById(portfolioEntryDomain.getId()).orElseThrow(
+              () -> ExceptionsFactory.createNotFound(
+                  "Nie znaleziono wpisu portfolio o id: " + portfolioEntryDomain.getId(), "NZWP", null)));
 
       PortfolioItemModel merged =
           Utils.updater(portfolioItemModelOptional.get(), portfolioItemModel);
@@ -98,23 +106,28 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
   @Override
   public void deleteEntries(List<Long> ids) {
-
+    portfolioRepository.deleteAllById(ids);
   }
 
   @Override
   public void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
 
     List<PortfolioMediaDomainImpl> imagesList =
-        getPortfolioImageModels(entryId);
+        getPortfolioMediaModels(entryId);
 
-    Optional<PortfolioItemModelDetails> portfolioOptional = Optional.ofNullable(
+    Optional<PortfolioItemModelDetails> portfolioDetailsOptional = Optional.ofNullable(
         portfolioDetailsRepository.findById(entryId).orElseThrow(
             () -> ExceptionsFactory.createNotFound(
-                "Nie znaleziono wpisu portfolio o id: "+ entryId, "NZWP", null)));
+                "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
+
+    Optional<PortfolioItemModel> portfolioOptional = Optional.ofNullable(
+        portfolioRepository.findById(entryId).orElseThrow(
+            () -> ExceptionsFactory.createNotFound(
+                "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
 
     if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioMediaDomain.getName()))) {
       throw ExceptionsFactory.createInternalServerError(
-          "Nazwy obrazków per wpis nie mogą się powtarzać", "NOPWNSP", null);
+          "Nazwy plików per wpis nie mogą się powtarzać", "NPPWNSP", null);
     }
 
     if (portfolioMediaDomain.getType().equals("DOCUMENT")) {
@@ -128,9 +141,19 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
       if (portfolioMediaDomain.getId() == null) {
 
-        imageModel.setPortfolioItemModelDetails(portfolioOptional.get());
+        imageModel.setPortfolioItemModelDetails(portfolioDetailsOptional.get());
 
         imageModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+
+        if (portfolioMediaDomain.getName().equals("Herb")) {
+
+          PortfolioItemModel model = portfolioOptional.get();
+
+          model.setUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+
+          portfolioRepository.save(model);
+        }
+
 
         imagesRepository.save(imageModel);
 
@@ -144,11 +167,14 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
   @Override
   public void uploadDocument(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
-    Optional<PortfolioItemModelDetails> portfolioItemModelOptional =
-        portfolioDetailsRepository.findById(entryId);
+
+    Optional<PortfolioItemModelDetails> portfolioItemModelOptional = Optional.ofNullable(
+        portfolioDetailsRepository.findById(entryId).orElseThrow(
+            () -> ExceptionsFactory.createNotFound(
+                "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
 
     List<PortfolioMediaDomainImpl> imagesList =
-        getPortfolioImageModels(entryId);
+        getPortfolioMediaModels(entryId);
 
     if (!portfolioMediaDomain.getType().equals("DOCUMENT")) {
       throw ExceptionsFactory.createInternalServerError(
@@ -159,7 +185,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
     if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioMediaDomain.getName()))) {
       throw ExceptionsFactory.createInternalServerError(
-          "Nazwy obrazków per wpis nie mogą się powtarzać", "NOPWNSP", null);
+          "Nazwy plików per wpis nie mogą się powtarzać", "NPPWNSP", null);
     }
 
     try {
@@ -185,13 +211,13 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   public byte[] getMedia(Long entryId, String name) {
 
     List<PortfolioMediaDomainImpl> imagesList =
-        getPortfolioImageModels(entryId);
+        getPortfolioMediaModels(entryId);
 
     Optional<PortfolioMediaDomainImpl> model =
         imagesList.stream().filter(p -> p.getName().equals(name)).findFirst();
 
     if (!model.isPresent()) {
-      ExceptionsFactory.createConflict("Nie znaleziono zasobu " + name,
+      throw ExceptionsFactory.createConflict("Nie znaleziono zasobu " + name,
           "NZS", null);
     }
 
@@ -200,9 +226,13 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   }
 
   @Override
-  public List<PortfolioMediaDomainImpl> getPortfolioImageModels(Long entryId) {
-    Optional<List<PortfolioImageModel>> imagesList =
-        imagesRepository.findByPortfolioItemModelDetailsId(entryId);
+  public List<PortfolioMediaDomainImpl> getPortfolioMediaModels(Long entryId) {
+
+    Optional<List<PortfolioImageModel>> imagesList = Optional.ofNullable(
+        imagesRepository.findByPortfolioItemModelDetailsId(entryId).orElseThrow(
+            () -> ExceptionsFactory.createNotFound(
+                "Nie znaleziono plików dla wpisu o id: " + entryId, "NZPDW", null)));
+
 
     List<PortfolioImageModel> models = imagesList.get();
 

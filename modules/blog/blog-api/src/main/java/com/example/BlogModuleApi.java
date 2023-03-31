@@ -12,5 +12,6 @@ public interface BlogModuleApi {
   void deleteEntries(List<Long> ids);
 
   void uploadImage(BlogMediaDomain blogMediaDomain, Long entryId);
+
   byte [] getImage(Long entryId);
 }
