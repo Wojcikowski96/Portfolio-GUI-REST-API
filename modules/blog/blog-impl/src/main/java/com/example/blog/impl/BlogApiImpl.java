@@ -6,10 +6,10 @@ import com.example.BlogEntryDomain;
 import com.example.blog.mapper.BlogEntryMapper;
 import com.example.blog.mapper.BlogImageMapper;
 import com.example.blog.model.BlogEntryModel;
-import com.example.blog.model.BlogImageModel;
+import com.example.blog.model.BlogMediaModel;
 import com.example.blog.repository.BlogImageRepository;
 import com.example.utils.enums.ImageType;
-import com.example.utils.model.ImageModel;
+import com.example.utils.model.MediaModel;
 import com.example.blog.repository.BlogEntryRepository;
 import com.example.blog.specification.BlogSearchSpecification;
 import com.example.utils.Utils;
@@ -91,14 +91,14 @@ public class BlogApiImpl implements BlogModuleApi {
                 "Nie znaleziono wpisu bloga o id: " + entryId, "NZWB", null)));
 
     try {
-      BlogImageModel imageModelFromDomain = blogImageMapper.domainToModel(blogMediaDomain);
+      BlogMediaModel imageModelFromDomain = blogImageMapper.domainToModel(blogMediaDomain);
 
 
       BlogEntryModel blogEntryModel = blogEntryModelOptional.get();
 
       if (blogEntryModel.getBlogImage() != null && blogEntryModel.getBlogImage().getId() != null) {
 
-        Optional<BlogImageModel> blogImageModelToSave =
+        Optional<BlogMediaModel> blogImageModelToSave =
             imagesRepository.findById(blogEntryModel.getBlogImage().getId());
 
         blogImageModelToSave.get().setImage(blogMediaDomain.getImage());
@@ -133,9 +133,9 @@ public class BlogApiImpl implements BlogModuleApi {
             () -> ExceptionsFactory.createNotFound(
                 "Nie znaleziono wpisu bloga o id: " + entryId, "NZWB", null)));
 
-    ImageModel imageModel = portfolioItemModelOptional.get().getBlogImage();
+    MediaModel mediaModel = portfolioItemModelOptional.get().getBlogImage();
 
-    return imageModel.getImage();
+    return mediaModel.getImage();
 
   }
 }

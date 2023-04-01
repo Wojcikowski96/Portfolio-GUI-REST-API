@@ -6,7 +6,7 @@ import com.example.PortfolioMediaDomain;
 import com.example.PortfolioModuleApi;
 import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
-import com.example.portfolio.model.PortfolioImageModel;
+import com.example.portfolio.model.PortfolioMediaModel;
 import com.example.portfolio.model.PortfolioItemModel;
 import com.example.portfolio.model.PortfolioItemModelDetails;
 import com.example.portfolio.repository.PortfolioDetailsRepository;
@@ -19,7 +19,7 @@ import com.example.portfolio.mapper.PortfolioImageMapper;
 import com.example.utils.exception.ExceptionsFactory;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -137,7 +137,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
     }
 
     try {
-      PortfolioImageModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
+      PortfolioMediaModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
 
       if (portfolioMediaDomain.getId() == null) {
 
@@ -189,7 +189,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
     }
 
     try {
-      PortfolioImageModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
+      PortfolioMediaModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
 
       if (portfolioMediaDomain.getId() == null) {
 
@@ -228,13 +228,13 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   @Override
   public List<PortfolioMediaDomainImpl> getPortfolioMediaModels(Long entryId) {
 
-    Optional<List<PortfolioImageModel>> imagesList = Optional.ofNullable(
+    Optional<List<PortfolioMediaModel>> imagesList = Optional.ofNullable(
         imagesRepository.findByPortfolioItemModelDetailsId(entryId).orElseThrow(
             () -> ExceptionsFactory.createNotFound(
                 "Nie znaleziono plików dla wpisu o id: " + entryId, "NZPDW", null)));
 
 
-    List<PortfolioImageModel> models = imagesList.get();
+    List<PortfolioMediaModel> models = imagesList.get();
 
     List<PortfolioMediaDomainImpl>
         imageDomains = models.stream().map(x -> portfolioImageMapper.modelToDomain(x)).toList();

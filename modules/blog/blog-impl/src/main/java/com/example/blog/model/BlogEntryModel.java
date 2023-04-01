@@ -1,7 +1,6 @@
 package com.example.blog.model;
 
 import com.example.utils.model.BaseModel;
-import com.example.utils.model.ImageModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +24,7 @@ public class BlogEntryModel extends BaseModel {
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "BLOG_IMAGE_ID")
-  private BlogImageModel blogImage;
+  private BlogMediaModel blogImage;
 
   @OneToMany
   @JoinColumn(name = "BLOG_ENTRY_ID")

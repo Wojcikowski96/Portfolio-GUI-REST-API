@@ -1,12 +1,9 @@
 package com.example.portfolio.model;
 
-import com.example.utils.model.ImageModel;
 import com.example.utils.model.BaseModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Set;
@@ -30,6 +27,6 @@ public class PortfolioItemModelDetails extends BaseModel {
   private String history;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "portfolioItemModelDetails")
-  private Set<PortfolioImageModel> portfolioImage;
+  private Set<PortfolioMediaModel> portfolioImage;
 
 }

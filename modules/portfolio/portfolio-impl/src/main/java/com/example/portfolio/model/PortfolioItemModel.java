@@ -1,7 +1,6 @@
 package com.example.portfolio.model;
 
 import com.example.utils.model.BaseModel;
-import com.example.utils.model.ImageModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

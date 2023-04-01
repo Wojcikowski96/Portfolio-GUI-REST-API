@@ -2,9 +2,9 @@ package com.example.blog.mapper;
 
 import com.example.BlogMediaDomain;
 import com.example.blog.impl.BlogMediaDomainImpl;
-import com.example.blog.model.BlogImageModel;
+import com.example.blog.model.BlogMediaModel;
 //import com.example.model.ImageDTO;
-import com.example.utils.model.ImageModel;
+import com.example.utils.model.MediaModel;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -19,9 +19,9 @@ public abstract class BlogImageMapper {
 //
 //  public abstract ImageDomainImpl restToDomain(ImageDTO dto);
 
-  public abstract BlogMediaDomainImpl modelToDomain(ImageModel model);
+  public abstract BlogMediaDomainImpl modelToDomain(MediaModel model);
 
-  public abstract BlogImageModel domainToModel(BlogMediaDomain domain);
+  public abstract BlogMediaModel domainToModel(BlogMediaDomain domain);
 
 
 }

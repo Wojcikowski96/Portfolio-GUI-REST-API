@@ -5,14 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.Getter;
 
 
 @Data
 @MappedSuperclass
-public class ImageModel extends BaseModel {
+public class MediaModel extends BaseModel {
 
   @Column(name = "NAME")
   private String name;
