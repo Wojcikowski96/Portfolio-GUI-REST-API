@@ -21,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
@@ -39,6 +40,7 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   PortfolioEntryDetailsMapper portfolioEntryDetailsMapper;
 
   @Override
+  @CrossOrigin("http://localhost:4200")
   public ResponseEntity<GetPortfolioEntries200Response> getPortfolioEntries(
       PortfolioRequestData portfolioRequestData) {
 
