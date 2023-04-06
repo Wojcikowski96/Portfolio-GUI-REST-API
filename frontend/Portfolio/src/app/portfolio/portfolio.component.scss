@@ -1,10 +1,10 @@
 .grid-container{
-    margin:auto;
     display: inline-grid;
     grid-template-columns: auto auto auto;
     grid-column-gap: 50px;
     grid-row-gap: 50px;
-    width: 60%;
+    width: 100%;
+    margin-top: 100px;
 
 }
 
@@ -41,9 +41,6 @@
     padding: auto;
 }
 h1.headerTittle{
-    position: relative;
-    top: 50%; right: 50%;
-    transform: translate(50%,-50%);
     font-family: 'Antykwa';
     margin-top: 0px;
     margin-bottom: 0px
@@ -80,12 +77,18 @@ h1.powiatName{
 }
 
 .designedElements{
-    position: relative;
     font-style: bold;
     font-size: 25px;
     font-family: 'Antykwa';
     margin: 0px;
-    top: 30px
+
+}
+.createdAt{
+    position: relative;
+    font-size: 25px;
+    font-family: 'Antykwa';
+    margin-top: 10px;
+    
 
 
 }
@@ -105,12 +108,12 @@ h1.powiatName{
     
     
 }
-.designedElementsDiv{
+.footerDiv{
     position: relative;
     border-top: solid;
     border-bottom: solid;
     height: 50%;
-    vertical-align: middle;
+    margin-bottom:10px
 }
 .locationDiv{
     text-align: center;

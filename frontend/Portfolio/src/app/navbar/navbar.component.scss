@@ -5,11 +5,11 @@
 
 .mainnavbar{
     background-color:brown;
-    margin:auto;
-    width: 68%;
+    position: fixed;
     padding: 10px;
     display: flex;
     z-index: 10;
+    width: 70%;
 }
 .homebutton > h1{
     font-family: 'Antykwa';
