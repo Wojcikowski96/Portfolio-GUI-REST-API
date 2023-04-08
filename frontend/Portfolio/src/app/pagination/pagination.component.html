@@ -1,14 +1,7 @@
 <div class="container">
-
-        <div class="btn-paginacao">
-          <ul>
-            <li><label for="paginacao1">1</label></li>
-            <li><label for="paginacao2">2</label></li>
-            <li><label for="paginacao3">3</label></li>
-            <li><label for="paginacao4">4</label></li>
-          </ul>
-        </div>
-      
-    
-    
-    </div>
+  <div class="btn-paginacao">
+    <ul *ngFor="let a of emptyArray; let index = index">
+      <li (click)="onPageChanged(index + 1)"><label for="{{'paginacao' + (index + 1)}}">{{index + 1}}</label></li>
+    </ul>
+  </div>
+</div>
