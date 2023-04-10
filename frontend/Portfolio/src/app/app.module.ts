@@ -11,8 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
-  { path: 'portfolio', component: PortfolioComponent },
-  { path: 'portfolio/:id', component: PortfolioDetailsComponent }
+  { path: 'portfolioDetails/:id', component: PortfolioDetailsComponent }
 ];
 
 @NgModule({

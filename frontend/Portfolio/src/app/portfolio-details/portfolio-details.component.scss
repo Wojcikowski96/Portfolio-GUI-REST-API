@@ -91,15 +91,15 @@ h1.button-description2{
 }
 
 
-body 
-{
-    background-color: white;
-    height: 100%;
-    width: 70%;
-    margin: 0 auto;
+// body 
+// {
+//     background-color: white;
+//     height: 100%;
+//     width: 70%;
+//     margin: 0 auto;
     
 
-}
+// }
 @font-face {
     font-family: 'Antykwa';
     src: url(../Resources/AntykwaTorunska-Regular.ttf);
@@ -131,8 +131,6 @@ h1.banner{
     height: 100px;
 }
 .maincontent{
-    position: relative;
-    width: 100%;
     background-color:whitesmoke;
     column-gap: 20px;
     height:100%;

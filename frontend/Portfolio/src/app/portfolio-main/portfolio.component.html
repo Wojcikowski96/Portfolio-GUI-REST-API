@@ -9,9 +9,9 @@
         </div>
     </div>
 </div>
-<div class = "grid-container">
+<div class = "grid-container" *ngIf="showGrid">
     <div *ngFor="let item of results">
-        <div class = "tile">
+        <div class = "tile" (click)="getDetails(item?.id); toggleGrid()" >
             <div class="grid-tile-insidor">
                     <div class = "numberContainer">
                         <h1 class = "number">{{item.id}}</h1>
@@ -32,6 +32,7 @@
         </div>
     </div>
 </div>
+<router-outlet></router-outlet>
 <app-pagination [itemsNum]="pageResponse?.totalElements" [pageSize]="pageResponse?.pageSize" (pageChanged)="onPageChanged($event)"></app-pagination>
 
 
