@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { GridService } from '../service/GridService';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./portfolio-details.component.scss']
 })
 export class PortfolioDetailsComponent implements OnInit {
+  detailsVisible = true;
+ 
 
-  constructor() { }
+  onDetailsClosed() {
+    this.detailsVisible = false;
+    this.gridService.toggleGrid();
+    console.log("pokazuję grid")
+  }
+
+  constructor(private gridService: GridService) {}
 
   ngOnInit(): void {
+    this.detailsVisible = true;
   }
 
 }

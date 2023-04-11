@@ -3,6 +3,7 @@ import { PortfolioApiService } from '../service/portfolio-api.service';
 import { PageResponse } from '../responses/PageResponse';
 import { PortfolioEntry } from '../responses/PortfolioEntry';
 import { NavigationExtras, Router } from '@angular/router';
+import { GridService } from '../service/GridService';
 
 
 @Component({
@@ -18,7 +19,11 @@ export class PortfolioComponent implements OnInit {
   showGrid = true;
 
 
-  constructor(private portfolioApi: PortfolioApiService, private router: Router) { }
+  constructor(private portfolioApi: PortfolioApiService, private router: Router, private gridService: GridService) { 
+    this.gridService.showGrid$.subscribe(showGrid => {
+      this.showGrid = showGrid;
+    });
+}
 
   ngOnInit(): void {
     this.portfolioApi.getEntries(1, 3, 'ASC', 'tittle').subscribe((data) => {
@@ -44,6 +49,11 @@ export class PortfolioComponent implements OnInit {
     this.router.navigate(['/portfolioDetails', item]);
   }
   toggleGrid() {
-    this.showGrid = !this.showGrid;
+    this.gridService.toggleGrid();
+  }
+
+  onDetailsClosed(){
+    console.log("On details closed")
+    this.toggleGrid();
   }
 }

@@ -16,14 +16,14 @@
   <script src="MapLocation.js"></script>
 </head>
 
-<body>
+<body *ngIf="detailsVisible">
 <div class = empty-space>
 
 </div>
   <h1 class="banner">
     <!-- Miasto i gmina Chorzele -->
   </h1>
-
+  <button class="close-button" (click)="onDetailsClosed()">Zamknij</button>
   <div class="maincontent">
     <div class="description">
       <div class = "map-and-description-container" style="display: flex;">
