@@ -30,7 +30,7 @@
         <div class ="text-container" style= "width: 60%; margin-right: auto;  margin-left: 0px">
           <h1>O gminie</h1>
           <p>
-            <!-- Gmina miejsko-wiejska w powiecie przasnyskim i województwie mazowieckim. Zamieszkuje ją około 10 200 osób, z czego w samym mieście około 3 100 osób. Miasto Chorzele, lokowane w XV wieku, było miastem królewskim Korony Królestwa polskiego. Prawa miejskie utraciło w 1870 roku i odzyskało w 1919 roku. -->
+            {{portfolioDetails?.locationDetails}}
           </p>
         </div>
         <div id="mapid" style="height: 300px; width: 35%; margin-left: auto; margin-top: 20px; z-index: 0;">
@@ -41,10 +41,7 @@
         Herb
       </h1>
       <p>
-        <!-- W polu srebrnym drzewo zielone o trzech korzeniach i dwóch konarach, z których prawy dodatkowo rozgałęziony na dwa mniejsze, na którego szczycie znajduje się owoc karczocha zielony; na lewo od pnia róg myśliwski czarny z okuciami, ustnikiem i wylotem złotymi, ułożony na opak w skos. -->
-      </p>
-      <p>
-        <!-- Godło herbowe znane z XVI i XVII-wiecznych pieczęci miejskich. Motyw drzewa z karczochem zaczerpnięty został być może z medalionu królowej Bony autorstwa Jana Marii Padovano. Karczoch to symbol płodności i użyczenie tego motywu herbowi miasta mogło stanowić pomyślną wróżbę na przyszłość. Róg myśliwski dodano zapewne w nawiązaniu do obfitości zwierzyny w okolicznych lasach. -->
+        {{portfolioDetails?.coatOfArmsDescription}}
       </p>
       <div class="description-images-wrapper">
       <div class="image-wrapper">
@@ -70,13 +67,13 @@
         Pozostałe symbole
       </h1>
       <p>
-        <!-- Razem z herbem opracowane zostały także flaga, banner oraz pieczęcie: ogólna, burmistrza i rady miejskiej. -->
+        {{portfolioDetails?.symbolsDescription}}
       </p>
       <h1>
         Historia
       </h1>
       <p>
-        <!-- Herb oraz inne symbole gminy Chorzele zostały przyjęte 5 sierpnia 2012 roku. -->
+        {{portfolioDetails?.history}}
       </p>
       <!-- <div class="buttons">
         <div class="button">

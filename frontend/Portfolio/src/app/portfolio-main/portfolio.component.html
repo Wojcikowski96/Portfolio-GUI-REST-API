@@ -11,7 +11,7 @@
 </div>
 <div class = "grid-container" *ngIf="showGrid">
     <div *ngFor="let item of results">
-        <div class = "tile" (click)="getDetails(item?.id); toggleGrid()" >
+        <div class = "tile" (click)="getDetails(item?.id); toggleGrid(); onTileSelected(item?.id)" >
             <div class="grid-tile-insidor">
                     <div class = "numberContainer">
                         <h1 class = "number">{{item.id}}</h1>

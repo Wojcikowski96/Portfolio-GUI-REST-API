@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PortfolioApiService } from '../service/portfolio-api.service';
 import { PageResponse } from '../responses/PageResponse';
 import { PortfolioEntry } from '../responses/PortfolioEntry';
 import { NavigationExtras, Router } from '@angular/router';
-import { GridService } from '../service/GridService';
+import { GridService } from '../service/TransferService';
 
 
 @Component({
@@ -17,6 +17,14 @@ export class PortfolioComponent implements OnInit {
   page: number | undefined;
 
   showGrid = true;
+
+ 
+  tileSelected: any | undefined
+
+  onTileSelected(id:any){
+    this.tileSelected=id;
+    this.gridService.changeData(id)
+  }
 
 
   constructor(private portfolioApi: PortfolioApiService, private router: Router, private gridService: GridService) { 
@@ -56,4 +64,5 @@ export class PortfolioComponent implements OnInit {
     console.log("On details closed")
     this.toggleGrid();
   }
+
 }
