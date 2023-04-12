@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GridService } from '../service/TransferService';
 import { PortfolioApiService } from '../service/portfolio-api.service';
 import { PortfolioEntryDetails } from '../responses/PortfolioEntryDetailsResponse';
+import { Media } from '../responses/Media';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -15,6 +16,7 @@ export class PortfolioDetailsComponent implements OnInit {
   detailsId:any | undefined;
 
   portfolioDetails: PortfolioEntryDetails | undefined;
+  imagesUrlsPageLeftPane:Media[] | undefined
 
   onDetailsClosed() {
     this.detailsVisible = false;
@@ -28,6 +30,7 @@ export class PortfolioDetailsComponent implements OnInit {
       console.log("Przekazałem id na kliknięcie: "+detailsId)
       this.porftolioApi.getEntryDetails(detailsId).subscribe((data) => {
         this.portfolioDetails = data;
+        this.imagesUrlsPageLeftPane = data.imagesUrlsPageLeftPane
         console.log("klasa detailsowa")
         console.log(this.portfolioDetails)
       });
