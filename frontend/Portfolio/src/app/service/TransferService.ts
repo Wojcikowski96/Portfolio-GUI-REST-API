@@ -11,8 +11,15 @@ export class GridService {
   private data = new BehaviorSubject<number>(1);
   detailsId$ = this.data.asObservable();
 
+  private data2 = new BehaviorSubject<string>("");
+  locationName$ = this.data2.asObservable();
+
   changeData(detailsId: number) {
     this.data.next(detailsId)
+  }
+
+  changeData2(locationName: string) {
+    this.data2.next(locationName)
   }
   
 

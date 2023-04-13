@@ -15,8 +15,13 @@ export class PortfolioDetailsComponent implements OnInit {
   @Input()
   detailsId:any | undefined;
 
+  @Input()
+  locationName: string | undefined;
+
   portfolioDetails: PortfolioEntryDetails | undefined;
   imagesUrlsPageLeftPane:Media[] | undefined
+  imagesUrlsPageBody:Media[] | undefined
+  documents:Media[] | undefined
 
   onDetailsClosed() {
     this.detailsVisible = false;
@@ -31,9 +36,15 @@ export class PortfolioDetailsComponent implements OnInit {
       this.porftolioApi.getEntryDetails(detailsId).subscribe((data) => {
         this.portfolioDetails = data;
         this.imagesUrlsPageLeftPane = data.imagesUrlsPageLeftPane
+        this.imagesUrlsPageBody = data.imagesUrlsPageBody
+        this.documents = data.documents
         console.log("klasa detailsowa")
         console.log(this.portfolioDetails)
       });
+    });
+
+    this.gridService.locationName$.subscribe(locationName => {
+      this.locationName = locationName;
     });
   }
 

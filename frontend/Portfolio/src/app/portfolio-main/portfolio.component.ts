@@ -21,9 +21,15 @@ export class PortfolioComponent implements OnInit {
  
   tileSelected: any | undefined
 
-  onTileSelected(id:any){
-    this.tileSelected=id;
-    this.gridService.changeData(id)
+  tittleToPass: string | undefined
+
+  onTileSelected(id: any) {
+    this.tileSelected = id;
+    this.gridService.changeData(id);
+    this.tittleToPass = this.getTitleById(id);
+    if (this.tittleToPass !== undefined) {
+      this.gridService.changeData2(this.tittleToPass);
+    }
   }
 
 
@@ -34,7 +40,7 @@ export class PortfolioComponent implements OnInit {
 }
 
   ngOnInit(): void {
-    this.portfolioApi.getEntries(1, 3, 'ASC', 'tittle').subscribe((data) => {
+    this.portfolioApi.getEntries(1, 3, 'ASC', 'id').subscribe((data) => {
       this.pageResponse= data;
       this.results = data.results
       console.log("total elements")
@@ -44,7 +50,7 @@ export class PortfolioComponent implements OnInit {
   }
   onPageChanged(page: number): void{
     this.page=page
-    this.portfolioApi.getEntries(page, 3, 'ASC', 'tittle').subscribe((data) => {
+    this.portfolioApi.getEntries(page, 3, 'ASC', 'id').subscribe((data) => {
       this.pageResponse= data;
       this.results = data.results
       console.log("total elements")
@@ -64,5 +70,10 @@ export class PortfolioComponent implements OnInit {
     console.log("On details closed")
     this.toggleGrid();
   }
+  getTitleById(id: number): string | undefined {
+    const entry = this.results?.find(entry => entry.id === id);
+    return entry?.tittle;
+  }
+  
 
 }
