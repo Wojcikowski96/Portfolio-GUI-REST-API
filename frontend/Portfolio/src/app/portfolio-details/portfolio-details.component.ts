@@ -3,7 +3,7 @@ import { GridService } from '../service/TransferService';
 import { PortfolioApiService } from '../service/portfolio-api.service';
 import { PortfolioEntryDetails } from '../responses/PortfolioEntryDetailsResponse';
 import { Media } from '../responses/Media';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-portfolio-details',
   templateUrl: './portfolio-details.component.html',
@@ -27,9 +27,10 @@ export class PortfolioDetailsComponent implements OnInit {
     this.detailsVisible = false;
     this.gridService.toggleGrid();
     console.log("pokazuję grid")
+    this.router.navigateByUrl('/portfolio');
   }
 
-  constructor(private gridService: GridService, private porftolioApi: PortfolioApiService) {
+  constructor(private gridService: GridService, private porftolioApi: PortfolioApiService, private router: Router) {
     this.gridService.detailsId$.subscribe(detailsId => {
       this.detailsId = detailsId;
       console.log("Przekazałem id na kliknięcie: "+detailsId)

@@ -8,10 +8,13 @@ import { PortfolioComponent } from './portfolio-main/portfolio.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { PortfolioDetailsComponent } from './portfolio-details/portfolio-details.component';
 import { RouterModule, Routes } from '@angular/router';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
-  { path: 'portfolioDetails/:id', component: PortfolioDetailsComponent }
+  { path: 'portfolio', component: PortfolioComponent },
+  {path: 'blog', component: BlogComponent},
+  { path: 'portfolioDetails/:id', component: PortfolioDetailsComponent },
 ];
 
 @NgModule({
@@ -21,6 +24,7 @@ const routes: Routes = [
     PortfolioComponent,
     PaginationComponent,
     PortfolioDetailsComponent,
+    BlogComponent,
 
   ],
   imports: [

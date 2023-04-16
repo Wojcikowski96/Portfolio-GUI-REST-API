@@ -1,0 +1,254 @@
+.about-us-wrapper{
+    display: flex;
+    margin-bottom: 40px;
+    margin-top: 90px;
+    padding: 20px;
+    background-attachment: fixed;
+   height: 400px
+
+}
+.about-us-wrapper > .col{
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.col > ul > li{
+    font-family: 'Antykwa';
+    font-size: 20px;
+}
+
+.col > p{
+    font-family: 'Antykwa';
+    font-size: 20px;
+}
+.col > h1{
+    border-top: solid;
+    border-bottom: solid;
+    top: 0px;
+}
+@font-face {
+    font-family: 'Antykwa';
+    src: url(../Resources/AntykwaTorunska-Regular.ttf);
+}
+.entry-tile{
+    position: relative;
+    background-color: #fff;
+    left: -250px;
+    opacity: 0;
+    margin-top: 40px;
+    box-shadow: 3px 3px 5px 6px gainsboro;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+   
+}
+.entry-header{
+    display: flex; 
+    border-top: solid;
+    border-bottom: solid;
+    height:30% 
+    
+}
+.header-label-gap{
+    width: 15%
+}
+#date-label{
+    width: 30%; 
+    margin: auto
+}
+.entry-body{
+    display: flex;
+    margin-top: 20px
+}
+
+.description{
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%
+}
+p{
+    font-size: 25px; 
+    font-family: 'Antykwa';
+}
+.urls-container{
+    display: block;
+
+}
+img{
+    width: 40%;
+    height: 40%
+}
+
+#title-Tag-Line {
+    font-size: 20px;
+  }
+  /* .card-item__bg{
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    display: block;
+    position: relative;
+    margin: 30px auto;
+    transform: translate(0px, 50px);
+    z-index: 5;
+  } */
+  
+  /* form animation starts */
+  .form {
+    position: relative;
+    left: 0px;
+    margin-top: 40px;
+    background: #fff;
+    box-shadow: 3px 3px 5px 6px gainsboro;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    
+  /*   z-index: 1; */
+    
+  }
+  ::-webkit-input-placeholder {
+    font-size: 1.3em;
+  }
+  
+
+  .termsConditions{
+    margin: 0 auto 5px 80px;
+  }
+  
+  .pageTitle{
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .secondaryTitle{
+    color: grey;
+  }
+  
+  .name {
+    background-color: #ebebeb;
+    color: white;
+    height: 2em;
+    
+  }
+  .name:hover {
+    border-bottom: 5px solid;
+    height: 35px;
+    transition: ease 0.5s;
+  }
+  
+  .email {
+    background-color: #ebebeb;
+    height: 2em;
+  }
+  
+  .email:hover {
+    border-bottom: 5px solid;
+    height: 35px;
+    transition: ease 0.5s;
+  }
+  
+  .message {
+    background-color: #ebebeb;
+    overflow: hidden;
+    height: 10rem;
+  }
+  
+  .message:hover {
+    border-bottom: 5px solid;
+    height: 12em;
+    transition: ease 0.5s;
+  }
+  
+  .formEntry {
+    display: block;
+    margin: 30px auto;
+    padding: 10px;
+    border-radius: 2px;
+    border: none;
+    transition: all 0.5s ease 0s;
+    width: 80%;
+  }
+  
+  .submit {
+    width: 200px;
+    color: white;
+    background-color:brown;
+    font-size: 20px;
+  }
+  
+  .submit:hover {
+    box-shadow: 3px 3px 5px 6px gainsboro;
+    transform: translateY(-3px);
+    width: 100%;
+  }
+
+  body 
+{
+    background-color:whitesmoke;
+    width: 70%;
+    margin: auto;
+}
+@font-face {
+    font-family: 'Antykwa';
+    src: url(../Resources/AntykwaTorunska-Regular.ttf);
+}
+h1{
+    font-family: 'Antykwa';
+}
+html{
+    padding: 15px;
+    margin: 5px;
+}
+
+
+.emptyspace{
+    height: 70px;
+}
+.content-flexbox{
+    display: flex;
+}
+
+.news-sidebar{  
+   width: 67%;
+   margin-right: auto
+    
+}
+.news-header{
+    display:flex;
+    background-color: brown; 
+    padding: 20px;
+    margin-bottom: 40px;
+    height: 50px
+}
+.news-header > h1{
+    font-size: 30px;
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 40px
+ 
+}
+.about-us-on-news-sidebar{
+    width: 30%;
+    position: relative;
+    left: 0px;
+
+}
+.about-us-on-news-sidebar > .header{
+    display:flex;
+    background-color: brown; 
+    padding: 20px;
+    height: 50px;
+}
+.about-us-on-news-sidebar > .header > h1{
+    position: relative;
+    top: 50%; bottom: 50%; left: 0px;
+    transform: translate(50%,-50%);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
