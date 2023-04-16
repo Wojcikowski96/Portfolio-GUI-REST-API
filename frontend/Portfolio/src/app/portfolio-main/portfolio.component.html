@@ -1,0 +1,39 @@
+<div class="banner">
+    <h1>KAMIL WÓJCIKOWSKI & ROBERT FIDURA PORTFOLIO PROJEKTOWE</h1>
+    <div class = "projects-status">
+        <div class = "projects-done">
+            <h2>{{pageResponse?.totalElements}} zrealizowanych projektów</h2>
+        </div>
+        <div class = "projects-opinions">
+            <h2>co najmniej 50 pozytywnie zaopiniowanych</h2> 
+        </div>
+    </div>
+</div>
+<div class = "grid-container" *ngIf="showGrid">
+    <div *ngFor="let item of results">
+        <div class = "tile" (click)="getDetails(item?.id); toggleGrid(); onTileSelected(item?.id)" >
+            <div class="grid-tile-insidor">
+                    <div class = "numberContainer">
+                        <h1 class = "number">{{item.id}}</h1>
+                    </div>
+                    <div class = "headerContainer">
+                        <h1 class = "headerTittle">{{item.tittle}}</h1>
+                    </div>
+                    <img src = {{item.imageUrl}}>
+                    <div class = "locationDiv">
+                        <h1 class = "wojewodztwoName">{{item.wojewodztwo}}</h1>
+                        <h1 class = "powiatName">{{item.powiat}}</h1>
+                    </div>
+                    <div class = "footerDiv">
+                        <h1 class = "designedElements">{{item.designedElements}}</h1>
+                        <h1 class = "createdAt">{{item.creationDate}}</h1>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<router-outlet  *ngIf="!showGrid" (detailsClosed)="onDetailsClosed()"></router-outlet>
+<app-pagination [itemsNum]="pageResponse?.totalElements" [pageSize]="pageResponse?.pageSize" (pageChanged)="onPageChanged($event)"></app-pagination>
+
+
+
