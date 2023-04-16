@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PortfolioApiService } from '../service/portfolio-api.service';
-import { PageResponse } from '../responses/PageResponse';
+import { PortfolioPageResponse } from '../responses/PageResponse';
 import { PortfolioEntry } from '../responses/PortfolioEntry';
 import { NavigationExtras, Router } from '@angular/router';
 import { GridService } from '../service/TransferService';
@@ -12,7 +12,7 @@ import { GridService } from '../service/TransferService';
   styleUrls: ['./portfolio.component.scss']
 })
 export class PortfolioComponent implements OnInit {
-  pageResponse: PageResponse | undefined;
+  pageResponse: PortfolioPageResponse | undefined;
   results: Array<PortfolioEntry> | undefined;
   page: number | undefined;
 
