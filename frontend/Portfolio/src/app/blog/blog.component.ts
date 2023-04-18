@@ -3,6 +3,7 @@ import { BlogEntry } from '../responses/BlogEntry';
 import { BlogApiService } from '../service/blog-api-service';
 import * as $ from 'jquery';
 import { BlogPageResponse } from '../responses/PageResponse';
+import { EmailApiService } from '../service/email-service';
 
 
 @Component({
@@ -11,18 +12,42 @@ import { BlogPageResponse } from '../responses/PageResponse';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
-
   results: Array<BlogEntry> | undefined;
+  pageResponse: BlogPageResponse | undefined
+  page: number | undefined;
+
+  name: string= ''
+  email: string= ''
+  tittle: string= ''
+  message: string= ''
 
 
-  constructor(private blogApiService: BlogApiService) {
+
+  constructor(private blogApiService: BlogApiService, private emailApiService:EmailApiService) {
     
    }
 
   ngOnInit(): void {
-    this.blogApiService.getEntries(1, 3, 'ASC', 'id').subscribe((data) => {
+    this.blogApiService.getEntries(1, 3, 'DESC', 'creationDate').subscribe((data) => {
+      this.results = data.results
+      this.pageResponse = data
+      console.log("results")
+      console.log(this.results)
+    });
+  }
+  onPageChanged(page: number): void{
+    this.page=page
+    this.blogApiService.getEntries(page, 3, 'ASC', 'creationDate').subscribe((data) => {
+      this.pageResponse= data;
       this.results = data.results
       console.log("total elements")
+      console.log(this.pageResponse.totalElements);
+    });
+  }
+  sendMessage(){
+    console.log("wysyłam")
+    this.emailApiService.sendEmail(this.tittle, this.message, this.email, this.name).subscribe(response => {
+      console.log(response);
     });
   }
   lastScrollTop = 0;

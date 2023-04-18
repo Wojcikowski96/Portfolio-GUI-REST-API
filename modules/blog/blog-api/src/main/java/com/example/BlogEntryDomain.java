@@ -1,6 +1,7 @@
 package com.example;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 public interface BlogEntryDomain {
@@ -28,6 +29,10 @@ public interface BlogEntryDomain {
   LocalDateTime getCreationDate();
 
   LocalDateTime getModifiedDate();
+
+  List<String> getNewsPortalsUrls();
+
+  void setNewsPortalsUrls(List<String> newsPortalsUrls);
 
   void setCreationDate(LocalDateTime date);
 

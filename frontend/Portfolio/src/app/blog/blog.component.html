@@ -1,8 +1,4 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="smtp.js" defer></script>
-<script src="emailSender.js" defer></script>
-<script src="scrollAnimator.js"></script>
-<script src="hideOnScroll.js"></script>
+
 <div class = "about-us-wrapper">
     <div class = "col">
         <h1>Co robimy</h1>
@@ -34,7 +30,25 @@
 <h1>Aktualności</h1>
  
 </div>
-
+<div *ngFor="let item of results" class="entry-tile">
+    <div class ='entry-header'>
+    <h1>{{item?.tittle}}</h1>
+    <div class ='header-label-gap'></div> 
+    <h1 id='date-label'>{{item?.creationDate}}</h1>
+    </div>
+    <div class ='entry-body'>
+    <img src = {{item?.imageUrl}} style='margin: auto; margin-left:0px'/>
+    <div class ='description'>
+    <p>{{item?.content}}</p>
+    <div class = 'urls-container'>
+    <!-- <p *ngFor="let url of item?.newsPortalsUrls">{{url}}</p> -->
+    <a *ngFor="let url of item?.newsPortalsUrls" href ={{url}}><h1 style ='font-size: 25px; margin-top: 20px'> {{url}} </h1>
+    </a>
+    </div>
+    </div>
+    </div>
+</div>
+<app-pagination [itemsNum]="pageResponse?.totalElements" [pageSize]="pageResponse?.pageSize" (pageChanged)="onPageChanged($event)"></app-pagination>
 </div>
 <div class= "about-us-on-news-sidebar">
 <div class= "header">
@@ -43,10 +57,13 @@
 <div class="wrapper">
 <form class="form">
   <div class="secondaryTitle title">Uzupełnij poniższe pola.</div>
-  <input type="text" class="name formEntry" id="nameInput" placeholder="Podaj imię" />
-  <input type="text" class="email formEntry" id="emailInput" placeholder="Podaj Email"/>
+  <input type="text" class="name formEntry" id="nameInput" placeholder="Podaj imię" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+  <input type="text" class="email formEntry" id="emailInput" placeholder="Podaj Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+  <input type="text" class="email formEntry" id="tittleInput" placeholder="Podaj tytuł e-maila" [(ngModel)]="tittle" [ngModelOptions]="{standalone: true}">
   <textarea class="message formEntry" id="messageInput"></textarea>
-  <button class="submit formEntry" id="sendMessage"><h1 style="font-size: 25px">Wyślij</h1></button>
+  <button class="submit formEntry" id="sendMessage" (click)="sendMessage()">
+    <h1 style="font-size: 25px" >Wyślij</h1>
+</button>
 </form>
 </div>
 </div>

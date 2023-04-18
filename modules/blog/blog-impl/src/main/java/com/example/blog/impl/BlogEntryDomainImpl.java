@@ -3,6 +3,7 @@ package com.example.blog.impl;
 import com.example.BlogEntryDomain;
 import com.example.CommentDomain;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 public class BlogEntryDomainImpl implements BlogEntryDomain {
@@ -20,6 +21,8 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
   LocalDateTime creationDate;
 
   LocalDateTime modificationDate;
+
+  List<String> newsPortalsUrls;
 
   @Override
   public String getContent() {
@@ -79,6 +82,16 @@ public class BlogEntryDomainImpl implements BlogEntryDomain {
   @Override
   public LocalDateTime getModifiedDate() {
     return this.modificationDate;
+  }
+
+  @Override
+  public List<String> getNewsPortalsUrls() {
+    return this.newsPortalsUrls;
+  }
+
+  @Override
+  public void setNewsPortalsUrls(List<String> newsPortalsUrls) {
+    this.newsPortalsUrls = newsPortalsUrls;
   }
 
   @Override

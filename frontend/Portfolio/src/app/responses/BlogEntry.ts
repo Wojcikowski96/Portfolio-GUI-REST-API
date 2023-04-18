@@ -5,4 +5,5 @@ export class BlogEntry{
     creationDate: string| undefined;;
     imageUrl: string| undefined;
     content: string | undefined;
+    newsPortalsUrls: Array<string> | undefined
 }

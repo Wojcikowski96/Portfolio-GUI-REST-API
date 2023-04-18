@@ -8,6 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
+import java.util.List;
 import java.util.Set;
 import lombok.Data;
 
@@ -21,6 +23,9 @@ public class BlogEntryModel extends BaseModel {
 
   @Column(name= "CONTENT")
   private String content;
+
+  @Column(name = "NEWS_URLS")
+  List<String> newsPortalsUrls;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "BLOG_IMAGE_ID")
