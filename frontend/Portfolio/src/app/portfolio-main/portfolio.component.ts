@@ -40,7 +40,7 @@ export class PortfolioComponent implements OnInit {
 }
 
   ngOnInit(): void {
-    this.portfolioApi.getEntries(1, 3, 'ASC', 'id').subscribe((data) => {
+    this.portfolioApi.getEntries(1, 6, 'ASC', 'id').subscribe((data) => {
       this.pageResponse= data;
       this.results = data.results
       console.log("total elements")
@@ -50,7 +50,7 @@ export class PortfolioComponent implements OnInit {
   }
   onPageChanged(page: number): void{
     this.page=page
-    this.portfolioApi.getEntries(page, 3, 'ASC', 'id').subscribe((data) => {
+    this.portfolioApi.getEntries(page, 6, 'ASC', 'id').subscribe((data) => {
       this.pageResponse= data;
       this.results = data.results
       console.log("total elements")
