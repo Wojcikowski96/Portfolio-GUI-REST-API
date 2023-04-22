@@ -11,6 +11,7 @@
 </div>
 <div class = "grid-container" *ngIf="showGrid">
     <div *ngFor="let item of results">
+        <div class = delete-button>Wywal</div>
         <div class = "tile" (click)="getDetails(item?.id); toggleGrid(); onTileSelected(item?.id)" >
             
                     <div class = "numberContainer">

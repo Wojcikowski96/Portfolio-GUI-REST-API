@@ -10,12 +10,14 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { PortfolioDetailsComponent } from './portfolio-details/portfolio-details.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
   { path: 'portfolio', component: PortfolioComponent },
   {path: 'blog', component: BlogComponent},
   { path: 'portfolioDetails/:id', component: PortfolioDetailsComponent },
+  { path: 'login', component: LoginFormComponent },
 ];
 
 @NgModule({
@@ -26,9 +28,7 @@ const routes: Routes = [
     PaginationComponent,
     PortfolioDetailsComponent,
     BlogComponent,
-    
-    
-
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,
