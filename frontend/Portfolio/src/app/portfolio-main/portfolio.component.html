@@ -11,8 +11,8 @@
 </div>
 <div class = "grid-container" *ngIf="showGrid">
     <div *ngFor="let item of results">
-        <div class = delete-button>Wywal</div>
         <div class = "tile" (click)="getDetails(item?.id); toggleGrid(); onTileSelected(item?.id)" >
+                <div *ngIf="checkIsAdmin()"  class = remove-item  ></div>
             
                     <div class = "numberContainer">
                         <h1 class = "number">{{item.id}}</h1>
@@ -31,6 +31,9 @@
                     </div>
                 </div>
 
+    </div>
+    <div style="font-size: 400px; color: gray" *ngIf="checkIsAdmin()" class = "tile">
+        +
     </div>
 </div>
 <router-outlet  *ngIf="!showGrid" (detailsClosed)="onDetailsClosed()"></router-outlet>

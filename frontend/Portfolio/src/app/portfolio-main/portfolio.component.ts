@@ -4,6 +4,7 @@ import { PortfolioPageResponse } from '../responses/PageResponse';
 import { PortfolioEntry } from '../responses/PortfolioEntry';
 import { NavigationExtras, Router } from '@angular/router';
 import { GridService } from '../service/TransferService';
+import { AuthService } from '../service/AuthService';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class PortfolioComponent implements OnInit {
   page: number | undefined;
 
   showGrid = true;
+  isAdmin = false
 
  
   tileSelected: any | undefined
@@ -33,7 +35,7 @@ export class PortfolioComponent implements OnInit {
   }
 
 
-  constructor(private portfolioApi: PortfolioApiService, private router: Router, private gridService: GridService) { 
+  constructor(private portfolioApi: PortfolioApiService, private router: Router, private gridService: GridService, private authService: AuthService) { 
     this.gridService.showGrid$.subscribe(showGrid => {
       this.showGrid = showGrid;
     });
@@ -47,6 +49,13 @@ export class PortfolioComponent implements OnInit {
       console.log(this.pageResponse.totalElements);
     });
     
+  }
+  checkIsAdmin(){
+    if(this.authService.getRoles() && this.authService.getRoles().includes('ROLE_ADMIN')){
+      return true
+    }else {
+      return false
+    }
   }
   onPageChanged(page: number): void{
     this.page=page
@@ -74,6 +83,8 @@ export class PortfolioComponent implements OnInit {
     const entry = this.results?.find(entry => entry.id === id);
     return entry?.tittle;
   }
-  
+  removeEntryById(id: any){
+
+  }
 
 }

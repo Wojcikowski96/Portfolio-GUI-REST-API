@@ -8,24 +8,32 @@ import { AuthService } from '../service/AuthService';
 })
 export class LoginFormComponent implements OnInit {
   token:any;
+  isAdmin=false;
+
+  email: string = '';
+  password: string = '';
+
+  isWrongData = false;
+ 
 
   constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
+   
   }
   authenticate(){
-    console.log("klikłem")
-    this.authService.login("wojcikowski1@gmail.com", "test").subscribe(response => {
-      console.log(response)
-      const token = localStorage.getItem('auth-token');
-      if(token){
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        const roles = decodedToken.authorities.map((authority: any) => authority.authority);
-        
-        console.log(roles);
+    this.authService.login(this.email, this.password).subscribe(
+      response => {
+        console.log(response)
+        this.authService.setRoles()
+        this.isWrongData = false
+      },
+      error => {
+        if (error.status === 403) {
+          this.isWrongData = true
+        }
       }
-    });
-
+    );
     
   }
 

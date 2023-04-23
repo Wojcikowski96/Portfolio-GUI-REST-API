@@ -11,6 +11,9 @@ import { HttpHeaders } from '@angular/common/http';
 export class AuthService {
   private apiUrl = 'http://localhost:8080/authenticate';
   private tokenKey = 'auth-token';
+  private roleKey = 'roles'
+
+  private roles: any;
 
   constructor(private http: HttpClient) { }
 
@@ -40,4 +43,16 @@ export class AuthService {
     }
     return null;
   }
+  setRoles():any{
+    const token = localStorage.getItem(this.tokenKey);
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      this.roles = decodedToken.authorities.map((authority: any) => authority.authority);
+      localStorage.setItem(this.roleKey, this.roles)
+  }
+
+}
+getRoles():any{
+  return localStorage.getItem(this.roleKey)
+}
 }

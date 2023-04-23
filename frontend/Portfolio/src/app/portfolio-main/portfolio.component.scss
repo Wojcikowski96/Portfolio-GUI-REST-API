@@ -146,4 +146,30 @@ h1.number{
 .projects-opinions:nth-child(2){
     font-family: 'Antykwa';
 }
+.remove-item{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    float: right;
+    cursor: pointer;
+    text-align: center;
+    font-size: 35px;
+    font-family: Arial;
+    color: white;
+    transition: background-color 0.3s ease-out 100ms
+    
+}
+.remove-item::before{
+    content: "X";
+    color: black
+}
+.remove-item-wrapper{
+    width: 5%;
+    margin-left: 80%;
+    font-weight: thin
 
+}
+.remove-item:hover{
+    background-color: red;
+    
+}
