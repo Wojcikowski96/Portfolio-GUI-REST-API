@@ -25,12 +25,21 @@ export class PortfolioComponent implements OnInit {
 
   tittleToPass: string | undefined
 
+  designedElementsToPass: string | undefined
+
+  portfolioItemToPass : PortfolioEntry | undefined
+
   onTileSelected(id: any) {
     this.tileSelected = id;
-    this.gridService.changeData(id);
-    this.tittleToPass = this.getTitleById(id);
-    if (this.tittleToPass !== undefined) {
-      this.gridService.changeData2(this.tittleToPass);
+    this.gridService.changeID(id);
+    // this.tittleToPass = this.getTitleById(id);
+    if(id){
+      this.portfolioItemToPass = this.getEntryById(id)
+    }
+    
+
+    if(this.portfolioItemToPass !==undefined){
+      this.gridService.changePortfolioData(this.portfolioItemToPass);
     }
   }
 
@@ -66,10 +75,15 @@ export class PortfolioComponent implements OnInit {
       console.log(this.pageResponse.totalElements);
     });
   }
-  getDetails(item: any) {
+  navigateToDetailsComponent(item: any) {
     console.log("przekazane id")
     console.log(item)
     this.router.navigate(['/portfolioDetails', item]);
+  }
+
+  navigateToNewDetailsComponent() {
+
+    this.router.navigate(['/portfolioDetailsNew']);
   }
   toggleGrid() {
     this.gridService.toggleGrid();
@@ -82,6 +96,16 @@ export class PortfolioComponent implements OnInit {
   getTitleById(id: number): string | undefined {
     const entry = this.results?.find(entry => entry.id === id);
     return entry?.tittle;
+  }
+
+  getDesignedElementsById(id: number): string | undefined {
+    const entry = this.results?.find(entry => entry.id === id);
+    return entry?.designedElements;
+  }
+  
+  getEntryById(id: number): PortfolioEntry | undefined {
+    return this.results?.find(entry => entry.id === id);
+    
   }
   removeEntryById(id: any){
 

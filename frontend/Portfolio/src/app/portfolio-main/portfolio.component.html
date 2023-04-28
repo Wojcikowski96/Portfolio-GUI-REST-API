@@ -11,7 +11,7 @@
 </div>
 <div class = "grid-container" *ngIf="showGrid">
     <div *ngFor="let item of results">
-        <div class = "tile" (click)="getDetails(item?.id); toggleGrid(); onTileSelected(item?.id)" >
+        <div class = "tile" (click)="navigateToDetailsComponent(item?.id); toggleGrid(); onTileSelected(item?.id)" >
                 <div *ngIf="checkIsAdmin()"  class = remove-item  ></div>
             
                     <div class = "numberContainer">
@@ -32,7 +32,7 @@
                 </div>
 
     </div>
-    <div style="font-size: 400px; color: gray" *ngIf="checkIsAdmin()" class = "tile">
+    <div style="font-size: 400px; color: gray" *ngIf="checkIsAdmin()" class = "tile" (click)="navigateToDetailsComponent(undefined); toggleGrid(); onTileSelected(undefined)">
         +
     </div>
 </div>

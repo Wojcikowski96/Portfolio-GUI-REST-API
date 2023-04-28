@@ -1,6 +1,10 @@
+$white: white;
+$bodycolor:whitesmoke;
+$brown:brown;
+$shadowcolor:#ccc;
 .button{
     position: relative;
-    box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
     height: 100px;
     width: 100%;
     text-align: center;
@@ -11,11 +15,11 @@
     position: relative;
     width:100%;
     height: 100%;
-    background-color: brown;
+    background-color: $brown;
     text-align: center;
     border: solid;
     border-width: 2px;
-    border-color: brown;
+    border-color: $brown;
 }
 h1.button-description{
     position: relative;
@@ -24,19 +28,19 @@ h1.button-description{
     margin-top: 0px;
     margin-bottom: 0px;
     font-family: "Antykwa";
-    color: white;
+    color: $white;
 }
 .button:hover .content{
     border: solid;
     border-width: 6px;
-    border-color: brown;
-    background-color: white;
+    border-color: $brown;
+    background-color: $white;
     transition:  border-width 0.2s linear;
    
 }
 .content:hover :nth-child(1){
     content: "Pobierz";
-    color: brown;
+    color: $brown;
 }
 
 .content:hover :nth-child(1)::before{
@@ -46,7 +50,7 @@ h1.button-description{
 
 .button2{
     position: relative;
-    box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
     height: 100px;
     width: 100%;
     text-align: center;
@@ -57,11 +61,11 @@ h1.button-description{
     position: relative;
     width:100%;
     height: 100%;
-    background-color: brown;
+    background-color: $brown;
     text-align: center;
     border: solid;
     border-width: 2px;
-    border-color: brown;
+    border-color: $brown;
 }
 h1.button-description2{
     position: relative;
@@ -70,19 +74,19 @@ h1.button-description2{
     margin-top: 0px;
     margin-bottom: 0px;
     font-family: "Antykwa";
-    color: white;
+    color: $white;
 }
 .button2:hover .content2{
     border: solid;
     border-width: 6px;
-    border-color: brown;
-    background-color: white;
+    border-color: $brown;
+    background-color: $white;
     transition:  border-width 0.2s linear;
    
 }
 .content2:hover :nth-child(1){
     content: "Pobierz";
-    color: brown;
+    color: $brown;
 }
 
 .content2:hover :nth-child(1)::before{
@@ -91,13 +95,35 @@ h1.button-description2{
 }
 
 .close-button {
-    background-color: brown;
+    background-color: $brown;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+  }
+
+  .edit-button {
+    background-color: $brown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right
+  }
+
+  .save-button {
+    background-color: $brown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right
   }
   
   .close-button:hover {
@@ -127,8 +153,8 @@ h1{
 h1.banner{
     margin-top: 150px;
     position: relative;
-    color: white;
-    background-color: brown;
+    color: $white;
+    background-color: $brown;
     width: 100%;
     text-align: center;
     line-height: 300%;
@@ -144,7 +170,7 @@ h1.banner{
     height: 100px;
 }
 .maincontent{
-    background-color:whitesmoke;
+    background-color:$bodycolor;
     column-gap: 20px;
     height:100%;
     display: flex;
@@ -170,7 +196,7 @@ p{
 .buttons{
     position: relative;
     width: 100%;
-    background-color:whitesmoke;
+    background-color:$bodycolor;
     column-gap: 20px;
     height:100%;
     display: flex;
@@ -193,6 +219,16 @@ p{
 }
 h1.historia{
     font-size: 45px;
+}
+textarea{
+    width: 100%; 
+    height: 100%; 
+    font-family: 'Antykwa'; 
+    font-size: 25px; 
+    border: none; 
+    // margin-bottom: 200px;
+    background-color: $bodycolor;
+    color: black;
 }
 @keyframes fadein {
     from { opacity: 0.3; top: -200px }
@@ -226,7 +262,7 @@ h1.historia{
 .sidebar{
     position: relative;
     width: 30%;
-    box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
     background-color:  rgba(255, 0, 0, 0.05);
     text-align: center;
     padding-top: 10px;
@@ -241,7 +277,7 @@ h1.historia{
 
 
 .insygnia-label{
-    background-color: white;
+    background-color: $white;
     border-top: solid;
     border-bottom: solid
 }
@@ -256,7 +292,7 @@ h1.label{
     position: relative;
     height: 100%;
     width: 75%;
-    box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
     padding-left: 30px;
     padding-right: 30px;
     -webkit-animation: fadeinD 1s; /* Safari, Chrome and Opera > 12.1 */
@@ -265,6 +301,7 @@ h1.label{
       -o-animation: fadeinD 1s; /* Opera < 12.1 */
          animation: fadeinD 1s;
 }
+
 #herb{
     width: 90%; 
 }

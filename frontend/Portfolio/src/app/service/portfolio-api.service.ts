@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PortfolioPageResponse } from '../responses/PageResponse';
 import {map} from 'rxjs/operators'
 import { PortfolioEntryDetails } from '../responses/PortfolioEntryDetailsResponse';
-
+import { AuthService } from './AuthService';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ export class PortfolioApiService {
   private baseUrl = 'http://localhost:8080/portfolio/entries';
   private baseUrl2 = 'http://localhost:8080/portfolio/entry/details';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getEntries(pageNo: number, pageSize: number, sortDir: string, sortBy: string): Observable<PortfolioPageResponse> {
     const params = {
@@ -28,5 +28,13 @@ export class PortfolioApiService {
   getEntryDetails(entryId:number): Observable<PortfolioEntryDetails> {
 
     return this.http.get<PortfolioEntryDetails>(`${this.baseUrl2}?entryId=${entryId}`).pipe(map(({id, locationDetails, coatOfArmsDescription, imagesUrlsPageBody, symbolsDescription, history, imagesUrlsPageLeftPane, documents})=> new PortfolioEntryDetails(id, locationDetails, coatOfArmsDescription, imagesUrlsPageBody, symbolsDescription, history, imagesUrlsPageLeftPane, documents)));
+  }
+
+  modifyEntry(data: any) {
+    const url = 'http://localhost:8080/portfolio/entry';
+    console.log("wartość tokenu w post")
+    console.log(this.authService.getToken())
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
+    return this.http.post(url, data, {headers});
   }
 }

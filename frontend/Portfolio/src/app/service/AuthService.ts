@@ -39,7 +39,7 @@ export class AuthService {
   getToken(): any {
     const token = localStorage.getItem(this.tokenKey);
     if (token) {
-        return jwtDecode(token)
+        return token
     }
     return null;
   }

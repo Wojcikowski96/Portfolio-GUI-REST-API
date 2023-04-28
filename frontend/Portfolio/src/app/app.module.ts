@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'portfolio', component: PortfolioComponent },
   {path: 'blog', component: BlogComponent},
   { path: 'portfolioDetails/:id', component: PortfolioDetailsComponent },
+  { path: 'portfolioDetailsNew', component: PortfolioDetailsComponent },
   { path: 'login', component: LoginFormComponent },
 ];
 

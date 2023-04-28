@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { PortfolioEntry } from '../responses/PortfolioEntry';
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +9,20 @@ export class GridService {
   private _showGrid = true;
   showGrid$ = new BehaviorSubject<boolean>(this._showGrid);
 
-  private data = new BehaviorSubject<number>(1);
-  detailsId$ = this.data.asObservable();
+  private idData = new BehaviorSubject<number>(1);
+  detailsId$ = this.idData.asObservable();
 
-  private data2 = new BehaviorSubject<string>("");
-  locationName$ = this.data2.asObservable();
+  private portfolioEntryData = new BehaviorSubject<PortfolioEntry>(new PortfolioEntry());
 
-  changeData(detailsId: number) {
-    this.data.next(detailsId)
+  arrayDataToPass$ = this.portfolioEntryData.asObservable()
+
+  changeID(detailsId: number) {
+    this.idData.next(detailsId)
   }
 
-  changeData2(locationName: string) {
-    this.data2.next(locationName)
+
+  changePortfolioData(portfolioEntry: PortfolioEntry) {
+    this.portfolioEntryData.next(portfolioEntry)
   }
   
 
