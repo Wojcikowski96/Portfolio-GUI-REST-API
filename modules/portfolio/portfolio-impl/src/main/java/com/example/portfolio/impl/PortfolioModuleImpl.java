@@ -95,10 +95,19 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
               () -> ExceptionsFactory.createNotFound(
                   "Nie znaleziono wpisu portfolio o id: " + portfolioEntryDomain.getId(), "NZWP", null)));
 
-      PortfolioItemModel merged =
+      Optional<PortfolioItemModelDetails> portfolioDetailsItemModelOptional = Optional.ofNullable(
+              portfolioDetailsRepository.findById(portfolioEntryDomain.getId()).orElseThrow(
+                      () -> ExceptionsFactory.createNotFound(
+                              "Nie znaleziono wpisu portfolio o id: " + portfolioEntryDomain.getId(), "NZWP", null)));
+
+      PortfolioItemModel mergedMainItem =
           Utils.updater(portfolioItemModelOptional.get(), portfolioItemModel);
 
-      portfolioRepository.save(merged);
+      PortfolioItemModelDetails mergedDetailsItem = Utils.updater(portfolioDetailsItemModelOptional.get(), portfolioItemModel.getPortfolioItemModelDetails());
+
+      mergedMainItem.setPortfolioItemModelDetails(mergedDetailsItem);
+
+      portfolioRepository.save(mergedMainItem);
 
     }
 
