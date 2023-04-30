@@ -43,8 +43,8 @@ public class SecurityConfig {
         .authorizeHttpRequests((requests) -> {
           try {
             requests.requestMatchers("/authenticate", "/blog/entries",
-                    "/blog/image", "/portfolio/details/image", "/portfolio/details/document",
-                    "/email/send", "/portfolio/entries", "/portfolio/entry/details").permitAll()
+                    "/blog/image", "/portfolio/image", "/portfolio/document",
+                    "/email/send", "/portfolio/entries").permitAll()
                 .requestMatchers("/portfolio/entry","/blog/entry","/blog/entry/uploadImage","/portfolio/entry/uploadImage",
                     "/portfolio/entry/uploadDocument" , "/portfolio/entries/delete", "/blog/entries/delete").hasAuthority("ROLE_ADMIN")
 

@@ -1,6 +1,5 @@
 package com.example.portfolio.impl;
 
-import com.example.PortfolioEntryDetailsDomain;
 import com.example.PortfolioEntryDomain;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -12,8 +11,6 @@ public class PortfolioEntryDomainImpl implements PortfolioEntryDomain {
   private Long id;
 
   private String tittle;
-
-  private PortfolioDetails portfolioDetails;
 
   private String url;
 
@@ -27,8 +24,13 @@ public class PortfolioEntryDomainImpl implements PortfolioEntryDomain {
 
   private LocalDateTime modificationDate;
 
-  @Override
-  public void setPortfolioDetails(PortfolioEntryDetailsDomain portfolioDetails) {
-    this.portfolioDetails = (PortfolioDetails) portfolioDetails;
-  }
+  private String aboutLocation;
+
+  private String coatOfArmsDescription;
+
+  private String symbolsDescription;
+
+  private String history;
+
+
 }

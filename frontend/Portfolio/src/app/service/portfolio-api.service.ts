@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PortfolioPageResponse } from '../responses/PageResponse';
 import {map} from 'rxjs/operators'
-import { PortfolioEntryDetails } from '../responses/PortfolioEntryDetailsResponse';
 import { AuthService } from './AuthService';
 @Injectable({
   providedIn: 'root'
@@ -25,10 +24,6 @@ export class PortfolioApiService {
     return this.http.post<PortfolioPageResponse>(this.baseUrl, params).pipe(map(({pageNo, pageSize, totalElements, totalPages, results})=> new PortfolioPageResponse(pageNo, pageSize, totalElements, totalPages, results)));
   }
 
-  getEntryDetails(entryId:number): Observable<PortfolioEntryDetails> {
-
-    return this.http.get<PortfolioEntryDetails>(`${this.baseUrl2}?entryId=${entryId}`).pipe(map(({id, locationDetails, coatOfArmsDescription, imagesUrlsPageBody, symbolsDescription, history, imagesUrlsPageLeftPane, documents})=> new PortfolioEntryDetails(id, locationDetails, coatOfArmsDescription, imagesUrlsPageBody, symbolsDescription, history, imagesUrlsPageLeftPane, documents)));
-  }
 
   modifyEntry(data: any) {
     const url = 'http://localhost:8080/portfolio/entry';

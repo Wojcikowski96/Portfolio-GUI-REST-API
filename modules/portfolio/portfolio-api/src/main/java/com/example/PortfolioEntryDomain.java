@@ -14,10 +14,6 @@ public interface PortfolioEntryDomain {
 
   void setId(Long id);
 
-  PortfolioEntryDetailsDomain getPortfolioDetails();
-
-  void setPortfolioDetails(PortfolioEntryDetailsDomain portfolioDetails);
-
   String getWojewodztwo();
 
   void setWojewodztwo(String wojewodztwo);
@@ -30,10 +26,6 @@ public interface PortfolioEntryDomain {
 
   void setProjectType(String projectType);
 
-//  LocalDateTime getCreatedAt();
-//
-//  void setCreatedAt(LocalDateTime createdAt);
-
   String getUrl();
 
   void setUrl(String url);
@@ -45,5 +37,23 @@ public interface PortfolioEntryDomain {
   void setCreationDate(LocalDateTime date);
 
   void setModificationDate(LocalDateTime date);
+
+  String getAboutLocation();
+
+  void setAboutLocation(String aboutLocation);
+
+  String getCoatOfArmsDescription();
+
+  void setCoatOfArmsDescription(String coatOfArmsDescription);
+
+  String getSymbolsDescription();
+
+  void setSymbolsDescription(String symbolsDescription);
+
+  String getHistory();
+
+  void setHistory(String history);
+
+
 }
 

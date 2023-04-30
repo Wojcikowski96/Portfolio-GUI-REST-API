@@ -83,7 +83,7 @@ export class PortfolioComponent implements OnInit {
 
   navigateToNewDetailsComponent() {
 
-    this.router.navigate(['/portfolioDetailsNew']);
+    this.router.navigateByUrl('/portfolioDetailsNew');
   }
   toggleGrid() {
     this.gridService.toggleGrid();

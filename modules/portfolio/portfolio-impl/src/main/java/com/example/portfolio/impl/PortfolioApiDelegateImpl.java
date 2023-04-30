@@ -3,9 +3,7 @@ package com.example.portfolio.impl;
 import com.example.PortfolioApiDelegate;
 import com.example.PortfolioModuleApi;
 import com.example.model.GetPortfolioEntries200Response;
-import com.example.model.PortfolioEntryDetailsDTO;
 import com.example.model.PortfolioRequestData;
-import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
 import com.example.portfolio.repository.PortfolioRepository;
 import java.io.IOException;
@@ -36,9 +34,6 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   @Autowired
   PortfolioRepository portfolioRepository;
 
-  @Autowired
-  PortfolioEntryDetailsMapper portfolioEntryDetailsMapper;
-
   @Override
   @CrossOrigin("http://localhost:4200")
   public ResponseEntity<GetPortfolioEntries200Response> getPortfolioEntries(
@@ -65,6 +60,10 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
     response.setResults(
         PortfolioEntryDomainPage.getContent().stream()
             .map(log -> portfolioEntryMapper.domainToRest(log))
+            .map(entry -> {
+              portfolioEntryMapper.distributeMediaToDTO(portfolioModuleApi.getPortfolioMediaModels(entry.getId()), entry);
+              return entry;
+            })
             .collect(
                 Collectors.toList()));
 
@@ -74,10 +73,7 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   @Override
   public ResponseEntity<Void> savePortfolioEntry(PortfolioRequestData portfolioRequestData) {
 
-
-    portfolioModuleApi.savePortfolioEntry(portfolioEntryMapper.restToDomain(portfolioRequestData),
-        portfolioEntryDetailsMapper.restToDomain(portfolioRequestData));
-
+    portfolioModuleApi.savePortfolioEntry(portfolioEntryMapper.restToDomain(portfolioRequestData));
 
     return ResponseEntity.noContent().build();
   }
@@ -145,16 +141,16 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
     return ResponseEntity.status(HttpStatus.OK).body(res);
   }
 
-  @Override
-  public ResponseEntity<PortfolioEntryDetailsDTO> getPortfolioDetails(Long entryId) {
-
-    PortfolioEntryDetailsDTO portfolioEntryDetailsDTO = portfolioEntryDetailsMapper.domainToRest(
-        (PortfolioDetails) portfolioModuleApi.getPortfolioEntryDetails(entryId));
-
-    portfolioEntryDetailsMapper.distributeMediaToDTO(portfolioModuleApi.getPortfolioMediaModels(entryId), portfolioEntryDetailsDTO);
-
-    return ResponseEntity.ok(portfolioEntryDetailsDTO);
-  }
+//  @Override
+//  public ResponseEntity<PortfolioEntryDetailsDTO> getPortfolioDetails(Long entryId) {
+//
+//    PortfolioEntryDetailsDTO portfolioEntryDetailsDTO = portfolioEntryDetailsMapper.domainToRest(
+//        (PortfolioDetails) portfolioModuleApi.getPortfolioEntryDetails(entryId));
+//
+//    portfolioEntryDetailsMapper.distributeMediaToDTO(portfolioModuleApi.getPortfolioMediaModels(entryId), portfolioEntryDetailsDTO);
+//
+//    return ResponseEntity.ok(portfolioEntryDetailsDTO);
+//  }
 
   @Override
   public ResponseEntity<Void> deletePortfolioEntries(List<Long> entryId) {

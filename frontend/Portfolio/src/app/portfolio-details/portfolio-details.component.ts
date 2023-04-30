@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GridService } from '../service/TransferService';
 import { PortfolioApiService } from '../service/portfolio-api.service';
-import { PortfolioEntryDetails } from '../responses/PortfolioEntryDetailsResponse';
 import { Media } from '../responses/Media';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/AuthService';
@@ -30,15 +29,24 @@ export class PortfolioDetailsComponent implements OnInit {
   
   detailsId:any | undefined;
 
-  locationName: string | undefined;
+  locationName!: string | '';
 
-  designedElements: string | undefined;
+  designedElements!: string | '';
 
-  powiat: string | undefined;
+  powiat!: string | '';
 
-  wojewodztwo: string | undefined;
+  wojewodztwo!: string | '';
 
-  portfolioDetails: PortfolioEntryDetails | undefined;
+  locationDetails!: string | '';
+
+  coatOfArmsDescription!:string| '';
+
+  symbolsDescription!:string| '';
+
+  history!:string| '';
+
+  portfolioDetails: PortfolioEntry | undefined;
+
   imagesUrlsPageLeftPane:Media[] | undefined
   imagesUrlsPageBody:Media[] | undefined
   documents:Media[] | undefined
@@ -55,31 +63,42 @@ export class PortfolioDetailsComponent implements OnInit {
       this.detailsId = detailsId;
       console.log("Przekazałem id na kliknięcie: "+detailsId)
       
-      this.porftolioApi.getEntryDetails(detailsId).subscribe((data) => {
-        this.portfolioDetails = data;
-        this.imagesUrlsPageLeftPane = data.imagesUrlsPageLeftPane
-        this.imagesUrlsPageBody = data.imagesUrlsPageBody
-        this.documents = data.documents
-        console.log("klasa detailsowa")
-        console.log(this.portfolioDetails)
-      });
     });
 
     this.gridService.arrayDataToPass$.subscribe(portfolioEntry => {
-      this.locationName = portfolioEntry.tittle;
-      console.log("location name:")
-      console.log(this.locationName)
+      this.imagesUrlsPageLeftPane = portfolioEntry.imagesUrlsPageLeftPane
 
-      console.log("entry tittle:")
-      console.log(portfolioEntry.tittle)
+      this.imagesUrlsPageBody = portfolioEntry.imagesUrlsPageBody
 
-      this.designedElements = portfolioEntry.designedElements
-      this.wojewodztwo = portfolioEntry.wojewodztwo
-      this.powiat = portfolioEntry.powiat
+      if (portfolioEntry.tittle !== undefined) {
+        this.locationName = portfolioEntry.tittle;
+      }
+      if (portfolioEntry.designedElements !== undefined) {
+        this.designedElements = portfolioEntry.designedElements;
+      }
+      if (portfolioEntry.powiat !== undefined) {
+        this.powiat = portfolioEntry.powiat;
+      }
+      if (portfolioEntry.wojewodztwo !== undefined) {
+        this.wojewodztwo = portfolioEntry.wojewodztwo;
+      }
+      if (portfolioEntry.locationDetails !== undefined) {
+        this.locationDetails = portfolioEntry.locationDetails;
+      }
+      if (portfolioEntry.locationDetails !== undefined) {
+        this.locationDetails = portfolioEntry.locationDetails;
+      }
+      if (portfolioEntry.coatOfArmsDescription !== undefined) {
+        this.coatOfArmsDescription = portfolioEntry.coatOfArmsDescription;
+      }
+      if (portfolioEntry.symbolsDescription !== undefined) {
+        this.symbolsDescription = portfolioEntry.symbolsDescription;
+      }
+      if (portfolioEntry.history !== undefined) {
+        this.history = portfolioEntry.history;
+      }
   
     });
-
-
 
   }
 
@@ -100,29 +119,17 @@ export class PortfolioDetailsComponent implements OnInit {
   }
 
   modifyEntry() {
+    
     this.data.id=this.detailsId;
-    console.log("this.locationName")
-    console.log(this.locationName)
-    if(this.locationName){
-      this.data.tittle = this.locationName
-    }
-    if(this.designedElements){
-      this.data.designedElements = this.designedElements;
-    }
-    if (this.powiat) {
-      this.data.powiat = this.powiat;
-    }
-    if (this.wojewodztwo) {
-      this.data.wojewodztwo = this.wojewodztwo;
-    }
-    if(this.portfolioDetails){
-      this.data.locationDetails = this.portfolioDetails.locationDetails
-      this.data.coatOfArmsDescription = this.portfolioDetails.coatOfArmsDescription
-      this.data.symbolsDescription = this.portfolioDetails.symbolsDescription
-      this.data.history = this.portfolioDetails.history
-    }
-    console.log("data do zapisu")
-    console.log(this.data)
+    this.data.tittle = this.locationName
+    this.data.designedElements = this.designedElements;
+    this.data.powiat = this.powiat;
+    this.data.wojewodztwo = this.wojewodztwo;
+    this.data.locationDetails = this.locationDetails
+    this.data.coatOfArmsDescription = this.coatOfArmsDescription
+    this.data.symbolsDescription = this.symbolsDescription
+    this.data.history = this.history
+
     this.porftolioApi.modifyEntry(this.data).subscribe(response => {
       console.log(response);
     });

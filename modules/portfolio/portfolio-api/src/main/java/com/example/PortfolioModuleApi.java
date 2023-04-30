@@ -8,11 +8,9 @@ public interface PortfolioModuleApi {
 
   Page getPortfolioEntries(PortfolioEntryDomain portfolioEntryDomain, Pageable pageable);
 
-  PortfolioEntryDetailsDomain getPortfolioEntryDetails(Long id);
-
   List getPortfolioMediaModels(Long entryId);
 
-  void savePortfolioEntry(PortfolioEntryDomain portfolioEntryDomain, PortfolioEntryDetailsDomain entryDetails);
+  void savePortfolioEntry(PortfolioEntryDomain portfolioEntryDomain);
 
   void deleteEntries(List<Long> ids);
 

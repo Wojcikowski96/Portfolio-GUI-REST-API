@@ -1,15 +1,11 @@
 package com.example.portfolio.impl;
 
-import com.example.PortfolioEntryDetailsDomain;
 import com.example.PortfolioEntryDomain;
 import com.example.PortfolioMediaDomain;
 import com.example.PortfolioModuleApi;
-import com.example.portfolio.mapper.PortfolioEntryDetailsMapper;
 import com.example.portfolio.mapper.PortfolioEntryMapper;
 import com.example.portfolio.model.PortfolioMediaModel;
 import com.example.portfolio.model.PortfolioItemModel;
-import com.example.portfolio.model.PortfolioItemModelDetails;
-import com.example.portfolio.repository.PortfolioDetailsRepository;
 import com.example.portfolio.repository.PortfolioImageRepository;
 import com.example.portfolio.repository.PortfolioRepository;
 import com.example.portfolio.specification.PortfolioSearchSpecification;
@@ -31,9 +27,6 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   PortfolioRepository portfolioRepository;
 
   @Autowired
-  PortfolioDetailsRepository portfolioDetailsRepository;
-
-  @Autowired
   PortfolioImageRepository imagesRepository;
 
   @Autowired
@@ -41,9 +34,6 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
   @Autowired
   PortfolioSearchSpecification portfolioSearchSpecification;
-
-  @Autowired
-  PortfolioEntryDetailsMapper portfolioDetailsEntryMapper;
 
   @Autowired
   PortfolioEntryMapper portfolioEntryMapper;
@@ -62,27 +52,10 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   }
 
   @Override
-  public PortfolioEntryDetailsDomain getPortfolioEntryDetails(Long id) {
-
-    Optional<PortfolioItemModelDetails> portfolioDetailsOptional = Optional.ofNullable(
-        portfolioDetailsRepository.findById(id).orElseThrow(
-            () -> ExceptionsFactory.createNotFound(
-                "Nie znaleziono wpisu portfolio o id: " + id, "NZWP", null)));
-
-    return portfolioDetailsEntryMapper.modelToDomain(portfolioDetailsOptional.get());
-  }
-
-  @Override
-  public void savePortfolioEntry(PortfolioEntryDomain portfolioEntryDomain,
-                                 PortfolioEntryDetailsDomain portfolioEntryDetailsDomain) {
+  public void savePortfolioEntry(PortfolioEntryDomain portfolioEntryDomain) {
 
     PortfolioItemModel portfolioItemModel =
         portfolioEntryMapper.domainToModel(portfolioEntryDomain);
-
-    PortfolioItemModelDetails portfolioItemModelDetails =
-        portfolioDetailsEntryMapper.domainToModel(portfolioEntryDetailsDomain);
-
-    portfolioItemModel.setPortfolioItemModelDetails(portfolioItemModelDetails);
 
     if (portfolioEntryDomain.getId() == null) {
 
@@ -95,17 +68,9 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
               () -> ExceptionsFactory.createNotFound(
                   "Nie znaleziono wpisu portfolio o id: " + portfolioEntryDomain.getId(), "NZWP", null)));
 
-      Optional<PortfolioItemModelDetails> portfolioDetailsItemModelOptional = Optional.ofNullable(
-              portfolioDetailsRepository.findById(portfolioEntryDomain.getId()).orElseThrow(
-                      () -> ExceptionsFactory.createNotFound(
-                              "Nie znaleziono wpisu portfolio o id: " + portfolioEntryDomain.getId(), "NZWP", null)));
 
       PortfolioItemModel mergedMainItem =
           Utils.updater(portfolioItemModelOptional.get(), portfolioItemModel);
-
-      PortfolioItemModelDetails mergedDetailsItem = Utils.updater(portfolioDetailsItemModelOptional.get(), portfolioItemModel.getPortfolioItemModelDetails());
-
-      mergedMainItem.setPortfolioItemModelDetails(mergedDetailsItem);
 
       portfolioRepository.save(mergedMainItem);
 
@@ -124,11 +89,6 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
     List<PortfolioMediaDomainImpl> imagesList =
         getPortfolioMediaModels(entryId);
 
-    Optional<PortfolioItemModelDetails> portfolioDetailsOptional = Optional.ofNullable(
-        portfolioDetailsRepository.findById(entryId).orElseThrow(
-            () -> ExceptionsFactory.createNotFound(
-                "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
-
     Optional<PortfolioItemModel> portfolioOptional = Optional.ofNullable(
         portfolioRepository.findById(entryId).orElseThrow(
             () -> ExceptionsFactory.createNotFound(
@@ -146,13 +106,13 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
     }
 
     try {
-      PortfolioMediaModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
+      PortfolioMediaModel mediaModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
 
       if (portfolioMediaDomain.getId() == null) {
 
-        imageModel.setPortfolioItemModelDetails(portfolioDetailsOptional.get());
+        mediaModel.setPortfolioItemModel(portfolioOptional.get());
 
-        imageModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+        mediaModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
 
         if (portfolioMediaDomain.getName().equals("Herb")) {
 
@@ -163,8 +123,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
           portfolioRepository.save(model);
         }
 
-
-        imagesRepository.save(imageModel);
+        imagesRepository.save(mediaModel);
 
       }
 
@@ -177,8 +136,8 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   @Override
   public void uploadDocument(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
 
-    Optional<PortfolioItemModelDetails> portfolioItemModelOptional = Optional.ofNullable(
-        portfolioDetailsRepository.findById(entryId).orElseThrow(
+    Optional<PortfolioItemModel> portfolioItemModelOptional = Optional.ofNullable(
+        portfolioRepository.findById(entryId).orElseThrow(
             () -> ExceptionsFactory.createNotFound(
                 "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
 
@@ -202,7 +161,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
       if (portfolioMediaDomain.getId() == null) {
 
-        imageModel.setPortfolioItemModelDetails(portfolioItemModelOptional.get());
+        imageModel.setPortfolioItemModel(portfolioItemModelOptional.get());
 
         imageModel.setImageUrl(Utils.generateDocumentUrl(entryId, portfolioMediaDomain.getName()));
 
@@ -238,7 +197,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   public List<PortfolioMediaDomainImpl> getPortfolioMediaModels(Long entryId) {
 
     Optional<List<PortfolioMediaModel>> imagesList = Optional.ofNullable(
-        imagesRepository.findByPortfolioItemModelDetailsId(entryId).orElseThrow(
+        imagesRepository.findByPortfolioItemModelId(entryId).orElseThrow(
             () -> ExceptionsFactory.createNotFound(
                 "Nie znaleziono plików dla wpisu o id: " + entryId, "NZPDW", null)));
 

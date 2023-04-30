@@ -64,7 +64,7 @@ public class Utils {
     if(Objects.equals(imageName, "")){
       url = "http://localhost:8080/blog/image?entryId="+entryID;
     }else{
-      url = "http://localhost:8080/portfolio/details/image?entryId="+entryID+"&imageName="+imageName;
+      url = "http://localhost:8080/portfolio/image?entryId="+entryID+"&imageName="+imageName;
     }
 
     return url;
