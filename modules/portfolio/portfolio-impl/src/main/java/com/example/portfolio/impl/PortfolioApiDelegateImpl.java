@@ -141,17 +141,6 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
     return ResponseEntity.status(HttpStatus.OK).body(res);
   }
 
-//  @Override
-//  public ResponseEntity<PortfolioEntryDetailsDTO> getPortfolioDetails(Long entryId) {
-//
-//    PortfolioEntryDetailsDTO portfolioEntryDetailsDTO = portfolioEntryDetailsMapper.domainToRest(
-//        (PortfolioDetails) portfolioModuleApi.getPortfolioEntryDetails(entryId));
-//
-//    portfolioEntryDetailsMapper.distributeMediaToDTO(portfolioModuleApi.getPortfolioMediaModels(entryId), portfolioEntryDetailsDTO);
-//
-//    return ResponseEntity.ok(portfolioEntryDetailsDTO);
-//  }
-
   @Override
   public ResponseEntity<Void> deletePortfolioEntries(List<Long> entryId) {
 

@@ -62,6 +62,9 @@ export class PortfolioDetailsComponent implements OnInit {
     this.gridService.detailsId$.subscribe(detailsId => {
       this.detailsId = detailsId;
       console.log("Przekazałem id na kliknięcie: "+detailsId)
+      if(detailsId==undefined){
+
+      }
       
     });
 

@@ -35,9 +35,9 @@ export class PortfolioComponent implements OnInit {
     // this.tittleToPass = this.getTitleById(id);
     if(id){
       this.portfolioItemToPass = this.getEntryById(id)
+    }else{
+      this.portfolioItemToPass = new PortfolioEntry()
     }
-    
-
     if(this.portfolioItemToPass !==undefined){
       this.gridService.changePortfolioData(this.portfolioItemToPass);
     }

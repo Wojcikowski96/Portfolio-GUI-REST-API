@@ -1,11 +1,13 @@
 .grid-container{
     display: inline-grid;
-    grid-template-columns: auto auto auto;
-    grid-column-gap: 50px;
-    grid-row-gap: 50px;
+    grid-template-columns: 33% 33% 33%; 
+    grid-column-gap: 1%;
+    grid-row-gap: 1%;
     width: 100%;
     height: 100%;
     margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto
 }
 
 @font-face {
@@ -17,8 +19,10 @@
     box-shadow: 3px 3px 5px 6px gainsboro;
     text-align: center;
     padding: 10px;
-    height: 100%
-    
+    height: 1000px;
+    width: 90%;
+    margin: auto;
+
 }
 .tile:hover{
     box-shadow: 0px 0px 2px 2px #ccc;
@@ -76,6 +80,8 @@ h1.powiatName{
     font-size: 25px;
     font-family: 'Antykwa';
     margin: 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
 }
 .createdAt{
@@ -97,27 +103,33 @@ h1.powiatName{
   
 }
 
-.dateDiv{
-    position: relative;
-    height: 50%;
-    
-    
-}
+
 h1.number{
     position: relative;
     font-size: 25px;
     font-family: 'Antykwa'
 }
-.footerDiv{
+.designedElementsDiv{
     position: relative;
     border-top: solid;
-    border-bottom: solid;
-    height: 21%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    margin-bottom:10px
+}
+.dateDiv{
+    position: relative;
+    border-top: solid;
+    height: 5%;
     margin-bottom:10px
 }
 .locationDiv{
-    height: 10%;
-    margin-bottom: 5%
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+    margin-bottom: 10%
 }
 
 .banner{
@@ -125,6 +137,9 @@ h1.number{
     background-color: brown;
     text-align: center;
     margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%
 }
 
  h1:first-child{
