@@ -1,5 +1,5 @@
-<h1 class = header>
-    Aby kontynuować musisz się zalogować
+<h1 class="banner">
+  Zaloguj się
 </h1>
 <form class='login-form'>
     <div class="flex-row">
@@ -21,6 +21,7 @@
       <input id="password" class='lf--input' placeholder='Hasło' type='password' [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
     </div>
     <button (click)="authenticate()" class='lf--submit' type='submit'>Zaloguj</button>
-    <h1 *ngIf="isWrongData" style="font-family: Antykwa; color: red; text-align: center;">Błędne dane logowania</h1>
-    <h1 *ngIf="!isWrongData" style="font-family: Antykwa; color: green; text-align: center;">Zalogowano pomyślnie</h1>
+    <h1 *ngIf="isWrongData && buttonClicked && !isLoading" style="font-family: Antykwa; color: red; text-align: center;">Błędne dane logowania</h1>
+    <h1 *ngIf="!isWrongData && buttonClicked && !isLoading" style="font-family: Antykwa; color: green; text-align: center;">Zalogowano pomyślnie</h1>
+    <h1 *ngIf="isLoading" style="font-family: Antykwa; text-align: center;">Sprawdzam...</h1>
   </form>

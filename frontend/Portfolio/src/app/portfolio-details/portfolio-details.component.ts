@@ -5,6 +5,9 @@ import { Media } from '../responses/Media';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/AuthService';
 import { PortfolioEntry } from '../responses/PortfolioEntry';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
 @Component({
   selector: 'app-portfolio-details',
   templateUrl: './portfolio-details.component.html',
@@ -133,7 +136,16 @@ export class PortfolioDetailsComponent implements OnInit {
     this.data.symbolsDescription = this.symbolsDescription
     this.data.history = this.history
 
-    this.porftolioApi.modifyEntry(this.data).subscribe(response => {
+    this.porftolioApi.modifyEntry(this.data) .pipe(
+      catchError((error) => {
+
+        if (error.status === 401) {
+          this.router.navigateByUrl('login')
+        }
+        return throwError(error);
+      })
+    )
+    .subscribe(response => {
       console.log(response);
     });
   }

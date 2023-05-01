@@ -5,7 +5,7 @@ $green-light: #00d6b7;
 $gray:        #8f8f8f;
 $gray-light:  #f5f6f8;
 $brown:  brown;
-
+$white: white;
 * {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -15,10 +15,25 @@ $brown:  brown;
     src: url(../Resources/AntykwaTorunska-Regular.ttf);
 }
 
+h1.banner{
+  margin-top: 150px;
+  position: relative;
+  color: $white;
+  background-color: $brown;
+  width: 100%;
+  text-align: center;
+  line-height: 300%;
+  font-size: 35px;
+  width:71%;  
+  margin-right: auto;
+  margin-left:auto
+
+}
+
 .login-form {
 box-shadow: 3px 3px 5px 6px gainsboro;
   width: 65%;
-  margin-top:100px;
+  // margin-top:100px;
   margin-left:auto;
   margin-right:auto;
   padding: 2em;
