@@ -11,6 +11,7 @@ import { PortfolioDetailsComponent } from './portfolio-details/portfolio-details
 import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { DragAndDropDirective } from './drag-and-drop/DragAndDrop';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
     PortfolioDetailsComponent,
     BlogComponent,
     LoginFormComponent,
+    DragAndDropDirective
   ],
   imports: [
     BrowserModule,

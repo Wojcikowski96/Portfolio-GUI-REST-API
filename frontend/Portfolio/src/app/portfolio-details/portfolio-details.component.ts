@@ -13,6 +13,7 @@ import { throwError } from 'rxjs';
   templateUrl: './portfolio-details.component.html',
   styleUrls: ['./portfolio-details.component.scss']
 })
+
 export class PortfolioDetailsComponent implements OnInit {
   detailsVisible = true;
   editFormVisible = false;
@@ -147,6 +148,23 @@ export class PortfolioDetailsComponent implements OnInit {
     )
     .subscribe(response => {
       console.log(response);
+    });
+  }
+
+  onFilesDropped(files: FileList) {
+    const file = files[0];
+    const formData = new FormData();
+    formData.append('fileByteString', file);
+    console.log("wrzucam plik:")
+    console.log(file)
+    formData.append('name','Herb')
+    formData.append('type','IMAGE_LEFT_PANE')
+    this.porftolioApi.uploadImageToPortfolio(this.detailsId, formData).subscribe(() => {
+      console.log('Plik został przesłany na serwer.');
+    }, error => {
+      if(error.status = 401){
+        this.router.navigateByUrl('login')
+      }
     });
   }
 

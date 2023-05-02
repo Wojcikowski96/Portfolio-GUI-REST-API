@@ -101,14 +101,9 @@
         <div *ngFor="let image of imagesUrlsPageLeftPane">
           <img *ngIf="image.name === 'Herb'" src={{image.url}} id="herb">
         </div>
-        <!-- <div *ngIf="editFormVisible" class="file-drop-zone" 
-     cdkDropList 
-     (cdkDropListDropped)="drop($event)">
-  <div class="file-drop-zone-inner">
-    <input type="file" (change)="onFileChanged($event)">
-    <p>Upuść plik lub kliknij, aby wybrać plik do przesłania</p>
-  </div>
-</div> -->
+        <div style="height: 200px; width:200px; background-color: white; margin: auto; font-size: 180px; color: grey;" *ngIf=" editFormVisible" appDragAndDrop (filesDropped)="onFilesDropped($event)">
+          +
+        </div>
         <h1 class="label">
           Herb
         </h1>
