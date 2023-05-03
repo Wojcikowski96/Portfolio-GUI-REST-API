@@ -301,6 +301,14 @@ h1.label{
       -o-animation: fadeinD 1s; /* Opera < 12.1 */
          animation: fadeinD 1s;
 }
+.addImage{
+    height: 100%; 
+    width:100%; 
+    background-color: white; 
+    margin: auto; 
+    font-size: 180px; 
+    color: grey;
+}
 
 #herb{
     width: 90%; 
@@ -309,8 +317,8 @@ h1.label{
     width: 100%;
 }
 .banner-wrapper{
-    margin: auto;
     width: 60%;
+    margin: auto
 
 }
 #flaga{

@@ -17,6 +17,9 @@ import { throwError } from 'rxjs';
 export class PortfolioDetailsComponent implements OnInit {
   detailsVisible = true;
   editFormVisible = false;
+  imageName!: string | '';
+
+  results: Array<PortfolioEntry> | undefined;
 
   data = {
     id:0,
@@ -29,7 +32,14 @@ export class PortfolioDetailsComponent implements OnInit {
     symbolsDescription: '',
     history: ''
   };
- 
+  
+  divKeyValues = [
+    { id: 'Herb', name: 'sidebarheader' },
+    { id: 'Flaga', name: 'flag-wrapper' },
+    { id: 'Pieczęć', name: 'pieczecie-row2' },
+    { id: 'Banner', name: 'banner-wrapper' },
+  
+  ];
   
   detailsId:any | undefined;
 
@@ -54,6 +64,8 @@ export class PortfolioDetailsComponent implements OnInit {
   imagesUrlsPageLeftPane:Media[] | undefined
   imagesUrlsPageBody:Media[] | undefined
   documents:Media[] | undefined
+
+  portfolioEntry:PortfolioEntry | undefined;
 
   onDetailsClosed() {
     this.detailsVisible = false;
@@ -151,21 +163,38 @@ export class PortfolioDetailsComponent implements OnInit {
     });
   }
 
-  onFilesDropped(files: FileList) {
+  onFilesDropped(files: FileList, fileName: string) {
     const file = files[0];
     const formData = new FormData();
     formData.append('fileByteString', file);
     console.log("wrzucam plik:")
     console.log(file)
-    formData.append('name','Herb')
+    formData.append('name',fileName)
     formData.append('type','IMAGE_LEFT_PANE')
     this.porftolioApi.uploadImageToPortfolio(this.detailsId, formData).subscribe(() => {
       console.log('Plik został przesłany na serwer.');
+      this.refreshImages();
     }, error => {
       if(error.status = 401){
         this.router.navigateByUrl('login')
       }
     });
+  }
+
+  refreshImages(){
+    this.porftolioApi.getEntries(1, 6, 'ASC', 'id').subscribe((data) => {
+      this.results = data.results
+      let portfolio = this.getEntryById(this.detailsId);
+      this.imagesUrlsPageBody = portfolio?.imagesUrlsPageBody
+      this.imagesUrlsPageLeftPane = portfolio?.imagesUrlsPageLeftPane
+      console.log(this.results)
+    });
+
+  }
+
+  getEntryById(id: number): PortfolioEntry | undefined {
+    return this.results?.find(entry => entry.id === id);
+    
   }
 
 }

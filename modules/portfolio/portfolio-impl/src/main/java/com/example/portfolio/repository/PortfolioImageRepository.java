@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface PortfolioImageRepository extends ImagesRepository<PortfolioMediaModel> {
  Optional<List<PortfolioMediaModel>> findByPortfolioItemModelId(Long id);
+ Optional<PortfolioMediaModel> findByName(String name);
 }

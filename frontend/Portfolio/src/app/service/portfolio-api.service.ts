@@ -14,6 +14,7 @@ export class PortfolioApiService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getEntries(pageNo: number, pageSize: number, sortDir: string, sortBy: string): Observable<PortfolioPageResponse> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     const params = {
       pageNo: pageNo.toString(),
       pageSize: pageSize.toString(),
@@ -21,7 +22,7 @@ export class PortfolioApiService {
       sortBy: sortBy
     };
     console.log(params)
-    return this.http.post<PortfolioPageResponse>(this.baseUrl, params).pipe(map(({pageNo, pageSize, totalElements, totalPages, results})=> new PortfolioPageResponse(pageNo, pageSize, totalElements, totalPages, results)));
+    return this.http.post<PortfolioPageResponse>(this.baseUrl, params, {headers}).pipe(map(({pageNo, pageSize, totalElements, totalPages, results})=> new PortfolioPageResponse(pageNo, pageSize, totalElements, totalPages, results)));
   }
 
 

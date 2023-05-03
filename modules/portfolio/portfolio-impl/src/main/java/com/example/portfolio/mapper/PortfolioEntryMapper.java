@@ -30,7 +30,7 @@ public abstract class PortfolioEntryMapper {
   @Mappings({@Mapping(source="url", target="imageUrl"),
       @Mapping(source = "modificationDate", target="modificationDate", dateFormat = "dd.MM.yyyy HH:mm"),
       @Mapping(source = "creationDate", target = "creationDate", dateFormat = "dd.MM.yyyy HH:mm"),
-      @Mapping(source = "projectType", target = "designedElements", dateFormat = "dd.MM.yyyy HH:mm"),
+      @Mapping(source = "projectType", target = "designedElements"),
       @Mapping(source = "aboutLocation", target = "locationDetails")})
   public abstract PortfolioEntryDTO domainToRest(PortfolioEntryDomainImpl model);
 

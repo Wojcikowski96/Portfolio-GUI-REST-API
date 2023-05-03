@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "95c787d5-0b60-4f62-8273-c9107bf96ee5",
+		"_postman_id": "c1ef5072-3977-48a1-b1b6-ae0a376ca765",
 		"name": "portfolio",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9749664"
@@ -30,7 +30,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"wojcikowski1@gmail.com\",\r\n    \"password\": \"test2\"\r\n}",
+							"raw": "{\r\n    \"email\": \"wojcikowski1@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -86,7 +86,7 @@
 					"response": []
 				},
 				{
-					"name": "saveOrUpdateEntry",
+					"name": "SaveOrUpdateEntry",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -102,7 +102,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\":234243,\r\n    \"tittle\": 545\r\n}",
+							"raw": "{\r\n    \"content\":234243,\r\n    \"tittle\": 23442343\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,7 +145,7 @@
 								{
 									"key": "fileByteString",
 									"type": "file",
-									"src": "/C:/Users/a884871/OneDrive - Atos/Dokumenty/Przekazywanie DTO.PNG"
+									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/test.jpg"
 								},
 								{
 									"key": "name",
@@ -154,13 +154,13 @@
 								},
 								{
 									"key": "type",
-									"value": "IMAGE_BODY",
+									"value": ".png",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry/uploadImage?entryId=5",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entry/uploadImage?entryId=3",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -184,7 +184,7 @@
 								},
 								{
 									"key": "entryId",
-									"value": "5"
+									"value": "3"
 								}
 							]
 						}
@@ -207,7 +207,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entries/delete?entryId=7",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/blog/entries?entryId=11",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -215,13 +215,12 @@
 							"port": "{{port}}",
 							"path": [
 								"blog",
-								"entries",
-								"delete"
+								"entries"
 							],
 							"query": [
 								{
 									"key": "entryId",
-									"value": "7"
+									"value": "11"
 								}
 							]
 						}
@@ -267,13 +266,13 @@
 			"name": "Email",
 			"item": [
 				{
-					"name": "sendEmail",
+					"name": "SendEmail",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tittle\":\"Propozycja współpracy\",\r\n    \"content\":\"Jestem zainteresowany współpracą, proszę o więcej info\",\r\n    \"email\":\"einfall@vp.pl\",\r\n    \"nick\": \"szatan666\"\r\n}",
+							"raw": "{\r\n    \"tittle\":\"Propozycja współpracy\",\r\n    \"content\":\"Jestem zainteresowany współpracą, proszę o więcej info\",\r\n    \"email\":\"einfall@vp.pl\",\r\n    \"nick\":\"szatan666\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -301,177 +300,7 @@
 			"name": "Portfolio",
 			"item": [
 				{
-					"name": "getPortfolioEntries",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"DESC\",\r\n    \"sortBy\" : \"creationDate\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entries",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{domain}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"portfolio",
-								"entries"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getPortfolioEntryDetails",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/details?entryId=1",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{domain}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"portfolio",
-								"entry",
-								"details"
-							],
-							"query": [
-								{
-									"key": "entryId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "uploadImagePortfolioDetails",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{authToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "fileByteString",
-									"type": "file",
-									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/tree-736885_960_720.jpg"
-								},
-								{
-									"key": "name",
-									"value": "Herb",
-									"type": "text"
-								},
-								{
-									"key": "type",
-									"value": "IMAGE_LEFT_PANE",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadImage?entryId=1",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{domain}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"portfolio",
-								"entry",
-								"uploadImage"
-							],
-							"query": [
-								{
-									"key": "entryId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "uploadDocumentPortfolioDetails",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{authToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "fileByteString",
-									"type": "file",
-									"src": "/C:/Users/a884871/OneDrive - Atos/Dokumenty/Wójcikowski Łukasz - aneks nr 1 od 06.12.2022 do umowy zlecenie 01.10.2022.pdf"
-								},
-								{
-									"key": "name",
-									"value": "Uzasadnienie1",
-									"type": "text"
-								},
-								{
-									"key": "type",
-									"value": "DOCUMENT",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadDocument?entryId=1",
-							"protocol": "{{protocol}}",
-							"host": [
-								"{{domain}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"portfolio",
-								"entry",
-								"uploadDocument"
-							],
-							"query": [
-								{
-									"key": "entryId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "uploadPortfolioEntry",
+					"name": "uploadEntry",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -487,7 +316,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tittle\":\"Miasto i gmina Chorzele\",\r\n    \"designedElements\":\"Herb, Pieczęć, Baner\",\r\n    \"wojewodztwo\": \"województwo mazowieckie\",\r\n    \"powiat\": \"powiat ostrołęcki\",\r\n    \"locationDetails\": \"Gmina miejsko-wiejska w powiecie przasnyskim i województwie mazowieckim. Zamieszkuje ją około 10 200 osób, z czego w samym mieście około 3 100 osób. Miasto Chorzele, lokowane w XV wieku, było miastem królewskim Korony Królestwa polskiego. Prawa miejskie utraciło w 1870 roku i odzyskało w 1919 roku.\",\r\n    \"coatOfArmsDescription\": \"W polu srebrnym drzewo zielone o trzech korzeniach i dwóch konarach, z których prawy dodatkowo rozgałęziony na dwa mniejsze, na którego szczycie znajduje się owoc karczocha zielony; na lewo od pnia róg myśliwski czarny z okuciami, ustnikiem i wylotem złotymi, ułożony na opak w skos. Godło herbowe znane z XVI i XVII-wiecznych pieczęci miejskich. Motyw drzewa z karczochem zaczerpnięty został być może z medalionu królowej Bony autorstwa Jana Marii Padovano. Karczoch to symbol płodności i użyczenie tego motywu herbowi miasta mogło stanowić pomyślną wróżbę na przyszłość. Róg myśliwski dodano zapewne w nawiązaniu do obfitości zwierzyny w okolicznych lasach.\",\r\n    \"symbolsDescription\": \"Razem z herbem opracowane zostały także flaga, banner oraz pieczęcie: ogólna, burmistrza i rady miejskiej\",\r\n    \"history\":\"Herb oraz inne symbole gminy Chorzele zostały przyjęte 5 sierpnia 2012 roku.\"\r\n\r\n}",
+							"raw": "{\r\n    \"tittle\":\"Gmina Młynarze\",\r\n    \"designedElements\":\"Herb, Pieczęć, Baner\",\r\n    \"wojewodztwo\": \"województwo mazowieckie\",\r\n    \"powiat\": \"powiat makowski\",\r\n    \"locationDetails\": \"Gmina wiejska w województwie mazowieckim w powiecie makowskim. Zajmuje obszar 75,04 km², mieszka tutaj około 1700 mieszkańców, z czego około 200 w miejscowości gminnej fdsdffsfds.\",\r\n    \"coatOfArmsDescription\": \"Herb gminy Młynarze przedstawia w polu czerwonym trzy koła wodne srebrne, dwa nad jednym, pomiędzy którymi korona złota, otwarta z czterema kwiatonami, nad którą takaż gwiazda.Trzy koła wodne nawiązują do etymologii nazwy gminy, która miała wziąć się od trzech młynów na rzece Róż. Korona z gwiazdą to zaszczytniejsze godło z herbu Kapituły katedralnej płockiej. To właśnie na terenie gminy leży Sieluń, będący ośrodkiem tzw. Księstwa Sieluńskiego, czyli klucza dóbr będących uposażeniem prepozyta płockiego.\",\r\n    \"symbolsDescription\": \"Flaga gminy Młynarze to płat prostokątny o proporcji 5:8, który dzieli się pionowo na dwie strefy. Strefa czołowa czerwona, obarczona godłem herbu, strefa swobodna podzielona na pasy poziome równej wysokości, kolejno żółty, czerwony, biały, czerwony, żółty. Barwy pasów wywiedziono z barw herbu.Baner gminy Młynarze jest pionowym odpowiednikiem flagi, o proporcji 4:1.Pieczęć gminy Młynarze jest okrągła, o średnicy 36 mm i przedstawia godło w części centralnej oraz legendę otokową * GMINA * MŁYNARZE.\",\r\n    \"history\":\"Herb oraz inne symbole gminy Młynarze uzyskały 10 lutego 2012 pozytywną opinię Ministra właściwego ds. administracji publicznej i zostały oficjalnie uchwalone przez Radę Gminy 30 marca 2012.\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -510,12 +339,165 @@
 					"response": []
 				},
 				{
+					"name": "uploadImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileByteString",
+									"type": "file",
+									"src": "/C:/Users/a884871/OneDrive - Atos/Obrazy/1660.png"
+								},
+								{
+									"key": "name",
+									"value": "Bona pieczęć3",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "IMAGE_BODY",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadImage?entryId=10005",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entry",
+								"uploadImage"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "10005"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadPDF",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileByteString",
+									"type": "file",
+									"src": "/C:/Users/a884871/Documents/portfolio-frontend-old/Portfolio/Portfolio/Chorzele/Uzasadnienie-Chorzele.pdf"
+								},
+								{
+									"key": "name",
+									"value": "Uzasadnienie PDF3",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "DOCUMENT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entry/uploadDocument?entryId=4",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entry",
+								"uploadDocument"
+							],
+							"query": [
+								{
+									"key": "entryId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEntries",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageNo\" : 1,\r\n    \"pageSize\" : 50,       \r\n    \"sortDir\" : \"ASC\",\r\n    \"sortBy\" : \"tittle\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entries",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"portfolio",
+								"entries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "deleteEntries",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entries/delete?entryId=2",
+							"raw": "{{protocol}}://{{domain}}:{{port}}/portfolio/entries/delete?entryId=10002&entryId=10003&entryId=10004",
 							"protocol": "{{protocol}}",
 							"host": [
 								"{{domain}}"
@@ -529,12 +511,15 @@
 							"query": [
 								{
 									"key": "entryId",
-									"value": "2"
+									"value": "10002"
 								},
 								{
 									"key": "entryId",
-									"value": "10003",
-									"disabled": true
+									"value": "10003"
+								},
+								{
+									"key": "entryId",
+									"value": "10004"
 								}
 							]
 						}

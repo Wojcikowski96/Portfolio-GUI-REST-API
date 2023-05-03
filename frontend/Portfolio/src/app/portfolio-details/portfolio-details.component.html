@@ -94,43 +94,21 @@
     </div>
     
     <div class="sidebar" >
-      <div class="sidebarheader">
-        <h1 class="insygnia-label">
-          Insygnia gminy
-        </h1>
+      <h1 class="insygnia-label">
+        Insygnia gminy
+      </h1>
+      <div *ngFor="let div of divKeyValues" [ngClass]="div.name">
         <div *ngFor="let image of imagesUrlsPageLeftPane">
-          <img *ngIf="image.name === 'Herb'" src={{image.url}} id="herb">
+          <img *ngIf="image.name === div.id" src={{image.url}} id="baner">
         </div>
-        <div style="height: 200px; width:200px; background-color: white; margin: auto; font-size: 180px; color: grey;" *ngIf=" editFormVisible" appDragAndDrop (filesDropped)="onFilesDropped($event)">
+        <div class="addImage" *ngIf=" editFormVisible" appDragAndDrop (filesDropped)="onFilesDropped($event, div.id)">
           +
         </div>
         <h1 class="label">
-          Herb
+          {{div.id}}
         </h1>
       </div>
-      <div *ngFor="let image of imagesUrlsPageLeftPane">
-        <img *ngIf="image.name === 'Flaga'" src={{image.url}} id="flaga">
-      </div>
-      <h1 class="label">
-        Flaga
-      </h1>
 
-     <div class ="pieczecie-row2">
-      <div *ngFor="let image of imagesUrlsPageLeftPane">
-        <img *ngIf="image.name === 'Pieczec'" src={{image.url}} id="pieczec">
-      </div>
-     </div>
-      <h1 class="label">
-        Pieczęć
-      </h1>
-      <div class="banner-wrapper">
-        <div *ngFor="let image of imagesUrlsPageLeftPane">
-          <img *ngIf="image.name === 'Baner'" src={{image.url}} id="baner">
-        </div>
-      </div>
-      <h1 class="label">
-        Baner
-      </h1>
     </div>
   </div>
 </body>

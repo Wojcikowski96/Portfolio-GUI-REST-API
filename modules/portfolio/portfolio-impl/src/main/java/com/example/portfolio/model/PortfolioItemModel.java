@@ -30,16 +30,16 @@ public class PortfolioItemModel extends BaseModel {
   @Column(name = "COAT_OF_ARMS_URL")
   private String url;
 
-  @Column(name= "ABOUT_LOCATION", columnDefinition = "text")
+  @Column(name= "ABOUT_LOCATION", columnDefinition = "varchar(1000)")
   private String aboutLocation;
 
-  @Column(name= "COAT_OF_ARMS_DESCRIPTION", columnDefinition = "text")
+  @Column(name= "COAT_OF_ARMS_DESCRIPTION", columnDefinition = "varchar(1000)")
   private String coatOfArmsDescription;
 
-  @Column(name = "SYMBOLS_DESCRIPTION", columnDefinition = "text")
+  @Column(name = "SYMBOLS_DESCRIPTION" , columnDefinition = "varchar(1000)")
   private String symbolsDescription;
 
-  @Column(name = "HISTORY_DESCRIPTION", columnDefinition = "text")
+  @Column(name = "HISTORY_DESCRIPTION" , columnDefinition = "varchar(1000)")
   private String history;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "portfolioItemModel")

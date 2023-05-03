@@ -66,7 +66,8 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
       Optional<PortfolioItemModel> portfolioItemModelOptional = Optional.ofNullable(
           portfolioRepository.findById(portfolioEntryDomain.getId()).orElseThrow(
               () -> ExceptionsFactory.createNotFound(
-                  "Nie znaleziono wpisu portfolio o id: " + portfolioEntryDomain.getId(), "NZWP", null)));
+                  "Nie znaleziono wpisu portfolio o id: " + portfolioEntryDomain.getId(), "NZWP",
+                  null)));
 
 
       PortfolioItemModel mergedMainItem =
@@ -86,46 +87,57 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   @Override
   public void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
 
-    List<PortfolioMediaDomainImpl> imagesList =
-        getPortfolioMediaModels(entryId);
-
-    Optional<PortfolioItemModel> portfolioOptional = Optional.ofNullable(
-        portfolioRepository.findById(entryId).orElseThrow(
-            () -> ExceptionsFactory.createNotFound(
-                "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
-
-    if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioMediaDomain.getName()))) {
-      throw ExceptionsFactory.createInternalServerError(
-          "Nazwy plików per wpis nie mogą się powtarzać", "NPPWNSP", null);
-    }
-
-    if (portfolioMediaDomain.getType().equals("DOCUMENT")) {
-      throw ExceptionsFactory.createInternalServerError(
-          "Błędny typ " + portfolioMediaDomain.getType() + " dla operacji dodania obrazka",
-          "BTDODO", null);
-    }
-
+    PortfolioMediaModel mediaModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
     try {
-      PortfolioMediaModel mediaModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
+      List<PortfolioMediaDomainImpl> imagesList =
+          getPortfolioMediaModels(entryId);
 
-      if (portfolioMediaDomain.getId() == null) {
+      Optional<PortfolioItemModel> portfolioOptional = Optional.ofNullable(
+          portfolioRepository.findById(entryId).orElseThrow(
+              () -> ExceptionsFactory.createNotFound(
+                  "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
 
+      PortfolioMediaDomainImpl portfolioMediaDomainByName = imagesList.stream()
+          .filter(o -> o.getName().equals(portfolioMediaDomain.getName()))
+          .findFirst()
+          .orElse(null);
+
+      if (portfolioMediaDomainByName != null) {
+
+        Optional<PortfolioMediaModel> potfolioMediaModelOptional =
+            imagesRepository.findById(portfolioMediaDomainByName.getId());
+
+        PortfolioMediaModel mergedMediaModel =
+            Utils.updater(potfolioMediaModelOptional.get(), mediaModel);
+
+        mergedMediaModel.setImage(mediaModel.getImage());
+
+        imagesRepository.save(mergedMediaModel);
+
+      } else {
         mediaModel.setPortfolioItemModel(portfolioOptional.get());
 
         mediaModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
 
-        if (portfolioMediaDomain.getName().equals("Herb")) {
-
-          PortfolioItemModel model = portfolioOptional.get();
-
-          model.setUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
-
-          portfolioRepository.save(model);
-        }
-
         imagesRepository.save(mediaModel);
+      }
+      if (portfolioMediaDomain.getName().equals("Herb")) {
+
+        PortfolioItemModel portfolioItemModelToChangeUrl = portfolioOptional.get();
+
+        portfolioItemModelToChangeUrl.setUrl(
+            Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+
+        portfolioRepository.save(portfolioItemModelToChangeUrl);
 
       }
+
+      if (portfolioMediaDomain.getType().equals("DOCUMENT")) {
+        throw ExceptionsFactory.createInternalServerError(
+            "Błędny typ " + portfolioMediaDomain.getType() + " dla operacji dodania obrazka",
+            "BTDODO", null);
+      }
+
 
     } catch (IllegalArgumentException e) {
       throw ExceptionsFactory.createInternalServerError(

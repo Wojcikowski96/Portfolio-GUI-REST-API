@@ -93,15 +93,7 @@ export class PortfolioComponent implements OnInit {
     console.log("On details closed")
     this.toggleGrid();
   }
-  getTitleById(id: number): string | undefined {
-    const entry = this.results?.find(entry => entry.id === id);
-    return entry?.tittle;
-  }
 
-  getDesignedElementsById(id: number): string | undefined {
-    const entry = this.results?.find(entry => entry.id === id);
-    return entry?.designedElements;
-  }
   
   getEntryById(id: number): PortfolioEntry | undefined {
     return this.results?.find(entry => entry.id === id);
