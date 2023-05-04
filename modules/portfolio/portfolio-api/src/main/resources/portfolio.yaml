@@ -239,7 +239,28 @@ paths:
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
 
-
+  /portfolio/image/delete:
+    delete:
+      summary: Usuwa obrazek po id
+      description: Operacja dostępna dla wszystkich
+      operationId: deleteImage
+      parameters:
+        - in: query
+          name: imageId
+          explode: true
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '201':
+          description: Usunięto obrazek
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
 components:
   schemas:
     PortfolioRequestData:

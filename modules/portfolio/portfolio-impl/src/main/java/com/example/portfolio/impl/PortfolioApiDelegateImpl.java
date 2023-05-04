@@ -142,6 +142,14 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   }
 
   @Override
+  public ResponseEntity<Void> deleteImage(Long imageId) {
+
+    portfolioModuleApi.deleteImage(imageId);
+
+    return ResponseEntity.noContent().build();
+  }
+
+  @Override
   public ResponseEntity<Void> deletePortfolioEntries(List<Long> entryId) {
 
     portfolioModuleApi.deleteEntries(entryId);

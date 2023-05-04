@@ -85,6 +85,11 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   }
 
   @Override
+  public void deleteImage(Long imageId) {
+    imagesRepository.deleteById(imageId);
+  }
+
+  @Override
   public void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
 
     PortfolioMediaModel mediaModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);

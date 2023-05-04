@@ -14,6 +14,8 @@ public interface PortfolioModuleApi {
 
   void deleteEntries(List<Long> ids);
 
+  void deleteImage(Long imageId);
+
   void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId);
 
   void uploadDocument(PortfolioMediaDomain portfolioMediaDomain, Long entryId);

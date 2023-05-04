@@ -19,6 +19,8 @@ export class PortfolioDetailsComponent implements OnInit {
   editFormVisible = false;
   imageName!: string | '';
 
+  height: number = 0;
+
   results: Array<PortfolioEntry> | undefined;
 
   data = {
@@ -64,6 +66,8 @@ export class PortfolioDetailsComponent implements OnInit {
   imagesUrlsPageLeftPane:Media[] | undefined
   imagesUrlsPageBody:Media[] | undefined
   documents:Media[] | undefined
+
+  fileName: string | undefined
 
   portfolioEntry:PortfolioEntry | undefined;
 
@@ -129,6 +133,7 @@ export class PortfolioDetailsComponent implements OnInit {
     }
   }
   setEditable(){
+    this.height = 300;
     this.editFormVisible = !this.editFormVisible
   }
 
@@ -179,6 +184,27 @@ export class PortfolioDetailsComponent implements OnInit {
         this.router.navigateByUrl('login')
       }
     });
+  }
+
+  onFilesDroppedImageBody(files: FileList) {
+    const file = files[0];
+    const formData = new FormData();
+    formData.append('fileByteString', file);
+
+    if(this.fileName){
+      formData.append('name',this.fileName)
+      formData.append('type','IMAGE_BODY')
+      this.porftolioApi.uploadImageToPortfolio(this.detailsId, formData).subscribe(() => {
+        console.log('Plik został przesłany na serwer.');
+        this.refreshImages();
+      }, error => {
+        if(error.status = 401){
+          this.router.navigateByUrl('login')
+        }
+      });
+    }else{
+      alert("Aby wrzucić obrazek, musisz podać jego nazwę")
+    }
   }
 
   refreshImages(){
