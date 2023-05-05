@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PortfolioComponent } from './portfolio-main/portfolio.component';
@@ -37,6 +37,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(
       routes
     )

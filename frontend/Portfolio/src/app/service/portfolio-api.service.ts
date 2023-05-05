@@ -8,8 +8,10 @@ import { AuthService } from './AuthService';
   providedIn: 'root'
 })
 export class PortfolioApiService {
-  private baseUrl = 'http://localhost:8080/portfolio/entries';
-  private baseUrl2 = 'http://localhost:8080/portfolio/entry/uploadImage';
+  private getRequestUrl = 'http://localhost:8080/portfolio/entries';
+  private uploadImageUrl = 'http://localhost:8080/portfolio/entry/uploadImage';
+  private deleteImageUrl = 'http://localhost:8080/portfolio/image/delete';
+
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -22,7 +24,7 @@ export class PortfolioApiService {
       sortBy: sortBy
     };
     console.log(params)
-    return this.http.post<PortfolioPageResponse>(this.baseUrl, params, {headers}).pipe(map(({pageNo, pageSize, totalElements, totalPages, results})=> new PortfolioPageResponse(pageNo, pageSize, totalElements, totalPages, results)));
+    return this.http.post<PortfolioPageResponse>(this.getRequestUrl, params, {headers}).pipe(map(({pageNo, pageSize, totalElements, totalPages, results})=> new PortfolioPageResponse(pageNo, pageSize, totalElements, totalPages, results)));
   }
 
 
@@ -32,8 +34,14 @@ export class PortfolioApiService {
     return this.http.post(url, data, {headers});
   }
   uploadImageToPortfolio(entryId: number, formData:FormData) {
-    const url = `${this.baseUrl2}?entryId=${entryId}`;
+    const url = `${this.uploadImageUrl}?entryId=${entryId}`;
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
     return this.http.post(url, formData, { headers });
   }
+
+  deleteImageById(imageId: number){
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
+    return this.http.delete(`${this.deleteImageUrl}?imageId=${imageId}`,{headers});
+  }
+  
 }

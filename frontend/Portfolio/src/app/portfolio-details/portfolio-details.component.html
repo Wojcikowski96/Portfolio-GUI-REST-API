@@ -63,7 +63,8 @@
         </div>
         
       <div class="description-images-wrapper">
-      <div *ngFor="let image of imagesUrlsPageBody" class="image-wrapper">
+      <div [@inOutAnimation]="'in'"  *ngFor="let image of imagesUrlsPageBody" class="image-wrapper">
+        <div *ngIf="checkIsAdmin() && editFormVisible"  class = remove-item (click)="removeImageById(image.id)">X</div>
         <img class="image" src={{image?.url}}>
         <p class="image-label">
           {{image?.name}}
@@ -121,7 +122,7 @@
         Insygnia gminy
       </h1>
       <div *ngFor="let div of divKeyValues" [ngClass]="div.name">
-        <div *ngFor="let image of imagesUrlsPageLeftPane">
+        <div [@inOutAnimation]="'in'" *ngFor="let image of imagesUrlsPageLeftPane">
           <img *ngIf="image.name === div.id" src={{image.url}} id="baner">
         </div>
         <div class="addImage" *ngIf=" editFormVisible" appDragAndDrop (filesDropped)="onFilesDropped($event, div.id)">

@@ -50,7 +50,10 @@ public abstract class PortfolioEntryMapper {
     List<MediaDTO> MediaDTOS = new ArrayList<>();
 
     for (PortfolioMediaDomainImpl model : models) {
+
       MediaDTO dto = new MediaDTO();
+
+      dto.setId(model.getId());
 
       dto.setName(model.getName());
 

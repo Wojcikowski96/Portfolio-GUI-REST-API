@@ -7,11 +7,30 @@ import { AuthService } from '../service/AuthService';
 import { PortfolioEntry } from '../responses/PortfolioEntry';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-portfolio-details',
   templateUrl: './portfolio-details.component.html',
-  styleUrls: ['./portfolio-details.component.scss']
+  styleUrls: ['./portfolio-details.component.scss'],
+  animations: [
+    trigger("inOutAnimation", [
+      state("in", style({ opacity: 1 })),
+
+      transition(":leave", [
+        animate(
+          300,
+          keyframes([
+            style({ opacity: 1, offset: 0, width: '100%', height:'100%' }),
+            style({ opacity: 0.75, offset: 0.25, width: '75%', height:'80%' }),
+            style({ opacity: 0.5, offset: 0.5, width: '50%', height:'50%'}),
+            style({ opacity: 0.25, offset: 0.75, width: '20%', height:'20%' }),
+            style({ opacity: 0, offset: 1,  width: '0px', height:'0%'  }),
+          ])
+        )
+      ])
+    ])
+  ]
 })
 
 export class PortfolioDetailsComponent implements OnInit {
@@ -139,6 +158,8 @@ export class PortfolioDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailsVisible = true;
+    console.log("Lista obrazków")
+    console.log(this.imagesUrlsPageBody)
 
   }
 
@@ -216,6 +237,19 @@ export class PortfolioDetailsComponent implements OnInit {
       console.log(this.results)
     });
 
+  }
+  removeImageById(id: number){
+    alert('Nastąpi usunięcie obrazka, kliknik OK aby kontynuować')
+    this.porftolioApi.deleteImageById(id).subscribe((response)=>{
+      if(this.imagesUrlsPageBody){
+        this.imagesUrlsPageBody.forEach((element,index)=>{
+          if(element.id==id) {
+            if(this.imagesUrlsPageBody)
+            this.imagesUrlsPageBody.splice(index, 1)
+          };
+       });
+      }
+    })
   }
 
   getEntryById(id: number): PortfolioEntry | undefined {

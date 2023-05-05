@@ -48,51 +48,6 @@ h1.button-description{
     content: "Pobierz";
 }
 
-.button2{
-    position: relative;
-    box-shadow: 3px 3px 5px 6px $shadowcolor;
-    height: 100px;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
- 
-}
-.content2{
-    position: relative;
-    width:100%;
-    height: 100%;
-    background-color: $brown;
-    text-align: center;
-    border: solid;
-    border-width: 2px;
-    border-color: $brown;
-}
-h1.button-description2{
-    position: relative;
-    top: 50%;
-    transform: translate(0, -50%);
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-family: "Antykwa";
-    color: $white;
-}
-.button2:hover .content2{
-    border: solid;
-    border-width: 6px;
-    border-color: $brown;
-    background-color: $white;
-    transition:  border-width 0.2s linear;
-   
-}
-.content2:hover :nth-child(1){
-    content: "Pobierz";
-    color: $brown;
-}
-
-.content2:hover :nth-child(1)::before{
-    font-family: "Antykwa";
-    content: "Pobierz";
-}
 
 .close-button {
     background-color: $brown;
@@ -129,15 +84,7 @@ h1.button-description2{
   .close-button:hover {
     background-color: darkbrown;
   }
-// body 
-// {
-//     background-color: white;
-//     height: 100%;
-//     width: 70%;
-//     margin: 0 auto;
-    
 
-// }
 @font-face {
     font-family: 'Antykwa';
     src: url(../Resources/AntykwaTorunska-Regular.ttf);
@@ -346,6 +293,25 @@ h1.flaga{
 }
 .pieczecie-row2{
     width: 100%;
+}
+.remove-item{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: auto;
+    cursor: pointer;
+    text-align: center;
+    font-size: 35px;
+    font-family: Arial;
+    color: gray;
+    transition: background-color 0.3s ease-out 100ms;
+    margin-bottom: 5px
+    
+}
+
+.remove-item:hover{
+    background-color: red;
+    
 }
 @keyframes fadeinS {
     from { opacity: 0.3; right: -200px }

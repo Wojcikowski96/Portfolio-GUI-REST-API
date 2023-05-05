@@ -45,8 +45,10 @@ public class SecurityConfig {
             requests.requestMatchers("/authenticate", "/blog/entries",
                     "/blog/image", "/portfolio/image", "/portfolio/document",
                     "/email/send", "/portfolio/entries").permitAll()
-                .requestMatchers("/portfolio/entry","/blog/entry","/blog/entry/uploadImage","/portfolio/entry/uploadImage",
-                    "/portfolio/entry/uploadDocument" , "/portfolio/entries/delete", "/blog/entries/delete").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/portfolio/entry", "/blog/entry", "/blog/entry/uploadImage",
+                    "/portfolio/entry/uploadImage",
+                    "/portfolio/entry/uploadDocument", "/portfolio/entries/delete",
+                    "/blog/entries/delete", "/portfolio/image/delete").hasAuthority("ROLE_ADMIN")
 
                 .and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -68,7 +70,9 @@ public class SecurityConfig {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:4200"); // "/create-cars"
+        registry.addMapping("/**").allowedOrigins("http://localhost:4200")
+            .allowedMethods("*")
+            .allowedHeaders("*");; // "/create-cars"
       }
     };
 
