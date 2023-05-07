@@ -59,6 +59,8 @@ public abstract class PortfolioEntryMapper {
 
       dto.setUrl(model.getImageUrl());
 
+      dto.setExtensionType(model.getExtensionType());
+
       MediaDTOS.add(dto);
     }
     return MediaDTOS;

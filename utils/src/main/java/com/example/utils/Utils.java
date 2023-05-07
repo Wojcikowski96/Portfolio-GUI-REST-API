@@ -57,14 +57,15 @@ public class Utils {
     return hashtable;
   }
 
-  public static String generateImageUrl(Long entryID, String imageName){
+  public static String generateFileUrl(Long entryID, String imageName){
 
     String url = null;
 
+
     if(Objects.equals(imageName, "")){
-      url = "http://localhost:8080/blog/image?entryId="+entryID;
+      url = "http://localhost:8080/blog/file?entryId="+entryID;
     }else{
-      url = "http://localhost:8080/portfolio/image?entryId="+entryID+"&imageName="+imageName;
+      url = "http://localhost:8080/portfolio/file?entryId="+entryID+"&fileName="+imageName;
     }
 
     return url;

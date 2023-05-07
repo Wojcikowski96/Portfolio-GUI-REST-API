@@ -90,7 +90,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   }
 
   @Override
-  public void uploadImage(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
+  public void uploadFile(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
 
     PortfolioMediaModel mediaModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
     try {
@@ -122,7 +122,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
       } else {
         mediaModel.setPortfolioItemModel(portfolioOptional.get());
 
-        mediaModel.setImageUrl(Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+        mediaModel.setImageUrl(Utils.generateFileUrl(entryId, portfolioMediaDomain.getName()));
 
         imagesRepository.save(mediaModel);
       }
@@ -131,18 +131,11 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
         PortfolioItemModel portfolioItemModelToChangeUrl = portfolioOptional.get();
 
         portfolioItemModelToChangeUrl.setUrl(
-            Utils.generateImageUrl(entryId, portfolioMediaDomain.getName()));
+            Utils.generateFileUrl(entryId, portfolioMediaDomain.getName()));
 
         portfolioRepository.save(portfolioItemModelToChangeUrl);
 
       }
-
-      if (portfolioMediaDomain.getType().equals("DOCUMENT")) {
-        throw ExceptionsFactory.createInternalServerError(
-            "Błędny typ " + portfolioMediaDomain.getType() + " dla operacji dodania obrazka",
-            "BTDODO", null);
-      }
-
 
     } catch (IllegalArgumentException e) {
       throw ExceptionsFactory.createInternalServerError(
@@ -150,47 +143,6 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
     }
   }
 
-  @Override
-  public void uploadDocument(PortfolioMediaDomain portfolioMediaDomain, Long entryId) {
-
-    Optional<PortfolioItemModel> portfolioItemModelOptional = Optional.ofNullable(
-        portfolioRepository.findById(entryId).orElseThrow(
-            () -> ExceptionsFactory.createNotFound(
-                "Nie znaleziono wpisu portfolio o id: " + entryId, "NZWP", null)));
-
-    List<PortfolioMediaDomainImpl> imagesList =
-        getPortfolioMediaModels(entryId);
-
-    if (!portfolioMediaDomain.getType().equals("DOCUMENT")) {
-      throw ExceptionsFactory.createInternalServerError(
-          "Błędny typ " + portfolioMediaDomain.getType() + " dla operacji dodania dokumentu",
-          "BTDODO", null);
-    }
-
-
-    if (imagesList.stream().anyMatch(o -> o.getName().equals(portfolioMediaDomain.getName()))) {
-      throw ExceptionsFactory.createInternalServerError(
-          "Nazwy plików per wpis nie mogą się powtarzać", "NPPWNSP", null);
-    }
-
-    try {
-      PortfolioMediaModel imageModel = portfolioImageMapper.domainToModel(portfolioMediaDomain);
-
-      if (portfolioMediaDomain.getId() == null) {
-
-        imageModel.setPortfolioItemModel(portfolioItemModelOptional.get());
-
-        imageModel.setImageUrl(Utils.generateDocumentUrl(entryId, portfolioMediaDomain.getName()));
-
-        imagesRepository.save(imageModel);
-
-      }
-    } catch (IllegalArgumentException e) {
-      throw ExceptionsFactory.createInternalServerError(
-          "Brak zdefiniowanego typu dokumentu " + portfolioMediaDomain.getType(), "BZTO", null);
-    }
-
-  }
 
   @Override
   public byte[] getMedia(Long entryId, String name) {

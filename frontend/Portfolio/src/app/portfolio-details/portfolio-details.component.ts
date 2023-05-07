@@ -36,8 +36,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 export class PortfolioDetailsComponent implements OnInit {
   detailsVisible = true;
   editFormVisible = false;
-  imageName!: string | '';
-
+  
   height: number = 0;
 
   results: Array<PortfolioEntry> | undefined;
@@ -84,9 +83,12 @@ export class PortfolioDetailsComponent implements OnInit {
 
   imagesUrlsPageLeftPane:Media[] | undefined
   imagesUrlsPageBody:Media[] | undefined
+
   documents:Media[] | undefined
 
-  fileName: string | undefined
+  imageName: string | undefined;
+
+  documentName: string | undefined
 
   portfolioEntry:PortfolioEntry | undefined;
 
@@ -111,6 +113,8 @@ export class PortfolioDetailsComponent implements OnInit {
       this.imagesUrlsPageLeftPane = portfolioEntry.imagesUrlsPageLeftPane
 
       this.imagesUrlsPageBody = portfolioEntry.imagesUrlsPageBody
+
+      this.documents = portfolioEntry.documents
 
       if (portfolioEntry.tittle !== undefined) {
         this.locationName = portfolioEntry.tittle;
@@ -189,7 +193,7 @@ export class PortfolioDetailsComponent implements OnInit {
     });
   }
 
-  onFilesDropped(files: FileList, fileName: string) {
+  onImageDropped(files: FileList, fileName: string) {
     const file = files[0];
     const formData = new FormData();
     formData.append('fileByteString', file);
@@ -197,9 +201,9 @@ export class PortfolioDetailsComponent implements OnInit {
     console.log(file)
     formData.append('name',fileName)
     formData.append('type','IMAGE_LEFT_PANE')
-    this.porftolioApi.uploadImageToPortfolio(this.detailsId, formData).subscribe(() => {
+    this.porftolioApi.uploadFileToPortfolio(this.detailsId, formData).subscribe(() => {
       console.log('Plik został przesłany na serwer.');
-      this.refreshImages();
+      this.refresh();
     }, error => {
       if(error.status = 401){
         this.router.navigateByUrl('login')
@@ -207,17 +211,17 @@ export class PortfolioDetailsComponent implements OnInit {
     });
   }
 
-  onFilesDroppedImageBody(files: FileList) {
+  onImageDroppedImageBody(files: FileList) {
     const file = files[0];
     const formData = new FormData();
     formData.append('fileByteString', file);
 
-    if(this.fileName){
-      formData.append('name',this.fileName)
+    if(this.imageName){
+      formData.append('name',this.imageName)
       formData.append('type','IMAGE_BODY')
-      this.porftolioApi.uploadImageToPortfolio(this.detailsId, formData).subscribe(() => {
+      this.porftolioApi.uploadFileToPortfolio(this.detailsId, formData).subscribe(() => {
         console.log('Plik został przesłany na serwer.');
-        this.refreshImages();
+        this.refresh();
       }, error => {
         if(error.status = 401){
           this.router.navigateByUrl('login')
@@ -228,26 +232,67 @@ export class PortfolioDetailsComponent implements OnInit {
     }
   }
 
-  refreshImages(){
+  onDocumentDropped(files: FileList) {
+    const file = files[0];
+    const formData = new FormData();
+    formData.append('fileByteString', file);
+
+    if (file.type.startsWith('image/')) {
+      formData.append('extensionType', 'IMAGE')
+      console.log("obraz")
+    } else if (file.type === 'application/pdf') {
+      formData.append('extensionType', 'PDF')
+      console.log("pdf")
+    } else {
+      alert('Nieobsługiwany typ pliku')
+    }
+
+    if(this.documentName){
+      formData.append('name',this.documentName)
+      formData.append('type','DOCUMENT')
+
+      console.log("form data")
+      console.log(formData.get("extensionType"))
+      this.porftolioApi.uploadFileToPortfolio(this.detailsId, formData).subscribe(() => {
+        console.log('Plik został przesłany na serwer.');
+        this.refresh();
+      }, error => {
+        if(error.status = 401){
+          this.router.navigateByUrl('login')
+        }
+      });
+    }else{
+      alert("Aby wrzucić obrazek, musisz podać jego nazwę")
+    }
+  }
+
+  refresh(){
     this.porftolioApi.getEntries(1, 6, 'ASC', 'id').subscribe((data) => {
       this.results = data.results
       let portfolio = this.getEntryById(this.detailsId);
       this.imagesUrlsPageBody = portfolio?.imagesUrlsPageBody
       this.imagesUrlsPageLeftPane = portfolio?.imagesUrlsPageLeftPane
+      this.documents = portfolio?.documents
       console.log(this.results)
     });
 
   }
-  removeImageById(id: number){
+  removeFileById(id: number){
     alert('Nastąpi usunięcie obrazka, kliknik OK aby kontynuować')
     this.porftolioApi.deleteImageById(id).subscribe((response)=>{
-      if(this.imagesUrlsPageBody){
+      if(this.imagesUrlsPageBody && this.documents){
         this.imagesUrlsPageBody.forEach((element,index)=>{
           if(element.id==id) {
             if(this.imagesUrlsPageBody)
             this.imagesUrlsPageBody.splice(index, 1)
           };
        });
+       this.documents.forEach((element,index)=>{
+        if(element.id==id) {
+          if(this.documents)
+          this.documents.splice(index, 1)
+        };
+     });
       }
     })
   }
@@ -256,5 +301,9 @@ export class PortfolioDetailsComponent implements OnInit {
     return this.results?.find(entry => entry.id === id);
     
   }
+  downloadFile(documentUrl:string, type: string) {
+  this.porftolioApi.downloadFile(documentUrl, type)
+}
+
 
 }

@@ -5,10 +5,10 @@ $shadowcolor:#ccc;
 .button{
     position: relative;
     box-shadow: 3px 3px 5px 6px $shadowcolor;
-    height: 100px;
+    height: 100PX;
     width: 100%;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15%;
  
 }
 .content{
@@ -21,6 +21,20 @@ $shadowcolor:#ccc;
     border-width: 2px;
     border-color: $brown;
 }
+
+.add-document{
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    margin:none;
+    border: solid;
+    border-width: 2px;
+    border-color: $brown;
+    padding: 5px
+}
+
+
 h1.button-description{
     position: relative;
     top: 50%;
@@ -145,7 +159,7 @@ p{
     width: 100%;
     background-color:$bodycolor;
     column-gap: 20px;
-    height:100%;
+    // height:100%;
     display: flex;
 }
 .description-images-wrapper{

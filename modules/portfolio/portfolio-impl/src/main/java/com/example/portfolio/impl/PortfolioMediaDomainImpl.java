@@ -13,6 +13,8 @@ public class PortfolioMediaDomainImpl implements PortfolioMediaDomain {
 
   private String url;
 
+  private String extensionType;
+
   @Override
   public Long getId() {
     return this.id;
@@ -62,5 +64,15 @@ public class PortfolioMediaDomainImpl implements PortfolioMediaDomain {
   public void setImageUrl(String url) {
     this.url = url;
 
+  }
+
+  @Override
+  public String getExtensionType() {
+    return this.extensionType;
+  }
+
+  @Override
+  public void setExtensionType(String extensionType) {
+    this.extensionType = extensionType;
   }
 }

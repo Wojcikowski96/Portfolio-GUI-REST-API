@@ -1,5 +1,6 @@
 package com.example.utils.model;
 
+import com.example.utils.enums.ExtensionType;
 import com.example.utils.enums.ImageType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
@@ -24,5 +25,9 @@ public class MediaModel extends BaseModel {
 
   @Column(name = "IMAGE_URL")
   private String imageUrl;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "EXTENSION_TYPE")
+  private ExtensionType extensionType;
 
 }

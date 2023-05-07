@@ -64,7 +64,7 @@
         
       <div class="description-images-wrapper">
       <div [@inOutAnimation]="'in'"  *ngFor="let image of imagesUrlsPageBody" class="image-wrapper">
-        <div *ngIf="checkIsAdmin() && editFormVisible"  class = remove-item (click)="removeImageById(image.id)">X</div>
+        <div *ngIf="checkIsAdmin() && editFormVisible"  class = remove-item (click)="removeFileById(image.id)">X</div>
         <img class="image" src={{image?.url}}>
         <p class="image-label">
           {{image?.name}}
@@ -72,12 +72,12 @@
       </div>
       <div style="margin: auto" *ngIf=" editFormVisible" class="image-wrapper">
       <div style="display:block" class = add-image-body-wrapper-inner>
-        <div class="addImage" appDragAndDrop (filesDropped)="onFilesDroppedImageBody($event)">
+        <div class="addImage" appDragAndDrop (filesDropped)="onImageDroppedImageBody($event)">
           +
         </div>
         <div style="height: 20%" class = "textarea-wrapper">
           <div style = "width: 80%; margin:auto" class = "textarea-wrapper-inner">
-            <textarea style="width: 100%;"  *ngIf=" editFormVisible" [(ngModel)]="fileName"></textarea>
+            <textarea style="width: 100%;"  *ngIf=" editFormVisible" [(ngModel)]="imageName"></textarea>
           </div>
         </div>
       </div>
@@ -105,15 +105,22 @@
       </div>
       
       <div class="buttons">
-        <div *ngFor="let document of documents" class="button">
-          <a href={{document?.url}} target="_blank" style="text-decoration:none">
-            <div class="content">
+        <div [@inOutAnimation]="'in'" *ngFor="let document of documents" class="button">
+          <div *ngIf="checkIsAdmin() && editFormVisible"  class = remove-item (click)="removeFileById(document.id)">X</div>
+            <div (click)="downloadFile(document.url, document.extensionType)" target="_blank" style="text-decoration:none" class="content">
               <h1 class="button-description">
                 {{document?.name}}
               </h1>
             </div>
-          </a>
         </div>
+        <div *ngIf=" editFormVisible" class="add-document" appDragAndDrop (filesDropped)="onDocumentDropped($event)">
+          <div style = "height: 50%; font-size: 45px; color: brown;">+</div>
+              <div style="height:50%" class = "textarea-wrapper">
+                <div style="height: 100%"  class = "textarea-wrapper-inner">
+                  <textarea style="outline: none" *ngIf=" editFormVisible" [(ngModel)]="documentName"></textarea>
+                </div>
+              </div>
+          </div>
       </div>
     </div>
     
@@ -125,7 +132,7 @@
         <div [@inOutAnimation]="'in'" *ngFor="let image of imagesUrlsPageLeftPane">
           <img *ngIf="image.name === div.id" src={{image.url}} id="baner">
         </div>
-        <div class="addImage" *ngIf=" editFormVisible" appDragAndDrop (filesDropped)="onFilesDropped($event, div.id)">
+        <div class="addImage" *ngIf=" editFormVisible" appDragAndDrop (filesDropped)="onImageDropped($event, div.id)">
           +
         </div>
         <h1 class="label">

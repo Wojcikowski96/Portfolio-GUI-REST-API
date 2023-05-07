@@ -78,76 +78,50 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
     return ResponseEntity.noContent().build();
   }
 
+
   @Override
-  public ResponseEntity<Void> uploadImageToPortfolio(Long entryId, String name, String type,
+  public ResponseEntity<Void> uploadFileToPortfolio(Long entryId, String name, String type, String extensionType,
                                                      MultipartFile fileByteString) {
 
-    PortfolioMediaDomainImpl imageDomain = new PortfolioMediaDomainImpl();
+    PortfolioMediaDomainImpl mediaDomain = new PortfolioMediaDomainImpl();
 
-    imageDomain.setName(name);
+    mediaDomain.setName(name);
 
-    imageDomain.setType(type);
+    mediaDomain.setType(type);
+
+    mediaDomain.setExtensionType(extensionType);
 
     try {
-      imageDomain.setImage(fileByteString.getBytes());
+      mediaDomain.setImage(fileByteString.getBytes());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
 
-    portfolioModuleApi.uploadImage(imageDomain, entryId);
+    portfolioModuleApi.uploadFile(mediaDomain, entryId);
 
     return ResponseEntity.noContent().build();
   }
 
-  @Override
-  public ResponseEntity<Void> uploadDocumentToPortfolio(Long entryId, String name, String type,
-                                                     MultipartFile fileByteString) {
-    PortfolioMediaDomainImpl imageDomain = new PortfolioMediaDomainImpl();
-
-    imageDomain.setName(name);
-
-    imageDomain.setType(type);
-
-    try {
-      imageDomain.setImage(fileByteString.getBytes());
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-
-    portfolioModuleApi.uploadDocument(imageDomain, entryId);
-
-    return ResponseEntity.noContent().build();
-  }
 
   @Override
-  public ResponseEntity<Resource> getDocumentForPortfolioDetails(Long entryId,
-                                                                 String documentName) {
-
-    byte [] imageData = portfolioModuleApi.getMedia(entryId, documentName);
-
-    Resource res = new ByteArrayResource(imageData);
-
-    return ResponseEntity.status(HttpStatus.OK).body(res);
-
-  }
-
-  @Override
-  public ResponseEntity<Resource> getImageForPortfolioDetails(Long entryId, String imageName) {
+  public ResponseEntity<Resource> getImageOrPdfForPortfolioDetails(Long entryId, String imageName) {
 
     byte [] imageData = portfolioModuleApi.getMedia(entryId, imageName);
 
     Resource res = new ByteArrayResource(imageData);
 
     return ResponseEntity.status(HttpStatus.OK).body(res);
+
   }
 
   @Override
-  public ResponseEntity<Void> deleteImage(Long imageId) {
+  public ResponseEntity<Void> deleteFile(Long imageId) {
 
     portfolioModuleApi.deleteImage(imageId);
 
     return ResponseEntity.noContent().build();
   }
+
 
   @Override
   public ResponseEntity<Void> deletePortfolioEntries(List<Long> entryId) {

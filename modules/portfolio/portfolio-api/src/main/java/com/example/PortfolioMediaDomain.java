@@ -21,5 +21,9 @@ public interface PortfolioMediaDomain {
 
   void setImageUrl(String url);
 
+  String getExtensionType();
+
+  void setExtensionType(String extensionType);
+
 
 }

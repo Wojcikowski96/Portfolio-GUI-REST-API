@@ -43,12 +43,11 @@ public class SecurityConfig {
         .authorizeHttpRequests((requests) -> {
           try {
             requests.requestMatchers("/authenticate", "/blog/entries",
-                    "/blog/image", "/portfolio/image", "/portfolio/document",
-                    "/email/send", "/portfolio/entries").permitAll()
+                    "/blog/image", "/portfolio/file", "/email/send", "/portfolio/entries").permitAll()
                 .requestMatchers("/portfolio/entry", "/blog/entry", "/blog/entry/uploadImage",
-                    "/portfolio/entry/uploadImage",
-                    "/portfolio/entry/uploadDocument", "/portfolio/entries/delete",
-                    "/blog/entries/delete", "/portfolio/image/delete").hasAuthority("ROLE_ADMIN")
+                    "/portfolio/entry/uploadFile",
+                    "/portfolio/entries/delete",
+                    "/blog/entries/delete", "/portfolio/file/delete").hasAuthority("ROLE_ADMIN")
 
                 .and().
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

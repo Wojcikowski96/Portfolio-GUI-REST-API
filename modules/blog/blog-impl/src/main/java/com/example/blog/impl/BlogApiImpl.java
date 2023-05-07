@@ -111,7 +111,7 @@ public class BlogApiImpl implements BlogModuleApi {
 
       } else {
 
-        imageModelFromDomain.setImageUrl(Utils.generateImageUrl(entryId,""));
+        imageModelFromDomain.setImageUrl(Utils.generateFileUrl(entryId,""));
 
         blogEntryModel.setBlogImage(imageModelFromDomain);
 

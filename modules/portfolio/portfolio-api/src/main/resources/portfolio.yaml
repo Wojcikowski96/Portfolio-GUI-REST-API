@@ -90,11 +90,11 @@ paths:
 
 
 
-  /portfolio/entry/uploadImage:
+  /portfolio/entry/uploadFile:
     post:
       summary: Modyfikuje wpis portfolio pod kątem dodania media
       description: Modyfikacja wpisu dostępna dla roli Admin. Ustawia się data modyfikacji i stworzenia
-      operationId: uploadImageToPortfolio
+      operationId: uploadFileToPortfolio
       parameters:
         - in: query
           name: entryId
@@ -115,6 +115,8 @@ paths:
                   type: string
                 type:
                   type: string
+                extensionType:
+                  type: string
                 fileByteString:
                   type: string
                   format: binary
@@ -129,121 +131,51 @@ paths:
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
 
-  /portfolio/entry/uploadDocument:
-    post:
-      summary: Modyfikuje wpis portfolio pod kątem dodania media
-      description: Modyfikacja wpisu dostępna dla roli Admin. Ustawia się data modyfikacji i stworzenia
-      operationId: uploadDocumentToPortfolio
-      parameters:
-        - in: query
-          name: entryId
-          explode: true
-          required: true
-          schema:
-            type: integer
-            format: int64
-
-      requestBody:
+  /portfolio/file:
+   get:
+    summary: Pobiera obrazek lub plik PDF dla konkretnego wpisu po nazwie obrazka
+    description: Operacja dostępna dla wszystkich
+    operationId: getImageOrPdfForPortfolioDetails
+    parameters:
+      - in: query
+        name: entryId
+        explode: true
         required: true
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: fileName
+        explode: true
+        required: true
+        schema:
+          type: string
+
+    responses:
+      '200':
+        description: Plik PNG lub PDF do pobrania
         content:
-          multipart/form-data:
+          image/png:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                type:
-                  type: string
-                fileByteString:
-                  type: string
-                  format: binary
+              type: string
+              format: binary
+          application/pdf:
+            schema:
+              type: string
+              format: binary
 
-      responses:
-        '201':
-          description: Zmodyfikowano wpis
-        '400':
+      '400':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
-        '401':
+      '401':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
-        '404':
+      '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
 
-
-  /portfolio/document:
-    get:
-      summary: Pobiera dokument dla danego wpisu portfolio
-      description: Operacja dostępna dla wszystkich
-      operationId: getDocumentForPortfolioDetails
-      parameters:
-        - in: query
-          name: entryId
-          explode: true
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - in: query
-          name: documentName
-          explode: true
-          required: true
-          schema:
-            type: string
-
-      responses:
-        '200':
-          description: zwraca dokument pdf
-          content:
-            application/pdf:
-              schema:
-                type: string
-                format: binary
-        '400':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
-
-  /portfolio/image:
-    get:
-      summary: Pobiera obrazek dla konkretnego wpisu po nazwie obrazka
-      description: Operacja dostępna dla wszystkich
-      operationId: getImageForPortfolioDetails
-      parameters:
-        - in: query
-          name: entryId
-          explode: true
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - in: query
-          name: imageName
-          explode: true
-          required: true
-          schema:
-            type: string
-
-      responses:
-        '200':
-          description:
-          content:
-            image/png:
-              schema:
-                type: string
-                format: binary
-        '400':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
-        '401':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
-        '404':
-          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
-
-  /portfolio/image/delete:
+  /portfolio/file/delete:
     delete:
-      summary: Usuwa obrazek po id
-      description: Operacja dostępna dla wszystkich
-      operationId: deleteImage
+      summary: Usuwa plik po id
+      description: Operacja dostępna dla administratora
+      operationId: deleteFile
       parameters:
         - in: query
           name: imageId
@@ -254,7 +186,7 @@ paths:
             format: int64
       responses:
         '201':
-          description: Usunięto obrazek
+          description: Usunięto plik
         '400':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
         '401':
@@ -321,4 +253,6 @@ components:
         name:
           type: string
         url:
+          type: string
+        extensionType:
           type: string

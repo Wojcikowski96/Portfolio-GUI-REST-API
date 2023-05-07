@@ -9,8 +9,8 @@ import { AuthService } from './AuthService';
 })
 export class PortfolioApiService {
   private getRequestUrl = 'http://localhost:8080/portfolio/entries';
-  private uploadImageUrl = 'http://localhost:8080/portfolio/entry/uploadImage';
-  private deleteImageUrl = 'http://localhost:8080/portfolio/image/delete';
+  private uploadFileUrl = 'http://localhost:8080/portfolio/entry/uploadFile';
+  private deleteImageUrl = 'http://localhost:8080/portfolio/file/delete';
 
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -33,9 +33,11 @@ export class PortfolioApiService {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
     return this.http.post(url, data, {headers});
   }
-  uploadImageToPortfolio(entryId: number, formData:FormData) {
-    const url = `${this.uploadImageUrl}?entryId=${entryId}`;
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
+  uploadFileToPortfolio(entryId: number, formData:FormData) {
+    const url = `${this.uploadFileUrl}?entryId=${entryId}`;
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.authService.getToken(),
+    });
     return this.http.post(url, formData, { headers });
   }
 
@@ -43,5 +45,20 @@ export class PortfolioApiService {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
     return this.http.delete(`${this.deleteImageUrl}?imageId=${imageId}`,{headers});
   }
+  downloadFile(documentUrl: string, type:string) {
+    this.http.get(`${documentUrl}`, { responseType: 'blob' })
+    .subscribe(blob => {
+      let contentType:string |undefined;
+      if(type=='PDF'){
+        contentType='application/pdf';
+
+      }else if(type=="IMAGE"){
+        contentType='image/jpg';
+      }
+      const file = new Blob([blob], { type: contentType });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
   
+  }
 }
