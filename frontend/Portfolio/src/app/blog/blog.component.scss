@@ -102,19 +102,27 @@ img{
     position: relative;
     left: 0px;
     margin-top: 40px;
-    background: #fff;
     box-shadow: 3px 3px 5px 6px gainsboro;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
+    font-family: 'Antykwa';
     
   /*   z-index: 1; */
     
   }
+  input{
+    color: black;
+    font-family: 'Antykwa';
+  }
+  textarea{
+    color: black;
+    font-family: 'Antykwa';
+  }
   ::-webkit-input-placeholder {
     font-size: 1.3em;
   }
-  
+
 
   .termsConditions{
     margin: 0 auto 5px 80px;
@@ -130,7 +138,6 @@ img{
   
   .name {
     background-color: #ebebeb;
-    color: white;
     height: 2em;
     
   }
@@ -186,12 +193,7 @@ img{
     width: 100%;
   }
 
-  body 
-{
-    background-color:whitesmoke;
-    width: 70%;
-    margin: auto;
-}
+
 @font-face {
     font-family: 'Antykwa';
     src: url(../Resources/AntykwaTorunska-Regular.ttf);
