@@ -29,6 +29,10 @@
   <div class="maincontent">
     <div class="description">
       <h1 *ngIf="editFormVisible">
+        Data zaprojektowania:
+      </h1>
+      <app-datepicker *ngIf="editFormVisible"></app-datepicker>
+      <h1 *ngIf="editFormVisible">
         Zaprojektowane elementy:
       </h1>
       <textarea *ngIf="editFormVisible" type="text" [(ngModel)]="designedElements"></textarea>

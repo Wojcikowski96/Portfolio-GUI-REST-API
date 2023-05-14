@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +12,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { DragAndDropDirective } from './drag-and-drop/DragAndDrop';
+import { DatepickerComponent } from './datepicker/datepicker.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MaterialExampleModule } from 'src/material-module';
+import {MAT_DATE_LOCALE } from '@angular/material/core';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
@@ -31,18 +39,26 @@ const routes: Routes = [
     PortfolioDetailsComponent,
     BlogComponent,
     LoginFormComponent,
-    DragAndDropDirective
+    DragAndDropDirective,
+    DatepickerComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MaterialExampleModule,
     RouterModule.forRoot(
       routes
     )
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pl' }],
   bootstrap: [AppComponent]
 
   

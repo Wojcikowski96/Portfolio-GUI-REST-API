@@ -2,6 +2,7 @@ $white: white;
 $bodycolor:whitesmoke;
 $brown:brown;
 $shadowcolor:#ccc;
+$formcolor: #EBEBEB;
 .button{
     position: relative;
     box-shadow: 3px 3px 5px 6px $shadowcolor;
@@ -190,6 +191,8 @@ textarea{
     // margin-bottom: 200px;
     background-color: $bodycolor;
     color: black;
+    border: 1px black;
+    background-color: $formcolor;
 }
 .textarea-wrapper{
     margin-bottom: 20px;
