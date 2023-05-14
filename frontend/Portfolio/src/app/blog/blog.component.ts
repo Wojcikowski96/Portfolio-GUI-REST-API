@@ -19,7 +19,7 @@ export class BlogComponent implements OnInit {
   name: string= ''
   email: string= ''
   tittle: string= ''
-  content: string= ''
+  message: string= ''
 
 
 
@@ -45,12 +45,10 @@ export class BlogComponent implements OnInit {
     });
   }
   sendMessage(){
-    this.emailApiService.sendEmail(this.tittle, this.content, this.email, this.name).subscribe(response => {
+    console.log("wysyłam")
+    this.emailApiService.sendEmail(this.tittle, this.message, this.email, this.name).subscribe(response => {
       console.log(response);
     });
-  }
-  logMessage() {
-    console.log('Wartość message:', this.content);
   }
   lastScrollTop = 0;
   isScrollingDown = false;

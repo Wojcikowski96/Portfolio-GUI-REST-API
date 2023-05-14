@@ -13,10 +13,10 @@ export class EmailApiService {
   
     constructor(private http: HttpClient) { }
   
-    sendEmail(tittle: string, content: string, email: string, nick: string): Observable<any> {
+    sendEmail(title: string, content: string, email: string, nick: string): Observable<any> {
   
-      const params = {tittle, content, email, nick};
- 
+      const params = {title, content, email, nick};
+  
       return this.http.post(this.baseUrl, params);
     }
   }

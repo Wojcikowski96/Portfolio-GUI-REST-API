@@ -60,8 +60,8 @@
   <input type="text" class="name formEntry" id="nameInput" placeholder="Podaj imię" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
   <input type="text" class="email formEntry" id="emailInput" placeholder="Podaj Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
   <input type="text" class="email formEntry" id="tittleInput" placeholder="Podaj tytuł e-maila" [(ngModel)]="tittle" [ngModelOptions]="{standalone: true}">
-  <textarea class="message formEntry" id="messageInput" [(ngModel)]="content" [ngModelOptions]="{standalone: true}"></textarea>
-  <button class="submit formEntry" id="sendMessage"  (click)="sendMessage()">
+  <textarea class="message formEntry" id="messageInput"></textarea>
+  <button class="submit formEntry" id="sendMessage" (click)="sendMessage()">
     <h1 style="font-size: 25px" >Wyślij</h1>
 </button>
 </form>

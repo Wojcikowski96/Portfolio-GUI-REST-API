@@ -43,7 +43,6 @@ public class BaseModel {
    * Data stworzenia encji
    */
   @Column(name = "CREATION_DATE", updatable = false)
+  @CreatedDate
   private LocalDateTime creationDate;
-
-
 }
