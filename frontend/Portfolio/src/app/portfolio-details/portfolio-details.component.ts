@@ -8,6 +8,7 @@ import { PortfolioEntry } from '../responses/PortfolioEntry';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -50,7 +51,8 @@ export class PortfolioDetailsComponent implements OnInit {
     locationDetails: '',
     coatOfArmsDescription: '',
     symbolsDescription: '',
-    history: ''
+    history: '',
+    createdAt:''
   };
   
   divKeyValues = [
@@ -92,6 +94,10 @@ export class PortfolioDetailsComponent implements OnInit {
 
   portfolioEntry:PortfolioEntry | undefined;
 
+  createdAt!: string | ''
+
+  selectedDate: moment.Moment | '' = ""
+
   onDetailsClosed() {
     this.detailsVisible = false;
     this.gridService.toggleGrid();
@@ -103,9 +109,6 @@ export class PortfolioDetailsComponent implements OnInit {
     this.gridService.detailsId$.subscribe(detailsId => {
       this.detailsId = detailsId;
       console.log("Przekazałem id na kliknięcie: "+detailsId)
-      if(detailsId==undefined){
-
-      }
       
     });
 
@@ -143,6 +146,12 @@ export class PortfolioDetailsComponent implements OnInit {
       if (portfolioEntry.history !== undefined) {
         this.history = portfolioEntry.history;
       }
+      if (portfolioEntry.createdAt!== undefined) {
+        moment.locale('pl')
+        this.createdAt = portfolioEntry.createdAt
+        this.convertToMoment(this.createdAt)
+        
+      }
   
     });
 
@@ -178,6 +187,12 @@ export class PortfolioDetailsComponent implements OnInit {
     this.data.coatOfArmsDescription = this.coatOfArmsDescription
     this.data.symbolsDescription = this.symbolsDescription
     this.data.history = this.history
+    
+    
+    this.data.createdAt = this.convertToLocalDatetimeString(this.createdAt);
+    
+    console.log("createdAt")
+    console.log(this.createdAt)
 
     this.porftolioApi.modifyEntry(this.data) .pipe(
       catchError((error) => {
@@ -210,6 +225,13 @@ export class PortfolioDetailsComponent implements OnInit {
       }
     });
   }
+  
+  setDate(date:string){
+    this.createdAt = date
+    console.log("created at wyemitowane")
+    console.log(this.createdAt)
+
+  }
 
   onImageDroppedImageBody(files: FileList) {
     const file = files[0];
@@ -231,7 +253,15 @@ export class PortfolioDetailsComponent implements OnInit {
       alert("Aby wrzucić obrazek, musisz podać jego nazwę")
     }
   }
+  convertToMoment(dateString: string) {
+    const format = 'YYYY-MM-DD HH:mm:ss';
+    this.selectedDate = moment(dateString, format);
+    console.log(this.selectedDate)
+  }
+  convertToLocalDatetimeString(date: string): string{
+    return this.selectedDate ? this.selectedDate.format('YYYY-MM-DD HH:mm:ss'): ''
 
+  }
   onDocumentDropped(files: FileList) {
     const file = files[0];
     const formData = new FormData();

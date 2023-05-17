@@ -5,6 +5,7 @@ import { PortfolioEntry } from '../responses/PortfolioEntry';
 import { NavigationExtras, Router } from '@angular/router';
 import { GridService } from '../service/TransferService';
 import { AuthService } from '../service/AuthService';
+import * as moment from 'moment';
 
 
 @Component({
@@ -94,13 +95,19 @@ export class PortfolioComponent implements OnInit {
     this.toggleGrid();
   }
 
-  
+  formatDate(date: string | undefined): string {
+    moment.locale('pl')
+    return moment(date).format('D MMMM YYYY');
+  }
+
   getEntryById(id: number): PortfolioEntry | undefined {
     return this.results?.find(entry => entry.id === id);
     
   }
   removeEntryById(id: any){
-
+    this.portfolioApi.deleteEntryById(id).subscribe((result) =>{
+console.log(result)
+    })
   }
 
 }

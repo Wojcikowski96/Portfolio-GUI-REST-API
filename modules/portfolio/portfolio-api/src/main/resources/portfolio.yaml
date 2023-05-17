@@ -244,6 +244,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MediaDTO'
+        createdAt:
+          type: string
+          pattern: /([0-9]{2})-(?:[0-9]{2})-([0-9]{4})/
     MediaDTO:
       type: object
       properties:

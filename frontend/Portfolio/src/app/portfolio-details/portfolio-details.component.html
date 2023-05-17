@@ -31,7 +31,7 @@
       <h1 *ngIf="editFormVisible">
         Data zaprojektowania:
       </h1>
-      <app-datepicker *ngIf="editFormVisible"></app-datepicker>
+      <app-datepicker [(selectedDate)]="selectedDate" (selectedDateChange)="setDate($event)" *ngIf="editFormVisible"></app-datepicker>
       <h1 *ngIf="editFormVisible">
         Zaprojektowane elementy:
       </h1>

@@ -73,6 +73,7 @@ public class PortfolioApiDelegateImpl implements PortfolioApiDelegate {
   @Override
   public ResponseEntity<Void> savePortfolioEntry(PortfolioRequestData portfolioRequestData) {
 
+
     portfolioModuleApi.savePortfolioEntry(portfolioEntryMapper.restToDomain(portfolioRequestData));
 
     return ResponseEntity.noContent().build();

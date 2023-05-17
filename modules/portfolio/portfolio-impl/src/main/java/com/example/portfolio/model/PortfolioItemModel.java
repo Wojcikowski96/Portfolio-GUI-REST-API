@@ -8,6 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
+import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.Data;
 
@@ -41,6 +43,9 @@ public class PortfolioItemModel extends BaseModel {
 
   @Column(name = "HISTORY_DESCRIPTION" , columnDefinition = "varchar(1000)")
   private String history;
+
+  @Column(name = "CREATED_AT")
+  private LocalDateTime createdAt;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "portfolioItemModel")
   private Set<PortfolioMediaModel> portfolioImage;

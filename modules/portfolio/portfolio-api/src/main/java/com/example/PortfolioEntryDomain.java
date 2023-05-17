@@ -54,6 +54,12 @@ public interface PortfolioEntryDomain {
 
   void setHistory(String history);
 
+  LocalDateTime getCreatedAt();
+
+  void setCreatedAt(LocalDateTime createdAt);
+
+
+
 
 }
 

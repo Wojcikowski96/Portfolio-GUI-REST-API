@@ -12,7 +12,7 @@
 <div class = "grid-container" *ngIf="showGrid">
     <div *ngFor="let item of results">
         <div class = "tile" (click)="navigateToDetailsComponent(item?.id); toggleGrid(); onTileSelected(item?.id)" >
-                <div *ngIf="checkIsAdmin()"  class = remove-item  ></div>
+                <div (click)="removeEntryById(item?.id)" *ngIf="checkIsAdmin()"  class = remove-item  ></div>
             
                     <div class = "numberContainer">
                         <h1 class = "number">{{item.id}}</h1>
@@ -29,7 +29,7 @@
                         <h1 class = "designedElements">{{item.designedElements}}</h1>
                     </div>
                     <div class="dateDiv">
-                        <h1 class = "createdAt">{{item.creationDate}}</h1>
+                        <h1 class = "createdAt">{{formatDate(item.createdAt) }}</h1>
                     </div>
                 </div>
 

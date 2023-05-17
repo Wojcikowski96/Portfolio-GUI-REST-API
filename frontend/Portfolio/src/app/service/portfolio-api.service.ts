@@ -8,9 +8,11 @@ import { AuthService } from './AuthService';
   providedIn: 'root'
 })
 export class PortfolioApiService {
+  
   private getRequestUrl = 'http://localhost:8080/portfolio/entries';
   private uploadFileUrl = 'http://localhost:8080/portfolio/entry/uploadFile';
   private deleteImageUrl = 'http://localhost:8080/portfolio/file/delete';
+  private deleteEntryUrl = 'http://localhost:8080/portfolio/entries/delete';
 
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -45,6 +47,13 @@ export class PortfolioApiService {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
     return this.http.delete(`${this.deleteImageUrl}?imageId=${imageId}`,{headers});
   }
+
+  deleteEntryById(entryId: number){
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
+    console.log("usuwam")
+    return this.http.delete(`${this.deleteEntryUrl}?entryId=${entryId}`,{headers});
+  }
+
   downloadFile(documentUrl: string, type:string) {
     this.http.get(`${documentUrl}`, { responseType: 'blob' })
     .subscribe(blob => {

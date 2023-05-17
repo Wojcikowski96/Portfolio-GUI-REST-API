@@ -13,6 +13,7 @@ export class PortfolioEntry{
     imagesUrlsPageBody: Media[] | undefined;
     symbolsDescription: string | undefined;
     history: string | undefined;
+    createdAt: string | undefined;
     imagesUrlsPageLeftPane: Media[] | undefined;
     documents: Media[] | undefined;
 }

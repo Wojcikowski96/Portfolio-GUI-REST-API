@@ -32,5 +32,7 @@ public class PortfolioEntryDomainImpl implements PortfolioEntryDomain {
 
   private String history;
 
+  private LocalDateTime createdAt;
+
 
 }

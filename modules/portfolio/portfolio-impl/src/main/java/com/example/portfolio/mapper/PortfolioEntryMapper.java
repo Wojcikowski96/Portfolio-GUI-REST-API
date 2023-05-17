@@ -31,11 +31,13 @@ public abstract class PortfolioEntryMapper {
       @Mapping(source = "modificationDate", target="modificationDate", dateFormat = "dd.MM.yyyy HH:mm"),
       @Mapping(source = "creationDate", target = "creationDate", dateFormat = "dd.MM.yyyy HH:mm"),
       @Mapping(source = "projectType", target = "designedElements"),
-      @Mapping(source = "aboutLocation", target = "locationDetails")})
+      @Mapping(source = "aboutLocation", target = "locationDetails"),
+  })
   public abstract PortfolioEntryDTO domainToRest(PortfolioEntryDomainImpl model);
 
   @Mappings({@Mapping(source="designedElements", target="projectType"),
-      @Mapping(source = "locationDetails", target = "aboutLocation")})
+      @Mapping(source = "locationDetails", target = "aboutLocation"),
+          @Mapping(source = "createdAt", target = "createdAt", dateFormat = "yyyy-MM-dd HH:mm:ss")})
   public abstract PortfolioEntryDomainImpl restToDomain(PortfolioRequestData dto);
 
   public abstract PortfolioEntryDomainImpl modelToDomain(PortfolioItemModel model);
