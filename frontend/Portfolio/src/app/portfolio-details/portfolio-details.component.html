@@ -136,7 +136,7 @@
         <div [@inOutAnimation]="'in'" *ngFor="let image of imagesUrlsPageLeftPane">
           <img *ngIf="image.name === div.id" src={{image.url}} id="baner">
         </div>
-        <div class="addImage" *ngIf=" editFormVisible" appDragAndDrop (filesDropped)="onImageDropped($event, div.id)">
+        <div class="addImage" *ngIf=" editFormVisible && detailsId!=undefined" appDragAndDrop (filesDropped)="onImageDropped($event, div.id)">
           +
         </div>
         <h1 class="label">

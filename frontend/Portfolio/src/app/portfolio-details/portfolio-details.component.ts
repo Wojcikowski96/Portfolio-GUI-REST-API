@@ -258,9 +258,14 @@ export class PortfolioDetailsComponent implements OnInit {
     this.selectedDate = moment(dateString, format);
     console.log(this.selectedDate)
   }
-  convertToLocalDatetimeString(date: string): string{
-    return this.selectedDate ? this.selectedDate.format('YYYY-MM-DD HH:mm:ss'): ''
-
+  convertToLocalDatetimeString(date: string): string {
+    console.log("Data do konwersji:");
+    console.log(date);
+  
+    const convertedDate = moment(date); 
+    console.log("to co zwracam")
+    console.log(convertedDate.isValid() ? convertedDate.format('YYYY-MM-DD HH:mm:ss') : '')
+    return convertedDate.isValid() ? convertedDate.format('YYYY-MM-DD HH:mm:ss') : '';
   }
   onDocumentDropped(files: FileList) {
     const file = files[0];

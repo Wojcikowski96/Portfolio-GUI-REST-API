@@ -1,13 +1,7 @@
 package com.example.portfolio.model;
 
 import com.example.utils.model.BaseModel;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -48,7 +42,7 @@ public class PortfolioItemModel extends BaseModel {
   private LocalDateTime createdAt;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "portfolioItemModel")
-  private Set<PortfolioMediaModel> portfolioImage;
+  private Set<PortfolioMediaModel> mediaModels;
 
 
 

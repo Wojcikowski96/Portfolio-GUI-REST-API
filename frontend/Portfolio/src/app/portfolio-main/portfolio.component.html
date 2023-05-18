@@ -10,9 +10,9 @@
     </div>
 </div>
 <div class = "grid-container" *ngIf="showGrid">
-    <div *ngFor="let item of results">
-        <div class = "tile" (click)="navigateToDetailsComponent(item?.id); toggleGrid(); onTileSelected(item?.id)" >
-                <div (click)="removeEntryById(item?.id)" *ngIf="checkIsAdmin()"  class = remove-item  ></div>
+    <div [@inOutAnimation]="'in'" *ngFor="let item of results">
+        <div (click)="removeEntryById(item?.id)" *ngIf="checkIsAdmin()"  class = remove-item  ></div>
+        <div  class = "tile" (click)="navigateToDetailsComponent(item?.id); toggleGrid(); onTileSelected(item?.id)" >
             
                     <div class = "numberContainer">
                         <h1 class = "number">{{item.id}}</h1>

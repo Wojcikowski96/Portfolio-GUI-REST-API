@@ -15,6 +15,7 @@ import com.example.portfolio.mapper.PortfolioImageMapper;
 import com.example.utils.exception.ExceptionsFactory;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   PortfolioRepository portfolioRepository;
 
   @Autowired
-  PortfolioImageRepository imagesRepository;
+  PortfolioImageRepository mediaRepository;
 
   @Autowired
   PortfolioImageMapper portfolioImageMapper;
@@ -81,12 +82,19 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
 
   @Override
   public void deleteEntries(List<Long> ids) {
-    portfolioRepository.deleteAllById(ids);
+    for(Long id : ids){
+      List<PortfolioMediaDomainImpl> medias = getPortfolioMediaModels(id);
+      for(PortfolioMediaDomainImpl media : medias){
+        mediaRepository.deleteById(media.getId());
+      }
+      portfolioRepository.deleteById(id);
+    }
+
   }
 
   @Override
   public void deleteImage(Long imageId) {
-    imagesRepository.deleteById(imageId);
+    mediaRepository.deleteById(imageId);
   }
 
   @Override
@@ -110,21 +118,21 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
       if (portfolioMediaDomainByName != null) {
 
         Optional<PortfolioMediaModel> potfolioMediaModelOptional =
-            imagesRepository.findById(portfolioMediaDomainByName.getId());
+            mediaRepository.findById(portfolioMediaDomainByName.getId());
 
         PortfolioMediaModel mergedMediaModel =
             Utils.updater(potfolioMediaModelOptional.get(), mediaModel);
 
         mergedMediaModel.setImage(mediaModel.getImage());
 
-        imagesRepository.save(mergedMediaModel);
+        mediaRepository.save(mergedMediaModel);
 
       } else {
         mediaModel.setPortfolioItemModel(portfolioOptional.get());
 
         mediaModel.setImageUrl(Utils.generateFileUrl(entryId, portfolioMediaDomain.getName()));
 
-        imagesRepository.save(mediaModel);
+        mediaRepository.save(mediaModel);
       }
       if (portfolioMediaDomain.getName().equals("Herb")) {
 
@@ -166,7 +174,7 @@ public class PortfolioModuleImpl implements PortfolioModuleApi {
   public List<PortfolioMediaDomainImpl> getPortfolioMediaModels(Long entryId) {
 
     Optional<List<PortfolioMediaModel>> imagesList = Optional.ofNullable(
-        imagesRepository.findByPortfolioItemModelId(entryId).orElseThrow(
+        mediaRepository.findByPortfolioItemModelId(entryId).orElseThrow(
             () -> ExceptionsFactory.createNotFound(
                 "Nie znaleziono plików dla wpisu o id: " + entryId, "NZPDW", null)));
 
