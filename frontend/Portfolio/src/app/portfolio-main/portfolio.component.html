@@ -9,6 +9,7 @@
         </div>
     </div>
 </div>
+<app-pagination [itemsNum]="pageResponse?.totalElements" [pageSize]="pageResponse?.pageSize" (pageChanged)="onPageChanged($event)"></app-pagination>
 <div class = "grid-container" *ngIf="showGrid">
     <div [@inOutAnimation]="'in'" *ngFor="let item of results">
         <div (click)="removeEntryById(item?.id)" *ngIf="checkIsAdmin()"  class = remove-item  ></div>
@@ -39,7 +40,6 @@
     </div>
 </div>
 <router-outlet  *ngIf="!showGrid" (detailsClosed)="onDetailsClosed()"></router-outlet>
-<app-pagination [itemsNum]="pageResponse?.totalElements" [pageSize]="pageResponse?.pageSize" (pageChanged)="onPageChanged($event)"></app-pagination>
 
 
 

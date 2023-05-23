@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import * as moment from 'moment';
+import { MapService } from '../service/MapService';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -37,6 +38,8 @@ import * as moment from 'moment';
 export class PortfolioDetailsComponent implements OnInit {
   detailsVisible = true;
   editFormVisible = false;
+
+  showMap = false;
   
   height: number = 0;
 
@@ -52,7 +55,8 @@ export class PortfolioDetailsComponent implements OnInit {
     coatOfArmsDescription: '',
     symbolsDescription: '',
     history: '',
-    createdAt:''
+    createdAt:'',
+    cityForMap: ''
   };
   
   divKeyValues = [
@@ -98,14 +102,19 @@ export class PortfolioDetailsComponent implements OnInit {
 
   selectedDate: moment.Moment | '' = ""
 
+  cityForMap!: string | '';
+
   onDetailsClosed() {
     this.detailsVisible = false;
     this.gridService.toggleGrid();
     console.log("pokazuję grid")
     this.router.navigateByUrl('/portfolio');
   }
+  changeCity(city: string){
+    this.mapService.changeCity(city)
+  }
 
-  constructor(private gridService: GridService, private porftolioApi: PortfolioApiService, private router: Router, private authService: AuthService) {
+  constructor(private gridService: GridService, private porftolioApi: PortfolioApiService, private router: Router, private authService: AuthService, private mapService:MapService) {
     this.gridService.detailsId$.subscribe(detailsId => {
       this.detailsId = detailsId;
       console.log("Przekazałem id na kliknięcie: "+detailsId)
@@ -152,9 +161,25 @@ export class PortfolioDetailsComponent implements OnInit {
         this.convertToMoment(this.createdAt)
         
       }
+      if(portfolioEntry.cityForMap !==undefined){
+        this.cityForMap = portfolioEntry.cityForMap;
+      }
   
     });
+    this.changeCity(this.cityForMap)
+    setTimeout(() => {
+      this.showMap = true;
+    }, 2000);
+  }
 
+  convertToLocalDatetimeString(date: string): string {
+    console.log("Data do konwersji:");
+    console.log(date);
+  
+    const convertedDate = moment(date); 
+    console.log("to co zwracam")
+    console.log(convertedDate.isValid() ? convertedDate.format('YYYY-MM-DD HH:mm:ss') : '')
+    return convertedDate.isValid() ? convertedDate.format('YYYY-MM-DD HH:mm:ss') : '';
   }
 
   checkIsAdmin(){
@@ -187,25 +212,28 @@ export class PortfolioDetailsComponent implements OnInit {
     this.data.coatOfArmsDescription = this.coatOfArmsDescription
     this.data.symbolsDescription = this.symbolsDescription
     this.data.history = this.history
-    
-    
-    this.data.createdAt = this.convertToLocalDatetimeString(this.createdAt);
-    
-    console.log("createdAt")
-    console.log(this.createdAt)
+    this.data.createdAt = this.convertToLocalDatetimeString(this.createdAt)
+    this.convertToMoment(this.createdAt)
+    this.data.cityForMap = this.cityForMap
 
-    this.porftolioApi.modifyEntry(this.data) .pipe(
-      catchError((error) => {
+    if(this.selectedDate !== undefined && moment.isMoment(this.selectedDate) && this.selectedDate.isValid()){
+      this.porftolioApi.modifyEntry(this.data) .pipe(
+        catchError((error) => {
+  
+          if (error.status === 401) {
+            this.router.navigateByUrl('login')
+          }
+          return throwError(error);
+        })
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
+    }else{
+      alert("Data uchwalenia nie może być pusta")
+      this.editFormVisible = true
+    }
 
-        if (error.status === 401) {
-          this.router.navigateByUrl('login')
-        }
-        return throwError(error);
-      })
-    )
-    .subscribe(response => {
-      console.log(response);
-    });
   }
 
   onImageDropped(files: FileList, fileName: string) {
@@ -258,15 +286,7 @@ export class PortfolioDetailsComponent implements OnInit {
     this.selectedDate = moment(dateString, format);
     console.log(this.selectedDate)
   }
-  convertToLocalDatetimeString(date: string): string {
-    console.log("Data do konwersji:");
-    console.log(date);
-  
-    const convertedDate = moment(date); 
-    console.log("to co zwracam")
-    console.log(convertedDate.isValid() ? convertedDate.format('YYYY-MM-DD HH:mm:ss') : '')
-    return convertedDate.isValid() ? convertedDate.format('YYYY-MM-DD HH:mm:ss') : '';
-  }
+
   onDocumentDropped(files: FileList) {
     const file = files[0];
     const formData = new FormData();
@@ -297,7 +317,7 @@ export class PortfolioDetailsComponent implements OnInit {
         }
       });
     }else{
-      alert("Aby wrzucić obrazek, musisz podać jego nazwę")
+      alert("Aby wrzucić plik, musisz podać jego nazwę")
     }
   }
 

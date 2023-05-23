@@ -41,6 +41,9 @@ public class PortfolioItemModel extends BaseModel {
   @Column(name = "CREATED_AT")
   private LocalDateTime createdAt;
 
+  @Column(name = "CITY_FOR_MAP")
+  private String cityForMap;
+
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "portfolioItemModel")
   private Set<PortfolioMediaModel> mediaModels;
 

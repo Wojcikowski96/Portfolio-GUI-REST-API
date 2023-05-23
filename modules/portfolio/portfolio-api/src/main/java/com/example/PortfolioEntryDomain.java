@@ -58,6 +58,10 @@ public interface PortfolioEntryDomain {
 
   void setCreatedAt(LocalDateTime createdAt);
 
+  String getCityForMap();
+
+  void setCityForMap(String cityForMap);
+
 
 
 

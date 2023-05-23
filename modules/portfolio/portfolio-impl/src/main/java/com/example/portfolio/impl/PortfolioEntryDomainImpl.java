@@ -32,6 +32,8 @@ public class PortfolioEntryDomainImpl implements PortfolioEntryDomain {
 
   private String history;
 
+  private String cityForMap;
+
   private LocalDateTime createdAt;
 
 

@@ -162,10 +162,11 @@ h1.number{
     font-family: 'Antykwa';
 }
 .remove-item{
+    margin-right: auto;
+    margin-left: auto;
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    float: right;
     cursor: pointer;
     text-align: center;
     font-size: 35px;

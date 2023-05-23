@@ -29,7 +29,7 @@
   <div class="maincontent">
     <div class="description">
       <h1 *ngIf="editFormVisible">
-        Data zaprojektowania:
+        Data uchwalenia:
       </h1>
       <app-datepicker [(selectedDate)]="selectedDate" (selectedDateChange)="setDate($event)" *ngIf="editFormVisible"></app-datepicker>
       <h1 *ngIf="editFormVisible">
@@ -55,7 +55,13 @@
           </div>
         </div>
         <div id="mapid" style="height: 300px; width: 35%; margin-left: auto; margin-top: 20px; z-index: 0;">
-          <script>initMap()</script>
+          <div [style.display]="editFormVisible ? 'flex' : 'none'" style="height: 20%" class="map-search-section">
+          <div style="width:80%; height: 100%;" class ="textarea-wrapper">
+            <textarea [(ngModel)]="cityForMap" type="text"></textarea>
+          </div>
+          <button style="width: 20%" (click)="changeCity(cityForMap)">Szukaj</button>
+        </div>
+        <app-map *ngIf="showMap" ></app-map>
         </div>
       </div>
         <h1>

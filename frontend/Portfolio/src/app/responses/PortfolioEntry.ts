@@ -14,6 +14,7 @@ export class PortfolioEntry{
     symbolsDescription: string | undefined;
     history: string | undefined;
     createdAt: string | undefined;
+    cityForMap: string | undefined;
     imagesUrlsPageLeftPane: Media[] | undefined;
     documents: Media[] | undefined;
 }

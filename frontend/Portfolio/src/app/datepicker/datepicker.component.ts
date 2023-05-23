@@ -48,9 +48,6 @@ export const MY_FORMATS = {
 })
 export class DatepickerComponent {
 
-  // @Input()
-  // date = new FormControl();
-
   @Output() selectedDateChange = new EventEmitter<any>();
   
   @Input()

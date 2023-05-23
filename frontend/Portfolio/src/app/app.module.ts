@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialExampleModule } from 'src/material-module';
 import {MAT_DATE_LOCALE } from '@angular/material/core';
+import { MapComponent } from './map/map.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
@@ -40,7 +41,8 @@ const routes: Routes = [
     BlogComponent,
     LoginFormComponent,
     DragAndDropDirective,
-    DatepickerComponent
+    DatepickerComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
