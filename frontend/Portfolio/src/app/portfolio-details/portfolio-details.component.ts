@@ -10,6 +10,7 @@ import { throwError } from 'rxjs';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import * as moment from 'moment';
 import { MapService } from '../service/MapService';
+import { Coordinates } from '../utils/Coordinates';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -56,7 +57,10 @@ export class PortfolioDetailsComponent implements OnInit {
     symbolsDescription: '',
     history: '',
     createdAt:'',
-    cityForMap: ''
+    cityForMap: '',
+    longitude: 0,
+    latitude: 0
+
   };
   
   divKeyValues = [
@@ -103,6 +107,8 @@ export class PortfolioDetailsComponent implements OnInit {
   selectedDate: moment.Moment | '' = ""
 
   cityForMap!: string | '';
+
+  coordinatesFromMapComponent: Coordinates| undefined;
 
   onDetailsClosed() {
     this.detailsVisible = false;
@@ -161,15 +167,20 @@ export class PortfolioDetailsComponent implements OnInit {
         this.convertToMoment(this.createdAt)
         
       }
-      if(portfolioEntry.cityForMap !==undefined){
-        this.cityForMap = portfolioEntry.cityForMap;
-      }
   
+      if(portfolioEntry.longitude !==undefined && portfolioEntry.latitude !==undefined){
+        this.coordinatesFromMapComponent = {lon: 0, lat: 0}
+        
+        if(this.coordinatesFromMapComponent){
+          this.coordinatesFromMapComponent.lon = portfolioEntry.longitude;
+          this.coordinatesFromMapComponent.lat  = portfolioEntry.latitude;
+          this.mapService.changeCoords(this.coordinatesFromMapComponent)
+          console.log("coordsy po przekazaniu do details")
+          console.log(this.coordinatesFromMapComponent)
+        }
+      }
+
     });
-    this.changeCity(this.cityForMap)
-    setTimeout(() => {
-      this.showMap = true;
-    }, 2000);
   }
 
   convertToLocalDatetimeString(date: string): string {
@@ -215,6 +226,8 @@ export class PortfolioDetailsComponent implements OnInit {
     this.data.createdAt = this.convertToLocalDatetimeString(this.createdAt)
     this.convertToMoment(this.createdAt)
     this.data.cityForMap = this.cityForMap
+    this.data.longitude = this.coordinatesFromMapComponent ? this.coordinatesFromMapComponent.lon: 0;
+    this.data.latitude = this.coordinatesFromMapComponent ? this.coordinatesFromMapComponent.lat: 0;
 
     if(this.selectedDate !== undefined && moment.isMoment(this.selectedDate) && this.selectedDate.isValid()){
       this.porftolioApi.modifyEntry(this.data) .pipe(
@@ -258,6 +271,12 @@ export class PortfolioDetailsComponent implements OnInit {
     this.createdAt = date
     console.log("created at wyemitowane")
     console.log(this.createdAt)
+
+  }
+  setCoordinatesFromMap(coords: Coordinates){
+    this.coordinatesFromMapComponent = coords;
+    console.log("przekazane coordsy z komponentu to")
+    console.log(this.coordinatesFromMapComponent.lat)
 
   }
 

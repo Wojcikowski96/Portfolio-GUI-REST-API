@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
-import { LayerGroup } from 'leaflet';
 import { MapService } from '../service/MapService';
+import { Coordinates } from '../utils/Coordinates';
 
 @Component({
   selector: 'app-map',
@@ -12,15 +12,23 @@ import { MapService } from '../service/MapService';
 export class MapComponent implements OnInit {
   map: L.Map | undefined
 
-  @Input()
-  selectedDate: string |undefined;
+  @Output() foundCoords = new EventEmitter<Coordinates>();
 
   constructor(private http: HttpClient, private mapService: MapService) {}
 
   ngOnInit() {
-    this.initMap();
+    console.log("inituję mapę")
+    this.initMap()
     this.mapService.cityDataToPass$.subscribe(city=>{
+      console.log("przekazane city")
+      console
       this.geocodeLocation(city);
+    })
+
+    this.mapService.coordsDataToPass$.subscribe(coords=>{
+      console.log("coordsy w mp")
+      console.log(coords)
+      this.setPinFromRest(coords)
     })
   }
 
@@ -34,7 +42,7 @@ export class MapComponent implements OnInit {
       zoomOffset: -1,
       accessToken: 'pk.eyJ1Ijoid29qY2lrb3dza2kxIiwiYSI6ImNrcnhocXJpeDA3eGIydm1zbXFubjduOHIifQ.pm2jjfLo11_yQVODavHTmA'
   }).addTo(this.map);
-  
+
   }
 
   geocodeLocation(location: string) {
@@ -46,8 +54,12 @@ export class MapComponent implements OnInit {
       if (response.length > 0) {
         const result = response[0];
         const { lat, lon } = result;
-
-        const coordinates = [lat, lon];
+        
+        const coordinates: Coordinates = { lon: lon, lat: lat };
+        console.log("emituję")
+        console.log(coordinates)
+        
+        this.foundCoords.emit(coordinates)
 
         if(this.map){
           this.map.setView([lat, lon], 5.2)
@@ -55,5 +67,11 @@ export class MapComponent implements OnInit {
         }
       }
     });
+  }
+  setPinFromRest(coords: Coordinates){
+    if(this.map){
+      this.map.setView([coords.lat, coords.lon], 5.2)
+      L.marker([coords.lat, coords.lon]).addTo(this.map);
+    }
   }
 }

@@ -58,9 +58,13 @@ public interface PortfolioEntryDomain {
 
   void setCreatedAt(LocalDateTime createdAt);
 
-  String getCityForMap();
+  Double getLongitude();
 
-  void setCityForMap(String cityForMap);
+  void setLongitude(Double longitude);
+
+  Double getLatitude();
+
+  void setLatitude(Double latitude);
 
 
 

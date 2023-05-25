@@ -61,7 +61,7 @@
           </div>
           <button style="width: 20%" (click)="changeCity(cityForMap)">Szukaj</button>
         </div>
-        <app-map *ngIf="showMap" ></app-map>
+        <app-map (foundCoords)="setCoordinatesFromMap($event)" ></app-map>
         </div>
       </div>
         <h1>

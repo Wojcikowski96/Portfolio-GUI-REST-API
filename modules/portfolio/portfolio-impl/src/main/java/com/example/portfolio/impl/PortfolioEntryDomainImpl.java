@@ -2,6 +2,7 @@ package com.example.portfolio.impl;
 
 import com.example.PortfolioEntryDomain;
 import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +33,9 @@ public class PortfolioEntryDomainImpl implements PortfolioEntryDomain {
 
   private String history;
 
-  private String cityForMap;
+  private Double longitude;
+
+  private Double latitude;
 
   private LocalDateTime createdAt;
 

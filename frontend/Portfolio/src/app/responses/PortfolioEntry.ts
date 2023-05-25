@@ -17,4 +17,6 @@ export class PortfolioEntry{
     cityForMap: string | undefined;
     imagesUrlsPageLeftPane: Media[] | undefined;
     documents: Media[] | undefined;
+    longitude:number|undefined;
+    latitude: number | undefined;
 }

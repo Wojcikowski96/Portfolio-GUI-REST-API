@@ -247,8 +247,10 @@ components:
         createdAt:
           type: string
           pattern: /([0-9]{2})-(?:[0-9]{2})-([0-9]{4})/
-        cityForMap:
-          type: string
+        longitude:
+          type: double
+        latitude:
+          type: double
     MediaDTO:
       type: object
       properties:
