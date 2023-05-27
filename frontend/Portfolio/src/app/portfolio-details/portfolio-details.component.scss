@@ -54,13 +54,11 @@ h1.button-description{
    
 }
 .content:hover :nth-child(1){
-    content: "Pobierz";
     color: $brown;
 }
 
 .content:hover :nth-child(1)::before{
     font-family: "Antykwa";
-    content: "Pobierz";
 }
 
 
@@ -128,9 +126,7 @@ h1.banner{
          animation: fadein 2s;
     
 }
-.empty-space{
-    height: 100px;
-}
+
 .maincontent{
     background-color:$bodycolor;
     column-gap: 20px;
@@ -194,9 +190,7 @@ textarea{
     border: 1px black;
     background-color: $formcolor;
 }
-.textarea-wrapper{
-    margin-bottom: 20px;
-}
+
 @keyframes fadein {
     from { opacity: 0.3; top: -200px }
     to   { opacity: 1; top: 0px }

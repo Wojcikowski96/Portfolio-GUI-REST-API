@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import * as moment from 'moment';
 import { MapService } from '../service/MapService';
-import { Coordinates } from '../utils/Coordinates';
+import { SearchResult } from '../utils/SearchResult';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -40,8 +40,8 @@ export class PortfolioDetailsComponent implements OnInit {
   detailsVisible = true;
   editFormVisible = false;
 
-  showMap = false;
   
+
   height: number = 0;
 
   results: Array<PortfolioEntry> | undefined;
@@ -108,7 +108,7 @@ export class PortfolioDetailsComponent implements OnInit {
 
   cityForMap!: string | '';
 
-  coordinatesFromMapComponent: Coordinates| undefined;
+  coordinatesFromMapComponent: SearchResult| undefined;
 
   onDetailsClosed() {
     this.detailsVisible = false;
@@ -169,7 +169,7 @@ export class PortfolioDetailsComponent implements OnInit {
       }
   
       if(portfolioEntry.longitude !==undefined && portfolioEntry.latitude !==undefined){
-        this.coordinatesFromMapComponent = {lon: 0, lat: 0}
+        this.coordinatesFromMapComponent = {lon: 0, lat: 0, display_name: ''}
         
         if(this.coordinatesFromMapComponent){
           this.coordinatesFromMapComponent.lon = portfolioEntry.longitude;
@@ -273,11 +273,24 @@ export class PortfolioDetailsComponent implements OnInit {
     console.log(this.createdAt)
 
   }
-  setCoordinatesFromMap(coords: Coordinates){
+  setCoordinatesFromMap(coords: SearchResult){
     this.coordinatesFromMapComponent = coords;
     console.log("przekazane coordsy z komponentu to")
-    console.log(this.coordinatesFromMapComponent.lat)
+    this.autoFillLocationDetails(this.coordinatesFromMapComponent)
+  
 
+  }
+  autoFillLocationDetails(searchResult: SearchResult){
+    const parts = searchResult.display_name.split(',');
+    parts.forEach((part) => {
+      if(part.includes("województwo")){
+        this.wojewodztwo = part
+      }
+      if(part.includes("powiat")){
+        this.powiat = part
+      }
+    });
+    
   }
 
   onImageDroppedImageBody(files: FileList) {

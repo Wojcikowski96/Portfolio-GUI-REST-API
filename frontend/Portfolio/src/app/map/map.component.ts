@@ -1,22 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
 import { MapService } from '../service/MapService';
-import { Coordinates } from '../utils/Coordinates';
+import { SearchResult } from '../utils/SearchResult';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements AfterViewInit {
   map: L.Map | undefined
 
-  @Output() foundCoords = new EventEmitter<Coordinates>();
+  searchResults: Array<SearchResult> | undefined
 
   constructor(private http: HttpClient, private mapService: MapService) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     console.log("inituję mapę")
     this.initMap()
     this.mapService.cityDataToPass$.subscribe(city=>{
@@ -28,7 +28,7 @@ export class MapComponent implements OnInit {
     this.mapService.coordsDataToPass$.subscribe(coords=>{
       console.log("coordsy w mp")
       console.log(coords)
-      this.setPinFromRest(coords)
+      this.setPin(coords)
     })
   }
 
@@ -52,23 +52,14 @@ export class MapComponent implements OnInit {
 
     this.http.get(geocodingUrl).subscribe((response: any) => {
       if (response.length > 0) {
-        const result = response[0];
-        const { lat, lon } = result;
+        this.searchResults = response;
+        if(this.searchResults)
+        this.mapService.changeSuggestedLocations(this.searchResults)
         
-        const coordinates: Coordinates = { lon: lon, lat: lat };
-        console.log("emituję")
-        console.log(coordinates)
-        
-        this.foundCoords.emit(coordinates)
-
-        if(this.map){
-          this.map.setView([lat, lon], 5.2)
-          L.marker([lat, lon]).addTo(this.map);
-        }
       }
     });
   }
-  setPinFromRest(coords: Coordinates){
+  setPin(coords: SearchResult){
     if(this.map){
       this.map.setView([coords.lat, coords.lon], 5.2)
       L.marker([coords.lat, coords.lon]).addTo(this.map);

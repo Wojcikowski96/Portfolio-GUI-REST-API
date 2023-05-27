@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MaterialExampleModule } from 'src/material-module';
 import {MAT_DATE_LOCALE } from '@angular/material/core';
 import { MapComponent } from './map/map.component';
+import { LocalizationSuggesterComponent } from './localization-suggester/localization-suggester.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
@@ -42,7 +43,8 @@ const routes: Routes = [
     LoginFormComponent,
     DragAndDropDirective,
     DatepickerComponent,
-    MapComponent
+    MapComponent,
+    LocalizationSuggesterComponent
   ],
   imports: [
     BrowserModule,
