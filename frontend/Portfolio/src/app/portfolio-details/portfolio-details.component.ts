@@ -110,6 +110,8 @@ export class PortfolioDetailsComponent implements OnInit {
 
   coordinatesFromMapComponent: SearchResult| undefined;
 
+  isDataLoaded: boolean = false
+
   onDetailsClosed() {
     this.detailsVisible = false;
     this.gridService.toggleGrid();
@@ -125,6 +127,25 @@ export class PortfolioDetailsComponent implements OnInit {
       this.detailsId = detailsId;
       console.log("Przekazałem id na kliknięcie: "+detailsId)
       
+    });
+    const images = document.querySelectorAll('img');
+    let loadedCount = 0;
+    
+    const imageLoaded = () => {
+      loadedCount++;
+
+      if (loadedCount === images.length) {
+        console.log("załadowaałem")
+        this.isDataLoaded = true;
+      }
+    };
+
+    images.forEach((image: HTMLImageElement) => {
+      if (image.complete) {
+        imageLoaded();
+      } else {
+        image.addEventListener('load', imageLoaded);
+      }
     });
 
     this.gridService.arrayDataToPass$.subscribe(portfolioEntry => {
@@ -230,6 +251,8 @@ export class PortfolioDetailsComponent implements OnInit {
     this.data.latitude = this.coordinatesFromMapComponent ? this.coordinatesFromMapComponent.lat: 0;
 
     if(this.selectedDate !== undefined && moment.isMoment(this.selectedDate) && this.selectedDate.isValid()){
+      console.log("dane do zapisu w details")
+      console.log(this.data)
       this.porftolioApi.modifyEntry(this.data) .pipe(
         catchError((error) => {
   
@@ -247,6 +270,33 @@ export class PortfolioDetailsComponent implements OnInit {
       this.editFormVisible = true
     }
 
+  }
+
+  onImageNameChange(text: string){
+    this.imageName = text
+  }
+  onCoatsOfArmsDescriptionChange(text: string){
+    this.coatOfArmsDescription = text
+  }
+
+  onLocationDetailsChange(text: string){
+    this.locationDetails= text
+  }
+  onSymbolsDescriptionChange(text: string){
+    this.symbolsDescription = text
+  }
+  onDocumentNameChange(text: string){
+    this.documentName = text
+  }
+  onDesignedElementsChange(text: string){
+    this.designedElements = text
+  }
+  onWojewodztwoChange(text: string){
+    this.wojewodztwo = text
+  }
+  
+  onPowiatChange(text: string){
+    this.powiat = text
   }
 
   onImageDropped(files: FileList, fileName: string) {
@@ -273,6 +323,7 @@ export class PortfolioDetailsComponent implements OnInit {
     console.log(this.createdAt)
 
   }
+
   setCoordinatesFromMap(coords: SearchResult){
     this.coordinatesFromMapComponent = coords;
     console.log("przekazane coordsy z komponentu to")
@@ -297,6 +348,7 @@ export class PortfolioDetailsComponent implements OnInit {
     const file = files[0];
     const formData = new FormData();
     formData.append('fileByteString', file);
+    console.log(file)
 
     if(this.imageName){
       formData.append('name',this.imageName)

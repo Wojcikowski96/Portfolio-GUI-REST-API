@@ -229,11 +229,11 @@ textarea{
     padding-top: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    -webkit-animation: fadeinS 1s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadeinS 1s; /* Firefox < 16 */
-     -ms-animation: fadeinS 1s; /* Internet Explorer */
-      -o-animation: fadeinS 1s; /* Opera < 12.1 */
-         animation: fadeinS 1s;
+    // -webkit-animation: fadeinS 1s; /* Safari, Chrome and Opera > 12.1 */
+    // -moz-animation: fadeinS 1s; /* Firefox < 16 */
+    //  -ms-animation: fadeinS 1s; /* Internet Explorer */
+    //   -o-animation: fadeinS 1s; /* Opera < 12.1 */
+    //      animation: fadeinS 1s;
 }
 
 
@@ -256,22 +256,13 @@ h1.label{
     box-shadow: 3px 3px 5px 6px $shadowcolor;
     padding-left: 30px;
     padding-right: 30px;
-    -webkit-animation: fadeinD 1s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadeinD 1s; /* Firefox < 16 */
-     -ms-animation: fadeinD 1s; /* Internet Explorer */
-      -o-animation: fadeinD 1s; /* Opera < 12.1 */
-         animation: fadeinD 1s;
+    // -webkit-animation: fadeinD 1s; /* Safari, Chrome and Opera > 12.1 */
+    // -moz-animation: fadeinD 1s; /* Firefox < 16 */
+    //  -ms-animation: fadeinD 1s; /* Internet Explorer */
+    //   -o-animation: fadeinD 1s; /* Opera < 12.1 */
+    //      animation: fadeinD 1s;
 }
-.addImage{
-    height: 100%; 
-    width:100%; 
-    background-color: white; 
-    margin: auto; 
-    font-size: 180px; 
-    color: grey;
-    text-align: center;
-    
-}
+
 
 #herb{
     width: 90%; 

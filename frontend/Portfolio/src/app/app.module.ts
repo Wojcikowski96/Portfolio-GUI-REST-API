@@ -22,6 +22,8 @@ import { MaterialExampleModule } from 'src/material-module';
 import {MAT_DATE_LOCALE } from '@angular/material/core';
 import { MapComponent } from './map/map.component';
 import { LocalizationSuggesterComponent } from './localization-suggester/localization-suggester.component';
+import { DragAndDropImageComponent } from './drag-and-drop-image/drag-and-drop-image.component';
+import { TextAreaComponent } from './text-area/text-area.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
@@ -44,7 +46,9 @@ const routes: Routes = [
     DragAndDropDirective,
     DatepickerComponent,
     MapComponent,
-    LocalizationSuggesterComponent
+    LocalizationSuggesterComponent,
+    DragAndDropImageComponent,
+    TextAreaComponent
   ],
   imports: [
     BrowserModule,

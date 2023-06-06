@@ -43,7 +43,7 @@ public class SecurityConfig {
         .authorizeHttpRequests((requests) -> {
           try {
             requests.requestMatchers("/authenticate", "/blog/entries",
-                    "/blog/image", "/portfolio/file", "/email/send", "/portfolio/entries").permitAll()
+                    "/blog/file", "/portfolio/file", "/email/send", "/portfolio/entries", "/blog/entry").permitAll()
                 .requestMatchers("/portfolio/entry", "/blog/entry", "/blog/entry/uploadImage",
                     "/portfolio/entry/uploadFile",
                     "/portfolio/entries/delete",

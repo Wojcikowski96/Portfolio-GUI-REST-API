@@ -1,0 +1,19 @@
+$white: white;
+$bodycolor:whitesmoke;
+$brown:brown;
+$shadowcolor:#ccc;
+$formcolor: #EBEBEB;
+
+   textarea{
+        width: 100%; 
+        height: 100%; 
+        font-family: 'Antykwa'; 
+        font-size: 25px; 
+        border: none; 
+        background-color: $bodycolor;
+        color: black;
+        border: 1px black;
+        background-color: $formcolor;
+    }
+    
+

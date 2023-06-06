@@ -28,7 +28,6 @@
         <app-localization-suggester (selectedOption)="setCoordinatesFromMap($event)" style="width: 100%;"></app-localization-suggester>
       </div>
     </div>
-    <!-- <button style="width: 30%" (click)="changeCity(locationName)">Szukaj</button> -->
     <div class="button" style="width: 30%">
         <div (click)="changeCity(locationName)" style="text-decoration:none" class="content">
           <h1 class="button-description">
@@ -53,15 +52,15 @@
       <h1 *ngIf="editFormVisible">
         Zaprojektowane elementy:
       </h1>
-      <textarea *ngIf="editFormVisible" type="text" [(ngModel)]="designedElements"></textarea>
+      <app-text-area [name]="designedElements" (nameChange)="onDesignedElementsChange($event)" *ngIf=" editFormVisible"></app-text-area>
       <h1 *ngIf="editFormVisible">
         Województwo:
       </h1>
-      <textarea *ngIf="editFormVisible" type="text" [(ngModel)]="wojewodztwo"></textarea>
+      <app-text-area [name]="wojewodztwo" (nameChange)="onWojewodztwoChange($event)" *ngIf=" editFormVisible"></app-text-area>
       <h1 *ngIf="editFormVisible">
         Powiat:
       </h1>
-      <textarea *ngIf="editFormVisible" type="text" [(ngModel)]="powiat"></textarea>
+      <app-text-area [name]="powiat" (nameChange)="onPowiatChange($event)" *ngIf=" editFormVisible"></app-text-area>
       <div class = "map-and-description-container" style="display: flex; height: 100%;">
         <div class ="text-container" style= "width: 60%; margin-right: auto;  margin-left: 0px">
           <h1>O gminie</h1>
@@ -69,7 +68,7 @@
             {{locationDetails}}
           </p>
           <div [ngStyle]="{ 'height.px': height }" class ="textarea-wrapper">
-            <textarea *ngIf="editFormVisible" type="text" [(ngModel)]="locationDetails"></textarea>
+            <app-text-area [name]="locationDetails" (nameChange)="onLocationDetailsChange($event)" *ngIf=" editFormVisible"></app-text-area>
           </div>
         </div>
         <div id="mapid" style="height: 300px; width: 35%; margin-left: auto; margin-top: 20px; z-index: 0;">
@@ -81,7 +80,7 @@
         </h1>
         <p *ngIf="!editFormVisible">{{coatOfArmsDescription}}</p>
         <div [ngStyle]="{ 'height.px': height }"  class = "textarea-wrapper">
-          <textarea *ngIf="editFormVisible" type="text" [(ngModel)]="coatOfArmsDescription"></textarea>
+          <app-text-area [name]="coatOfArmsDescription" (nameChange)="onCoatsOfArmsDescriptionChange($event)" *ngIf=" editFormVisible"></app-text-area>
         </div>
         
       <div class="description-images-wrapper">
@@ -94,17 +93,14 @@
       </div>
       <div style="margin: auto" *ngIf=" editFormVisible" class="image-wrapper">
       <div style="display:block" class = add-image-body-wrapper-inner>
-        <div class="addImage" appDragAndDrop (filesDropped)="onImageDroppedImageBody($event)">
-          +
-        </div>
+        <app-drag-and-drop-image (filesDropped)="onImageDroppedImageBody($event)"></app-drag-and-drop-image>
         <div style="height: 20%" class = "textarea-wrapper">
           <div style = "width: 80%; margin:auto" class = "textarea-wrapper-inner">
-            <textarea style="width: 100%;"  *ngIf=" editFormVisible" [(ngModel)]="imageName"></textarea>
+            <app-text-area (nameChange)="onImageNameChange($event)" *ngIf=" editFormVisible"></app-text-area>
           </div>
         </div>
       </div>
       </div>
-      
       </div>
       <h1>
         Pozostałe symbole
@@ -114,7 +110,8 @@
       </p>
 
       <div [ngStyle]="{ 'height.px': height }"  class = "textarea-wrapper">
-        <textarea *ngIf=" editFormVisible" type="text" [(ngModel)]="symbolsDescription"></textarea>
+        <!-- <textarea *ngIf=" editFormVisible" type="text" [(ngModel)]="symbolsDescription"></textarea> -->
+        <app-text-area [name]="symbolsDescription" (nameChange)="onSymbolsDescriptionChange($event)" *ngIf=" editFormVisible"></app-text-area>
       </div>
       <h1>
         Historia
@@ -139,7 +136,8 @@
           <div style = "height: 50%; font-size: 45px; color: brown;">+</div>
               <div style="height:50%" class = "textarea-wrapper">
                 <div style="height: 100%"  class = "textarea-wrapper-inner">
-                  <textarea style="outline: none" *ngIf=" editFormVisible" [(ngModel)]="documentName"></textarea>
+                  <!-- <textarea style="outline: none" *ngIf=" editFormVisible" [(ngModel)]="documentName"></textarea> -->
+                  <app-text-area [name]="documentName" (nameChange)="onDocumentNameChange($event)" *ngIf=" editFormVisible"></app-text-area>
                 </div>
               </div>
           </div>
@@ -154,9 +152,7 @@
         <div [@inOutAnimation]="'in'" *ngFor="let image of imagesUrlsPageLeftPane">
           <img *ngIf="image.name === div.id" src={{image.url}} id="baner">
         </div>
-        <div class="addImage" *ngIf=" editFormVisible && detailsId!=undefined" appDragAndDrop (filesDropped)="onImageDropped($event, div.id)">
-          +
-        </div>
+        <app-drag-and-drop-image *ngIf=" editFormVisible && detailsId!=undefined" (filesDropped)="onImageDropped($event, div.id)"></app-drag-and-drop-image>
         <h1 class="label">
           {{div.id}}
         </h1>

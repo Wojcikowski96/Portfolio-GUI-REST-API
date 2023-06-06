@@ -59,6 +59,12 @@ public class BlogApiDelegateImpl implements BlogApiDelegate {
   }
 
   @Override
+  public ResponseEntity<BlogEntryDTO> getBlogEntry(Long entryId) {
+    BlogEntryDomainImpl blogEntryDomainImpl = (BlogEntryDomainImpl) blogApi.getBlogEntry(entryId);
+    return ResponseEntity.ok(blogEntryMapper.domainToRest(blogEntryDomainImpl)) ;
+  }
+
+  @Override
   public ResponseEntity<Void> saveBlogEntry(BlogEntryDTO blogEntryDTO) {
 
     blogApi.saveBlogEntry(blogEntryMapper.restToDomain(blogEntryDTO));

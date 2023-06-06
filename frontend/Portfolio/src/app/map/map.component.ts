@@ -52,6 +52,7 @@ export class MapComponent implements AfterViewInit {
 
     this.http.get(geocodingUrl).subscribe((response: any) => {
       if (response.length > 0) {
+        console.log(response)
         this.searchResults = response;
         if(this.searchResults)
         this.mapService.changeSuggestedLocations(this.searchResults)

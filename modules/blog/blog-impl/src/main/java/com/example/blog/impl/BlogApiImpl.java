@@ -52,13 +52,19 @@ public class BlogApiImpl implements BlogModuleApi {
   }
 
   @Override
+  public BlogEntryDomain getBlogEntry(Long id) {
+    Optional<BlogEntryModel> blogEntryOptional = blogEntryRepository.findById(id);
+    return blogEntryMapper.modelToDomain(blogEntryOptional.get());
+  }
+
+  @Override
   public void saveBlogEntry(BlogEntryDomain blogEntryDomain) {
     if (blogEntryDomain.getId() == null) {
 
-      if (blogEntryRepository.findByTittle(blogEntryDomain.getTittle()) != null) {
-        throw ExceptionsFactory.createConflict("Wpis z takim tytułem już istnieke",
-            "WZTJI", null);
-      }
+//      if (blogEntryRepository.findByTittle(blogEntryDomain.getTittle()) != null) {
+//        throw ExceptionsFactory.createConflict("Wpis z takim tytułem już istnieke",
+//            "WZTJI", null);
+//      }
 
       blogEntryRepository.save(blogEntryMapper.domainToModel(blogEntryDomain));
 

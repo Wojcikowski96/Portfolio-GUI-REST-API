@@ -6,4 +6,5 @@ export class BlogEntry{
     imageUrl: string| undefined;
     content: string | undefined;
     newsPortalsUrls: Array<string> | undefined
+    editable: boolean |undefined
 }

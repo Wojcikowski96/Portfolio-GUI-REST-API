@@ -86,6 +86,31 @@ paths:
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
         '404':
           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+    get:
+      summary: Pobiera wpis bloga dla danego id
+      operationId: getBlogEntry
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogEntryDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
   /blog/entry/uploadImage:
     post:
       summary: Modyfikuje wpis bloga pod kątem dodania obrazka
@@ -170,7 +195,7 @@ paths:
               $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
             '404':
               $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
-  /blog/image:
+  /blog/file:
     get:
       summary: Pobiera obrazek dla konkretnego wpisu
       description: Operacja dostępna dla wszystkich
@@ -186,7 +211,7 @@ paths:
 
       responses:
         '200':
-          description:
+          description: obraz
           content:
             image/png:
               schema:
