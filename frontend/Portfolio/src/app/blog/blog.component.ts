@@ -7,12 +7,45 @@ import { EmailApiService } from '../service/email-service';
 import { AuthService } from '../service/AuthService';
 import { BlogRequestBody } from '../utils/BlogRequestBody';
 import { Location } from '@angular/common';
+import { trigger, state, style, transition, animate, keyframes, query, stagger, animateChild } from '@angular/animations';
 
 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.scss']
+  styleUrls: ['./blog.component.scss'],
+  animations: [
+    trigger("inOutAnimation", [
+      state("in", style({ opacity: 1 })),
+  
+      transition(":enter", [
+        query(".entry-tile", [
+          style({ opacity: 0, transform: "translateX(-50%)" }),
+          animate(
+            "500ms",
+            keyframes([
+              style({ opacity: 0, transform: "translateX(-50%)", offset: 0 }),
+              style({ opacity: 1, transform: "none", offset: 1 })
+            ])
+          ),
+          stagger(300, animateChild())
+        ])
+      ]),
+  
+      transition(":leave", [
+        animate(
+          300,
+          keyframes([
+            style({ opacity: 1, offset: 0, width: "100%", height: "100%" }),
+            style({ opacity: 0.75, offset: 0.25, width: "75%", height: "80%" }),
+            style({ opacity: 0.5, offset: 0.5, width: "50%", height: "50%" }),
+            style({ opacity: 0.25, offset: 0.75, width: "20%", height: "20%" }),
+            style({ opacity: 0, offset: 1, width: "0px", height: "0%" })
+          ])
+        )
+      ])
+    ])
+  ]
 })
 export class BlogComponent implements OnInit {
   results: Array<BlogEntry> | undefined;
@@ -48,6 +81,17 @@ export class BlogComponent implements OnInit {
         item.editable= false;
     });
     });
+  }
+  removeEntryById(id: any){
+    this.blogApiService.deleteEntryById(id).subscribe((result) =>{
+      if(this.results)
+      this.results.forEach((element,index)=>{
+        if(element.id==id) {
+          if(this.results)
+          this.results.splice(index, 1)
+        };
+     });
+    })
   }
   checkIsAdmin(){
     if(this.authService.getRoles() && this.authService.getRoles().includes('ROLE_ADMIN')){

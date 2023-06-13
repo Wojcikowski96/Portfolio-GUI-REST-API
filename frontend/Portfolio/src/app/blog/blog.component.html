@@ -30,7 +30,9 @@
 <h1>Aktualności</h1>
  
 </div>
-<div *ngFor="let item of results" class="entry-tile">
+<div [@inOutAnimation]="'in'"  *ngFor="let item of results">
+    <div class ="entry-tile">
+    <div (click)="removeEntryById(item.id)" *ngIf="checkIsAdmin()"  class = remove-item>X</div>
     <button *ngIf="checkIsAdmin()" class="edit-button" (click)="setEditMode(item)">Edytuj</button>
     <button *ngIf="checkIsAdmin() && item.editable" class="save-button" (click)="modifyEntry(item)">Zapisz</button>
     <div class ='entry-header'>
@@ -48,9 +50,11 @@
     </div>
     <div class ='description'>
     <p *ngIf="!item.editable">{{item?.content}}</p>
+    <h1 *ngIf="item.editable">Treść wpisu:</h1>
     <app-text-area (nameChange)="onContentChange($event)" [name]="contentTextarea" *ngIf="item.editable"></app-text-area>
     <div class = 'urls-container'>
     <div *ngIf="item.editable" class = "add-url-section">
+        <h1 *ngIf="item.editable">Link do dodania:</h1>
         <app-text-area (nameChange)="onUrlChange($event)" [name]="urlName"></app-text-area>
         <div (click)="addUrl(urlName)" class="button" style="width: 30%">
             <div style="text-decoration:none" class="content">
@@ -74,6 +78,7 @@
     </div>
     </div>
     </div>
+</div>
 </div>
 <div (click)="addEmptyEntry()" style="font-size: 400px; color: gray;box-shadow: 3px 3px 5px 6px gainsboro; cursor: pointer;" *ngIf="checkIsAdmin()" class = "tile" >
     +

@@ -13,6 +13,7 @@ export class BlogApiService {
   private baseUrl = 'http://localhost:8080/blog/entries';
   private baseUrl2 = 'http://localhost:8080/blog/entry';
   private uploadFileUrl = 'http://localhost:8080/blog/entry/uploadImage';
+  private deleteEntryUrl = 'http://localhost:8080/blog/entries/delete';
  
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -39,7 +40,11 @@ export class BlogApiService {
     });
     return this.http.post(url, formData, { headers });
   }
-
+  deleteEntryById(entryId: number){
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
+    console.log("usuwam")
+    return this.http.delete(`${this.deleteEntryUrl}?entryId=${entryId}`,{headers});
+  }
   getEntry(id: number) {
     const url = 'http://localhost:8080/blog/entry';
     return this.http.get<BlogEntry>(`${this.baseUrl2}?entryId=${id}`).pipe(

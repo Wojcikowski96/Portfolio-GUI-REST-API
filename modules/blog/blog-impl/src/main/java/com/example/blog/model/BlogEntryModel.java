@@ -12,10 +12,12 @@ import jakarta.persistence.Table;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
 @Table(name = "BLOG_ENTRY")
 @Data
+@Getter
 public class BlogEntryModel extends BaseModel {
 
   @Column(name = "TITTLE")
@@ -28,7 +30,6 @@ public class BlogEntryModel extends BaseModel {
   List<String> newsPortalsUrls;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "BLOG_IMAGE_ID")
   private BlogMediaModel blogImage;
 
   @OneToMany

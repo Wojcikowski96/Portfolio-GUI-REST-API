@@ -28,7 +28,7 @@ public class BlogApiImpl implements BlogModuleApi {
   BlogEntryRepository blogEntryRepository;
 
   @Autowired
-  BlogImageRepository imagesRepository;
+  BlogImageRepository mediaRepository;
 
   @Autowired
   BlogSearchSpecification blogSearchSpecification;
@@ -86,6 +86,29 @@ public class BlogApiImpl implements BlogModuleApi {
   public void deleteEntries(List<Long> ids) {
 
     blogEntryRepository.deleteAllById(ids);
+    for(Long id : ids){
+      List<BlogMediaDomainImpl> medias = getBlogMediaModels(id);
+      for(BlogMediaDomainImpl media : medias){
+        mediaRepository.deleteById(media.getId());
+      }
+      blogEntryRepository.deleteById(id);
+    }
+  }
+
+  private List<BlogMediaDomainImpl> getBlogMediaModels(Long entryId) {
+
+    Optional<List<BlogMediaModel>> imagesList = Optional.ofNullable(
+            mediaRepository.findByBlogItemModelId(entryId).orElseThrow(
+                    () -> ExceptionsFactory.createNotFound(
+                            "Nie znaleziono plików dla wpisu o id: " + entryId, "NZPDW", null)));
+
+
+    List<BlogMediaModel> models = imagesList.get();
+
+    List<BlogMediaDomainImpl>
+            imageDomains = models.stream().map(x -> blogImageMapper.modelToDomain(x)).toList();
+
+    return imageDomains;
   }
 
   @Override
@@ -105,7 +128,7 @@ public class BlogApiImpl implements BlogModuleApi {
       if (blogEntryModel.getBlogImage() != null && blogEntryModel.getBlogImage().getId() != null) {
 
         Optional<BlogMediaModel> blogImageModelToSave =
-            imagesRepository.findById(blogEntryModel.getBlogImage().getId());
+            mediaRepository.findById(blogEntryModel.getBlogImage().getId());
 
         blogImageModelToSave.get().setImage(blogMediaDomain.getImage());
 
@@ -113,7 +136,7 @@ public class BlogApiImpl implements BlogModuleApi {
 
         blogImageModelToSave.get().setType(ImageType.valueOf(blogMediaDomain.getType()));
 
-        imagesRepository.save(blogImageModelToSave.get());
+        mediaRepository.save(blogImageModelToSave.get());
 
       } else {
 
