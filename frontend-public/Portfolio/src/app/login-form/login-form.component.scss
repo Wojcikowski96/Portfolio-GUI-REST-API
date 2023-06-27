@@ -1,0 +1,98 @@
+$left-color:  #242e4d;
+$right-color: #897e79;
+$green-dark:  #35c3c1;
+$green-light: #00d6b7;
+$gray:        #8f8f8f;
+$gray-light:  #f5f6f8;
+$brown:  brown;
+$white: white;
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Antykwa';
+    src: url(../Resources/AntykwaTorunska-Regular.ttf);
+}
+
+h1.banner{
+  margin-top: 150px;
+  position: relative;
+  color: $white;
+  background-color: $brown;
+  width: 100%;
+  text-align: center;
+  line-height: 300%;
+  font-size: 35px;
+  width:71%;  
+  margin-right: auto;
+  margin-left:auto
+
+}
+
+.login-form {
+box-shadow: 3px 3px 5px 6px gainsboro;
+  width: 65%;
+  // margin-top:100px;
+  margin-left:auto;
+  margin-right:auto;
+  padding: 2em;
+  
+}
+
+  .flex-row {
+    display: flex;
+    margin-bottom: 1em;
+  }
+  
+  .lf--label {
+    width: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: $brown;
+    cursor: pointer;
+  }
+  .lf--input {
+    flex: 1;
+    padding: 1em;
+    border: 0;
+    color: $brown;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      transition: transform .15s ease;
+      transform: scale(1.1);
+    }
+  }
+
+  .lf--submit {
+    font-family: 'Antykwa';
+    display: block;
+    padding: 1em;
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: $brown;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+
+    &:focus {
+      outline: none;
+      transition: transform .15s ease;
+      transform: scale(1.1);
+    }
+  }
+  #username{
+    background-color: $gray-light;
+  }
+  #password{
+    background-color: $gray-light;
+  }
+
+
+

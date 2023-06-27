@@ -1,0 +1,79 @@
+// @font-face {
+//     font-family: 'Antykwa';
+//     src: url(../Resources/AntykwaTorunska-Regular.ttf);
+// }
+
+.mainnavbar{
+    background-color:brown;
+    position: fixed;
+    padding: 10px;
+    display: flex;
+    z-index: 10;
+    width: 70%;
+    top: -20px;
+    margin-top: 10px;
+    
+}
+.homebutton > h1{
+    font-family: 'Antykwa';
+    color: white;
+    font-size: 20px;
+    margin: auto;
+}
+.portfoliobutton > h1{
+    font-family: 'Antykwa';
+    color: white;
+    font-size: 20px;
+    margin: auto;
+}
+
+.mainnavbar > .aboutusbutton > h1{
+    font-family: 'Antykwa';
+    color: white;
+    font-size: 20px;
+    margin: auto;
+}
+.homebutton{
+    width:20%;
+    height: 50px;
+    display: flex;
+    margin:auto;
+    padding: 5px
+  
+    
+}
+.portfoliobutton{
+    width:20%;
+    height: 50px;
+    display: flex;
+    margin:auto;
+    padding: 5px
+    
+}
+.aboutusbutton{
+    width:20%;
+    height: 50px;
+    display: flex;
+    margin:auto;
+    padding: 5px
+    
+}
+.line{
+    background-color: white;
+    width: 0.25%
+}
+.homebutton > #home-icon{
+    height: 50px;
+    width: 50px
+}
+.portfoliobutton > #portfolio-icon{
+    height: 50px;
+    width: 50px
+}
+.aboutusbutton > #aboutus-icon{
+    height: 50px;
+    width: 50px
+}
+.content-flexbox{
+    display: flex
+}

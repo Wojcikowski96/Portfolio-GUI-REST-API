@@ -1,0 +1,107 @@
+
+<div class = "about-us-wrapper">
+    <div class = "col">
+        <h1>Co robimy</h1>
+        <p>Projektujemy herby, flagi i inne symbole samorządowe. 
+            Naszym nadrzędnym celem jest poprawa kiepskiego stanu polskiej heraldyki samorządowej. 
+            Profesjonalnie stworzymy herb dla gminy i zajmiemy się całą procedurą. 
+            Doradzimy także przy organizowaniu konkursów na symbole.</p>
+    </div>
+    <div class = "col">
+        <h1>Kim jesteśmy</h1>
+        <p>Tworzymy duet pasjonatów heraldyki, w skład którego wchodzą:
+            Kamil Wójcikowski, interesuje się heraldyką od 9 roku życia, tworzy projekt herbu, flagi i innych symboli oraz produkt końcowy, tj. dokumentację.
+            Robert Fidura, miłośnik archiwistyki, poszukuje potencjalnych klientów i rozmawia z nimi.
+            Wspólnie poszukujemy źródeł historycznych i ikonograficznych, obmyślamy projekty, wszystkie projekty konsultujemy na posiedzeniach Komisji Heraldycznej, redagujemy tekst uzasadnienia projektów.</p>
+    </div>
+    <div class = "col">
+        <h1>Dlaczego my?</h1>
+        <ul><li>Każdy projekt herbu tworzymy z pasją,</li>
+            <li>Należymy do grupy kilku-kilkunastu osób w Polsce, którzy wiedzą jak projektować herby,</li>
+            <li>Większość naszych projektów jest trafna już na samym początku,</li>
+            <li>Działamy do skutku, tj. do uzyskania projektu, który zadowoli zarówno klienta, jak i Komisję Heraldyczną</li></ul>
+    </div>
+</div>
+
+<div class ="content-flexbox">
+<div class = "news-sidebar">
+<div class="news-header" >
+<img src = "../Resources/news.png" style= "width: 60px; height: 60px; margin-top: auto; margin-bottom:auto" alt= "nothing"/>
+<h1>Aktualności</h1>
+ 
+</div>
+<div [@inOutAnimation]="'in'"  *ngFor="let item of results">
+    <div class ="entry-tile">
+    <div (click)="removeEntryById(item.id)" *ngIf="checkIsAdmin()"  class = remove-item>X</div>
+    <button *ngIf="checkIsAdmin()" class="edit-button" (click)="setEditMode(item)">Edytuj</button>
+    <button *ngIf="checkIsAdmin() && item.editable" class="save-button" (click)="modifyEntry(item)">Zapisz</button>
+    <div class ='entry-header'>
+    <h1 *ngIf="!item.editable">{{item?.tittle}}</h1>
+    <div style="margin-bottom:5px" class="textarea-wrapper">
+        <app-text-area id="header" (nameChange)="onTittleChange($event)" [name]="tittleTextarea" *ngIf="item.editable"></app-text-area>
+    </div>
+    <div class ='header-label-gap'></div> 
+    <h1 id='date-label'>{{item?.creationDate}}</h1>
+    </div>
+    <div class ='entry-body'>
+    <div style="height: 100%; width: 30%" class = "image-section">
+        <img src = {{item?.imageUrl}} style='margin: auto; margin-left:0px; width: 100%; height: 100%'/>
+        <app-drag-and-drop-image (filesDropped)="onImageDropped($event, item.id)" *ngIf="item.editable"></app-drag-and-drop-image>
+    </div>
+    <div class ='description'>
+    <p *ngIf="!item.editable">{{item?.content}}</p>
+    <h1 *ngIf="item.editable">Treść wpisu:</h1>
+    <app-text-area (nameChange)="onContentChange($event)" [name]="contentTextarea" *ngIf="item.editable"></app-text-area>
+    <div class = 'urls-container'>
+    <div *ngIf="item.editable" class = "add-url-section">
+        <h1 *ngIf="item.editable">Link do dodania:</h1>
+        <app-text-area (nameChange)="onUrlChange($event)" [name]="urlName"></app-text-area>
+        <div (click)="addUrl(urlName)" class="button" style="width: 30%">
+            <div style="text-decoration:none" class="content">
+              <p class="button-description">
+                Dodaj link
+              </p>
+            </div>
+        </div>
+    </div>
+  
+    <div *ngIf="!item.editable" class="urls">
+        <a *ngFor="let url of item?.newsPortalsUrls" href ={{url}}><h1 style ='font-size: 25px; margin-top: 20px'> {{url}} </h1>
+        </a>
+    </div>
+    <div *ngIf="item.editable" class="url-to-add-container">
+        <div style="display:flex; position:relative; margin-top: 30px; box-shadow: 3px 3px 5px 6px gainsboro;" *ngFor="let url of blogUrls">
+            <a style="margin-left: auto; margin-right: auto"  href ={{url}}><h1 style ='font-size: 25px; margin-top: 20px;'> {{url}} </h1></a>
+            <div style="position: absolute; right: 5px; top: 0px" *ngIf="checkIsAdmin()" (click)="removeContainerByName(url)"  class = remove-item>X</div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+<div (click)="addEmptyEntry()" style="font-size: 400px; color: gray;box-shadow: 3px 3px 5px 6px gainsboro; cursor: pointer;" *ngIf="checkIsAdmin()" class = "tile" >
+    +
+</div>
+<app-pagination [itemsNum]="pageResponse?.totalElements" [pageSize]="pageResponse?.pageSize" (pageChanged)="onPageChanged($event)"></app-pagination>
+</div>
+<div class= "about-us-on-news-sidebar">
+<div class= "header">
+    <h1 style = "font-size: 30px; color: white; margin-top: auto; margin-bottom: auto">Skontaktuj się<br>z nami</h1>
+</div>
+<div class="wrapper">
+<form class="form">
+  <div class="secondaryTitle title">Uzupełnij poniższe pola.</div>
+  <input type="text" class="name formEntry" id="nameInput" placeholder="Podaj imię" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+  <input type="text" class="email formEntry" id="emailInput" placeholder="Podaj Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+  <input type="text" class="email formEntry" id="tittleInput" placeholder="Podaj tytuł e-maila" [(ngModel)]="tittle" [ngModelOptions]="{standalone: true}">
+  <textarea class="message formEntry" id="messageInput"></textarea>
+  <button class="submit formEntry" id="sendMessage" (click)="sendMessage()">
+    <h1 style="font-size: 25px" >Wyślij</h1>
+</button>
+</form>
+</div>
+</div>
+</div>
+
+

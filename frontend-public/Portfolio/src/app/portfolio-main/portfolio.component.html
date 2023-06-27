@@ -1,0 +1,45 @@
+<div class="banner">
+    <h1>KAMIL WÓJCIKOWSKI & ROBERT FIDURA PORTFOLIO PROJEKTOWE</h1>
+    <div class = "projects-status">
+        <div class = "projects-done">
+            <h2>{{pageResponse?.totalElements}} zrealizowanych projektów</h2>
+        </div>
+        <div class = "projects-opinions">
+            <h2>co najmniej 50 pozytywnie zaopiniowanych</h2> 
+        </div>
+    </div>
+</div>
+<app-pagination [itemsNum]="pageResponse?.totalElements" [pageSize]="pageResponse?.pageSize" (pageChanged)="onPageChanged($event)"></app-pagination>
+<div class = "grid-container" *ngIf="showGrid">
+    <div [@inOutAnimation]="'in'" *ngFor="let item of results">
+        <div (click)="removeEntryById(item?.id)" *ngIf="checkIsAdmin()"  class = remove-item  ></div>
+        <div  class = "tile" (click)="navigateToDetailsComponent(item?.id); toggleGrid(); onTileSelected(item?.id)" >
+            
+                    <div class = "numberContainer">
+                        <h1 class = "number">{{item.id}}</h1>
+                    </div>
+                    <div class = "headerContainer">
+                        <h1 class = "headerTittle">{{item.tittle}}</h1>
+                    </div>
+                    <img src = {{item.imageUrl}}>
+                    <div class = "locationDiv">
+                        <h1 class = "wojewodztwoName">{{item.wojewodztwo}}</h1>
+                        <h1 class = "powiatName">{{item.powiat}}</h1>
+                    </div>
+                    <div class = "designedElementsDiv">
+                        <h1 class = "designedElements">{{item.designedElements}}</h1>
+                    </div>
+                    <div class="dateDiv">
+                        <h1 class = "createdAt">{{formatDate(item.createdAt) }}</h1>
+                    </div>
+                </div>
+
+    </div>
+    <div style="font-size: 400px; color: gray" *ngIf="checkIsAdmin()" class = "tile" (click)="navigateToNewDetailsComponent(); toggleGrid(); onTileSelected(undefined)">
+        +
+    </div>
+</div>
+<router-outlet  *ngIf="!showGrid" (detailsClosed)="onDetailsClosed()"></router-outlet>
+
+
+

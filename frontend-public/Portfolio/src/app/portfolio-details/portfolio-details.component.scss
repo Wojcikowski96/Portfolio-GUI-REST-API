@@ -1,0 +1,375 @@
+$white: white;
+$bodycolor:whitesmoke;
+$brown:brown;
+$shadowcolor:#ccc;
+$formcolor: #EBEBEB;
+.button{
+    position: relative;
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
+    height: 100PX;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15%;
+ 
+}
+.content{
+    position: relative;
+    width:100%;
+    height: 100%;
+    background-color: $brown;
+    text-align: center;
+    border: solid;
+    border-width: 2px;
+    border-color: $brown;
+}
+
+.add-document{
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    margin:none;
+    border: solid;
+    border-width: 2px;
+    border-color: $brown;
+    padding: 5px
+}
+
+
+h1.button-description{
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: "Antykwa";
+    color: $white;
+}
+.button:hover .content{
+    border: solid;
+    border-width: 6px;
+    border-color: $brown;
+    background-color: $white;
+    transition:  border-width 0.2s linear;
+   
+}
+.content:hover :nth-child(1){
+    color: $brown;
+}
+
+.content:hover :nth-child(1)::before{
+    font-family: "Antykwa";
+}
+
+
+.close-button {
+    background-color: $brown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .edit-button {
+    background-color: $brown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right
+  }
+
+  .save-button {
+    background-color: $brown;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right
+  }
+  
+  .close-button:hover {
+    background-color: darkbrown;
+  }
+
+@font-face {
+    font-family: 'Antykwa';
+    src: url(../Resources/AntykwaTorunska-Regular.ttf);
+}
+html{
+    padding: 15px;
+    margin: 0px;
+}
+h1{
+    font-family: 'Antykwa';
+}
+
+h1.banner{
+    margin-top: 150px;
+    position: relative;
+    color: $white;
+    background-color: $brown;
+    width: 100%;
+    text-align: center;
+    line-height: 300%;
+    font-size: 45px;
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 2s; /* Firefox < 16 */
+     -ms-animation: fadein 2s; /* Internet Explorer */
+      -o-animation: fadein 2s; /* Opera < 12.1 */
+         animation: fadein 2s;
+    
+}
+
+.maincontent{
+    background-color:$bodycolor;
+    column-gap: 20px;
+    height:100%;
+    display: flex;
+}
+
+h1.date{
+    font-family: 'Antykwa';
+    font-size: 45px;
+}
+
+h1.zaprojektowanesymbole{
+    font-family: 'Antykwa';
+    font-size: 45px;
+}
+
+
+p{
+    font-family: 'Antykwa';
+    text-align: center;
+    text-align: justify;
+    font-size: 25px;
+}
+.buttons{
+    position: relative;
+    width: 100%;
+    background-color:$bodycolor;
+    column-gap: 20px;
+    // height:100%;
+    display: flex;
+}
+.description-images-wrapper{
+    display: flex;
+    width: 100%
+}
+.image-wrapper{
+    width: 30%;
+    margin: auto
+}
+.image-wrapper > img{
+    width:100%
+}
+.image-wrapper > p.image-label{
+    text-align: center;
+    font-family: 'Antykwa';
+    font-size: 20px;
+}
+h1.historia{
+    font-size: 45px;
+}
+textarea{
+    width: 100%; 
+    height: 100%; 
+    font-family: 'Antykwa'; 
+    font-size: 25px; 
+    border: none; 
+    // margin-bottom: 200px;
+    background-color: $bodycolor;
+    color: black;
+    border: 1px black;
+    background-color: $formcolor;
+}
+
+@keyframes fadein {
+    from { opacity: 0.3; top: -200px }
+    to   { opacity: 1; top: 0px }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0.3; top: -200px }
+    to   { opacity: 1; top: 0px }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0.3; top: -200px }
+    to   { opacity: 1; top: 0px }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0.3; top: -200px }
+    to   { opacity: 1; top: 0px }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0.3; top: -200px }
+    to   { opacity: 1; top: 0px }
+}
+
+.sidebar{
+    position: relative;
+    width: 30%;
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
+    background-color:  rgba(255, 0, 0, 0.05);
+    text-align: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    // -webkit-animation: fadeinS 1s; /* Safari, Chrome and Opera > 12.1 */
+    // -moz-animation: fadeinS 1s; /* Firefox < 16 */
+    //  -ms-animation: fadeinS 1s; /* Internet Explorer */
+    //   -o-animation: fadeinS 1s; /* Opera < 12.1 */
+    //      animation: fadeinS 1s;
+}
+
+
+.insygnia-label{
+    background-color: $white;
+    border-top: solid;
+    border-bottom: solid
+}
+
+
+h1.label{
+    font-family: 'Antykwa';
+    margin-top: 0px;
+
+}
+.description{
+    position: relative;
+    height: 100%;
+    width: 75%;
+    box-shadow: 3px 3px 5px 6px $shadowcolor;
+    padding-left: 30px;
+    padding-right: 30px;
+    // -webkit-animation: fadeinD 1s; /* Safari, Chrome and Opera > 12.1 */
+    // -moz-animation: fadeinD 1s; /* Firefox < 16 */
+    //  -ms-animation: fadeinD 1s; /* Internet Explorer */
+    //   -o-animation: fadeinD 1s; /* Opera < 12.1 */
+    //      animation: fadeinD 1s;
+}
+
+
+#herb{
+    width: 90%; 
+}
+#baner{
+    width: 100%;
+}
+.banner-wrapper{
+    width: 60%;
+    margin: auto
+
+}
+#flaga{
+    width:100%;
+  
+}
+h1.flaga{
+    font-family: 'Antykwa';
+    font-size: 45px;
+}
+
+#pieczec{
+    width: 95%;
+    margin: auto;
+    
+} 
+.pieczecie-row1{
+    display: flex;
+    width: 100%;
+}
+.pieczecie-row2{
+    width: 100%;
+}
+.remove-item{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: auto;
+    cursor: pointer;
+    text-align: center;
+    font-size: 35px;
+    font-family: Arial;
+    color: gray;
+    transition: background-color 0.3s ease-out 100ms;
+    margin-bottom: 5px
+    
+}
+
+.remove-item:hover{
+    background-color: red;
+    
+}
+@keyframes fadeinS {
+    from { opacity: 0.3; right: -200px }
+    to   { opacity: 1; right: 0px }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadeinS {
+    from { opacity: 0.3; right: -200px }
+    to   { opacity: 1; right: 0px }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeinS {
+    from { opacity: 0.3; right: -200px }
+    to   { opacity: 1; right: 0px }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeinS {
+    from { opacity: 0.3; right: -200px }
+    to   { opacity: 1; right: 0px }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadeinS {
+    from { opacity: 0.3; right: -200px }
+    to   { opacity: 1; right: 0px }
+}
+
+
+@keyframes fadeinD {
+    from { opacity: 0.3; left: -200px }
+    to   { opacity: 1; left: 0px }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadeinD {
+    from { opacity: 0.3; left: -200px }
+    to   { opacity: 1; left: 0px }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeinD {
+    from { opacity: 0.3; left: -200px }
+    to   { opacity: 1; left: 0px }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeinD {
+    from { opacity: 0.3; left: -200px }
+    to   { opacity: 1; left: 0px }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadeinD {
+    from { opacity: 0.3; left: -200px }
+    to   { opacity: 1; left: 0px }
+}

@@ -1,0 +1,164 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
+
+  <title>Portfolio projektowe</title>
+  <script src="MapLocation.js"></script>
+</head>
+
+<body *ngIf="detailsVisible">
+  <h1 *ngIf="!editFormVisible" class="banner">
+    {{locationName}}
+  </h1>
+  <div [style.display]="editFormVisible ? 'flex' : 'none'" style="height: 20%; margin-top: 200px; justify-content: center; margin-bottom: 20px; column-gap: 5px;" class="map-search-section">
+    <div style="width:70%;height: 100%; background-color: brown;" class ="textarea-wrapper">
+      <textarea style="color: white; background-color: brown;text-align: center; font-size: 50px; width:99%" *ngIf="editFormVisible" type="text" [(ngModel)]="locationName">
+      </textarea>
+      <div style="width:70%; display:flex; justify-content: center; margin: auto" class="app-suggester-wrapper">
+        <app-localization-suggester (selectedOption)="setCoordinatesFromMap($event)" style="width: 100%;"></app-localization-suggester>
+      </div>
+    </div>
+    <div class="button" style="width: 30%">
+        <div (click)="changeCity(locationName)" style="text-decoration:none" class="content">
+          <h1 class="button-description">
+            Szukaj
+          </h1>
+        </div>
+    </div>
+
+  </div>
+  <div class="buttons-section">
+    <button class="close-button" (click)="onDetailsClosed()">Zamknij</button>
+  <button *ngIf="checkIsAdmin() && !editFormVisible" class="edit-button" (click)="setEditable()">Edytuj</button>
+  <button *ngIf="checkIsAdmin() && editFormVisible" class="save-button" (click)="setEditable();modifyEntry()">Zapisz</button>
+  </div>
+  
+  <div class="maincontent">
+    <div class="description">
+      <h1 *ngIf="editFormVisible">
+        Data uchwalenia:
+      </h1>
+      <app-datepicker [(selectedDate)]="selectedDate" (selectedDateChange)="setDate($event)" *ngIf="editFormVisible"></app-datepicker>
+      <h1 *ngIf="editFormVisible">
+        Zaprojektowane elementy:
+      </h1>
+      <app-text-area [name]="designedElements" (nameChange)="onDesignedElementsChange($event)" *ngIf=" editFormVisible"></app-text-area>
+      <h1 *ngIf="editFormVisible">
+        Województwo:
+      </h1>
+      <app-text-area [name]="wojewodztwo" (nameChange)="onWojewodztwoChange($event)" *ngIf=" editFormVisible"></app-text-area>
+      <h1 *ngIf="editFormVisible">
+        Powiat:
+      </h1>
+      <app-text-area [name]="powiat" (nameChange)="onPowiatChange($event)" *ngIf=" editFormVisible"></app-text-area>
+      <div class = "map-and-description-container" style="display: flex; height: 100%;">
+        <div class ="text-container" style= "width: 60%; margin-right: auto;  margin-left: 0px">
+          <h1>O gminie</h1>
+          <p *ngIf="!editFormVisible">
+            {{locationDetails}}
+          </p>
+          <div [ngStyle]="{ 'height.px': height }" class ="textarea-wrapper">
+            <app-text-area [name]="locationDetails" (nameChange)="onLocationDetailsChange($event)" *ngIf=" editFormVisible"></app-text-area>
+          </div>
+        </div>
+        <div id="mapid" style="height: 300px; width: 35%; margin-left: auto; margin-top: 20px; z-index: 0;">
+        <app-map></app-map>
+        </div>
+      </div>
+        <h1>
+          Herb
+        </h1>
+        <p *ngIf="!editFormVisible">{{coatOfArmsDescription}}</p>
+        <div [ngStyle]="{ 'height.px': height }"  class = "textarea-wrapper">
+          <app-text-area [name]="coatOfArmsDescription" (nameChange)="onCoatsOfArmsDescriptionChange($event)" *ngIf=" editFormVisible"></app-text-area>
+        </div>
+        
+      <div class="description-images-wrapper">
+      <div [@inOutAnimation]="'in'"  *ngFor="let image of imagesUrlsPageBody" class="image-wrapper">
+        <div *ngIf="checkIsAdmin() && editFormVisible"  class = remove-item (click)="removeFileById(image.id)">X</div>
+        <img class="image" src={{image?.url}}>
+        <p class="image-label">
+          {{image?.name}}
+        </p>
+      </div>
+      <div style="margin: auto" *ngIf=" editFormVisible" class="image-wrapper">
+      <div style="display:block" class = add-image-body-wrapper-inner>
+        <app-drag-and-drop-image (filesDropped)="onImageDroppedImageBody($event)"></app-drag-and-drop-image>
+        <div style="height: 20%" class = "textarea-wrapper">
+          <div style = "width: 80%; margin:auto" class = "textarea-wrapper-inner">
+            <app-text-area (nameChange)="onImageNameChange($event)" *ngIf=" editFormVisible"></app-text-area>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      <h1>
+        Pozostałe symbole
+      </h1>
+      <p *ngIf="!editFormVisible">
+        {{symbolsDescription}}
+      </p>
+
+      <div [ngStyle]="{ 'height.px': height }"  class = "textarea-wrapper">
+        <!-- <textarea *ngIf=" editFormVisible" type="text" [(ngModel)]="symbolsDescription"></textarea> -->
+        <app-text-area [name]="symbolsDescription" (nameChange)="onSymbolsDescriptionChange($event)" *ngIf=" editFormVisible"></app-text-area>
+      </div>
+      <h1>
+        Historia
+      </h1>
+      <p *ngIf="!editFormVisible">
+        {{history}}
+      </p>
+      <div [ngStyle]="{ 'height.px': height }"  class = "textarea-wrapper">
+        <textarea *ngIf="editFormVisible" type="text" [(ngModel)]="history"></textarea>
+      </div>
+      
+      <div class="buttons">
+        <div [@inOutAnimation]="'in'" *ngFor="let document of documents" class="button">
+          <div *ngIf="checkIsAdmin() && editFormVisible"  class = remove-item (click)="removeFileById(document.id)">X</div>
+            <div (click)="downloadFile(document.url, document.extensionType)" target="_blank" style="text-decoration:none" class="content">
+              <h1 class="button-description">
+                {{document?.name}}
+              </h1>
+            </div>
+        </div>
+        <div *ngIf=" editFormVisible" class="add-document" appDragAndDrop (filesDropped)="onDocumentDropped($event)">
+          <div style = "height: 50%; font-size: 45px; color: brown;">+</div>
+              <div style="height:50%" class = "textarea-wrapper">
+                <div style="height: 100%"  class = "textarea-wrapper-inner">
+                  <!-- <textarea style="outline: none" *ngIf=" editFormVisible" [(ngModel)]="documentName"></textarea> -->
+                  <app-text-area [name]="documentName" (nameChange)="onDocumentNameChange($event)" *ngIf=" editFormVisible"></app-text-area>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    
+    <div class="sidebar" >
+      <h1 class="insygnia-label">
+        Insygnia gminy
+      </h1>
+      <div *ngFor="let div of divKeyValues" [ngClass]="div.name">
+        <div [@inOutAnimation]="'in'" *ngFor="let image of imagesUrlsPageLeftPane">
+          <img *ngIf="image.name === div.id" src={{image.url}} id="baner">
+        </div>
+        <app-drag-and-drop-image *ngIf=" editFormVisible && detailsId!=undefined" (filesDropped)="onImageDropped($event, div.id)"></app-drag-and-drop-image>
+        <h1 class="label">
+          {{div.id}}
+        </h1>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

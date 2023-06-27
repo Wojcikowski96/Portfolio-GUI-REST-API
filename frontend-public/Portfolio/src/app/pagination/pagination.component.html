@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="btn-paginacao">
+    <ul *ngFor="let a of emptyArray; let index = index">
+      <li (click)="onPageChanged(index + 1)"><label for="{{'paginacao' + (index + 1)}}">{{index + 1}}</label></li>
+    </ul>
+  </div>
+</div>
