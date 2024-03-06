@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="btn-paginacao">
+      <ul *ngFor="let a of emptyArray">
+        <li (click)="onPageChanged(a)"><label for="{{'paginacao' + (a)}}">{{a}}</label></li>
+      </ul>
+    </div>
+  </div>
