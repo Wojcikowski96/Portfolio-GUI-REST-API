@@ -35,23 +35,16 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Run Maven on a Unix agent.
-              script {
-                    def ftp = new org.apache.commons.net.ftp.FTPClient()
-                    ftp.connect(env.FTP_SERVER)
-                    withCredentials([usernamePassword(credentialsId: 'alwaysdata_credential', usernameVariable: 'FTP_USER', passwordVariable: 'FTP_PASS')]) {
-                        ftp.login(FTP_USER, FTP_PASS)
+                script {
+                    try {
+                        def ftp = ftpConnect(env.FTP_SERVER, env.FTP_USER, env.FTP_PASS)
+                        ftp.put(file: env.LOCAL_WAR_FILE, remote: "${env.REMOTE_DIRECTORY}/web-001-SNAPSHOT.jar")
+                        ftp.disconnect()
+                    } catch (Exception e) {
+                        println "Error during FTP deployment: ${e.message}"
+                        currentBuild.result = 'FAILURE'
                     }
-
-                    // Ustawienie trybu pasywnego
-                    ftp.enterLocalPassiveMode()
-
-                    // Wrzucenie pliku na serwer FTP
-                    ftp.storeFile("${env.REMOTE_DIRECTORY}/web-001-SNAPSHOT.jar", new FileInputStream(env.LOCAL_WAR_FILE))
-
-                    // Zamknięcie połączenia FTP
-                    ftp.logout()
-                    ftp.disconnect()
-              }
+                }
             }
 
         }
