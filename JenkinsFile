@@ -5,6 +5,13 @@ pipeline {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
     }
+        environment {
+            FTP_SERVER = 'ftp-portfolio-rest-api.alwaysdata.net'
+            FTP_USER = 'wojcikowski1@gmail.com'
+            FTP_PASS = credentials('alwaysdata_credential')
+            LOCAL_WAR_FILE = 'web/target/web-001-SNAPSHOT.jar'
+            REMOTE_DIRECTORY = '/ścieżka/na/serwerze/ftp/'
+        }
 
     stages {
         stage('Build') {
@@ -23,20 +30,28 @@ pipeline {
                 sh "mvn test"
             }
 
-//             post {
-//                 // If Maven was able to run the tests, even if some of the test
-//                 // failed, record the test results and archive the jar file.
-//                 success {
-//                     junit '**/target/surefire-reports/TEST-*.xml'
-//                     archiveArtifacts 'target/*.jar'
-//                 }
-//             }
         }
 
         stage('Deploy') {
             steps {
                 // Run Maven on a Unix agent.
-                sh "mvn clean heroku:deploy"
+              script {
+                    def ftp = new org.apache.commons.net.ftp.FTPClient()
+                    ftp.connect(env.FTP_SERVER)
+                    withCredentials([usernamePassword(credentialsId: 'alwaysdata_credential', usernameVariable: 'FTP_USER', passwordVariable: 'FTP_PASS')]) {
+                        ftp.login(FTP_USER, FTP_PASS)
+                    }
+
+                    // Ustawienie trybu pasywnego
+                    ftp.enterLocalPassiveMode()
+
+                    // Wrzucenie pliku na serwer FTP
+                    ftp.storeFile("${env.REMOTE_DIRECTORY}/web-001-SNAPSHOT.jar", new FileInputStream(env.LOCAL_WAR_FILE))
+
+                    // Zamknięcie połączenia FTP
+                    ftp.logout()
+                    ftp.disconnect()
+              }
             }
 
         }
