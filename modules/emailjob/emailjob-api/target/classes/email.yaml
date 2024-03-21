@@ -1,0 +1,45 @@
+openapi: 3.0.3 # version of the specification
+info:
+  version: '1'
+  title: BlogApi
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+
+   /email/send:
+     post:
+       summary: Wysyła email na podstawie danych zrzuconych z formularza kontaktowego
+       description: Operacja dostępna dla wszystkich
+       operationId: sendMessage
+       requestBody:
+         required: true
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/EmailDTO'
+
+       responses:
+         '200':
+           description: Wiadomość wysłana do administratora portalu
+         '400':
+           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+         '401':
+           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+         '404':
+           $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
+components:
+  schemas:
+    EmailDTO:
+      type: object
+      properties:
+        nick:
+          type: string
+        email:
+          type: string
+        tittle:
+          type: string
+        content:
+          type: string

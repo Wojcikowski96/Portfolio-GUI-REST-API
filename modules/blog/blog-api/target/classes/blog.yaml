@@ -1,0 +1,265 @@
+openapi: 3.0.3 # version of the specification
+info:
+  version: '1'
+  title: BlogApi
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+
+  /blog/entries:
+    post:
+      summary: Pobiera listę wszystkich wpisów
+      description: Pobiera dane za pomocą danych o paginacji. Pobieranie dostępne dla wszystkich z rolą USER
+      operationId: getBlogEntries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogRequestData'
+
+      responses:
+        '200':
+          description: Wszystkie wpisy wraz z danymi paginacyjnymi
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/schemas/PageResponse'
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/BlogEntryDTO'
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+  /blog/entries/delete:
+    delete:
+      summary: Usuwa wpisy
+      description: Usuwanie dla roli administratora
+      operationId: deleteBlogEntries
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+          required: true
+      responses:
+        '201':
+          description: Usunięto
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
+  /blog/entry:
+    post:
+      summary: Modyfikuje wpis bloga
+      description: Modyfikacja wpisu dostępna dla roli Admin. Ustawia się data modyfikacji i stworzenia
+      operationId: saveBlogEntry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogEntryDTO'
+
+      responses:
+        '201':
+          description: Zmodyfikowano wpis
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+    get:
+      summary: Pobiera wpis bloga dla danego id
+      operationId: getBlogEntry
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogEntryDTO'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /blog/entry/uploadImage:
+    post:
+      summary: Modyfikuje wpis bloga pod kątem dodania obrazka
+      description: Modyfikacja wpisu dostępna dla roli Admin. Ustawia się data modyfikacji i stworzenia
+      operationId: uploadImageBlog
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                fileByteString:
+                  type: string
+                  format: binary
+
+      responses:
+        '201':
+          description: Zmodyfikowano wpis
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
+  /blog/entry/comment:
+        post:
+          summary: Dodaje komentarz do wpisu
+          description: Komentarze dodawać mogą wszyscy
+          operationId: commentBlogEntry
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CommentDTO'
+
+          responses:
+            '201':
+              description: Dodano komentarz
+            '400':
+              $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+            '401':
+              $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+            '404':
+              $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+        delete:
+          summary: Usuwa komentarze z wpisu
+          description: Usuwać może każdy, kto skomentował dany wpis
+          operationId: deleteCommentFromEntry
+          parameters:
+            - in: query
+              name: commentId
+              explode: true
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+              required: true
+
+          responses:
+            '201':
+              description: Usunięto
+            '400':
+              $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+            '401':
+              $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+            '404':
+              $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+  /blog/file:
+    get:
+      summary: Pobiera obrazek dla konkretnego wpisu
+      description: Operacja dostępna dla wszystkich
+      operationId: getImage
+      parameters:
+        - in: query
+          name: entryId
+          explode: true
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        '200':
+          description: obraz
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/Unauthorized'
+        '404':
+          $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/responses/NotFound'
+
+components:
+  schemas:
+    BlogRequestData:
+      description: Obiekt do filtrowania i paginacji, filtrowanie i paginacja w zależności od potrzeby na dany request.
+      anyOf:
+        - $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/schemas/Pagination'
+        - $ref: '../../../../../../utils/src/main/resources/restTemplate.yaml#/components/schemas/Sort'
+        - $ref: '#/components/schemas/BlogEntryDTO'
+        - $ref: '#/components/schemas/CommentDTO'
+    BlogEntryDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        tittle:
+          type: string
+        content:
+          type: string
+        modificationDate:
+          type: string
+          pattern: /([0-9]{2}).(?:[0-9]{2}).([0-9]{4}) (?:[0-9]{2}):(?:[0-9]{2})/
+        creationDate:
+          type: string
+          pattern: /([0-9]{2}).(?:[0-9]{2}).([0-9]{4}) (?:[0-9]{2}):(?:[0-9]{2})/
+        imageUrl:
+          type: string
+        newsPortalsUrls:
+          type: array
+          items:
+            type: string
+
+    CommentDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string

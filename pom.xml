@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
+	<packaging>pom</packaging>
     <modules>
         <module>web</module>
 		<module>modules/portfolio/portfolio-api</module>
@@ -121,12 +121,16 @@
 			<version>6.1.5.Final</version>
 		</dependency>
 
+<!--		<dependency>-->
+<!--			<artifactId>mssql-jdbc</artifactId>-->
+<!--			<groupId>com.microsoft.sqlserver</groupId>-->
+<!--			<version>11.2.3.jre17</version>-->
+<!--		</dependency>-->
 		<dependency>
-			<artifactId>mssql-jdbc</artifactId>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<version>11.2.3.jre17</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.2</version>
 		</dependency>
-
 		<dependency>
 			<artifactId>jakarta.persistence-api</artifactId>
 			<groupId>jakarta.persistence</groupId>
@@ -163,24 +167,6 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.3.Final</version>
 		</dependency>
-
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-jar-plugin</artifactId>
-			<configuration>
-				<archive>
-					<manifest>
-						<addClasspath>true</addClasspath>
-						<mainClass>com.example.MyCustomWebApplication</mainClass>
-					</manifest>
-				</archive>
-			</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

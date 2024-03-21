@@ -25,6 +25,7 @@ import { LocalizationSuggesterComponent } from './localization-suggester/localiz
 import { DragAndDropImageComponent } from './drag-and-drop-image/drag-and-drop-image.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
   { path: 'portfolio', component: PortfolioComponent },
@@ -48,7 +49,7 @@ const routes: Routes = [
     MapComponent,
     LocalizationSuggesterComponent,
     DragAndDropImageComponent,
-    TextAreaComponent
+    TextAreaComponent,
   ],
   imports: [
     BrowserModule,

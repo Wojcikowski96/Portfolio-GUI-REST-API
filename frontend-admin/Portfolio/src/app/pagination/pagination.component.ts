@@ -16,7 +16,7 @@ export class PaginationComponent implements OnInit {
   emptyArray: any[] | undefined;
 
   @Output() 
-  pageChanged = new EventEmitter<number>();
+  pageChanged = new EventEmitter<any>();
 
   onPageChanged(page: number) {
     this.pageChanged.emit(page);

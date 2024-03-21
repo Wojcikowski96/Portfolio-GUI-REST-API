@@ -1,0 +1,6 @@
+src/main/java/com/example/ApiUtil.java
+src/main/java/com/example/EmailApi.java
+src/main/java/com/example/EmailApiController.java
+src/main/java/com/example/EmailApiDelegate.java
+src/main/java/com/example/model/EmailDTO.java
+src/main/java/com/example/model/Error.java
