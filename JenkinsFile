@@ -1,3 +1,6 @@
+
+@Grab(group='commons-net', module='commons-net', version='3.8.0')
+
 pipeline {
     agent any
 
