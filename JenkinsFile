@@ -47,18 +47,20 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    try {
-                        def ftp = ftpConnect(env.FTP_SERVER, env.FTP_USER, env.FTP_PASS)
-                        ftp.put(file: env.LOCAL_WAR_FILE, remote: "${env.REMOTE_DIRECTORY}/web-001-SNAPSHOT.jar")
-                        ftp.disconnect()
-                    } catch (Exception e) {
-                        println "Error during FTP deployment: ${e.message}"
-                        currentBuild.result = 'FAILURE'
+                    def warFile = findFiles(glob: 'web/target/*.war').first()
+
+                    def publisher = Publishers.getByName("alwaysdata")
+                    if (publisher == null) {
+                        error("Publish Over FTP plugin not found")
+                    }
+                    def server = publisher.servers.first()
+                    server.upload {
+                        source: warFile,
+                        remote: "/web-001-SNAPSHOT.jar"
                     }
                 }
             }
         }
     }
 
-    // Define FTP connection function
 }
