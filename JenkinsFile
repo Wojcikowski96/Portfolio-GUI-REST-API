@@ -12,6 +12,14 @@ pipeline {
         FTP_PASS = credentials('alwaysdata_credential')
         LOCAL_WAR_FILE = 'web/target/web-001-SNAPSHOT.jar'
         REMOTE_DIRECTORY = '/ścieżka/na/serwerze/ftp/'
+
+                ftpConnect = { server, username, password ->
+                    def ftpClient = new org.apache.commons.net.ftp.FTPClient()
+                    ftpClient.connect(server)
+                    ftpClient.login(username, password)
+                    ftpClient.enterLocalPassiveMode()
+                    return ftpClient
+                }
     }
 
     // Import necessary classes
@@ -50,11 +58,4 @@ pipeline {
     }
 
     // Define FTP connection function
-    def ftpConnect(server, username, password) {
-        def ftpClient = org.apache.commons.net.ftp.FTPClient()
-        ftpClient.connect(server)
-        ftpClient.login(username, password)
-        ftpClient.enterLocalPassiveMode()
-        return ftpClient
-    }
 }
