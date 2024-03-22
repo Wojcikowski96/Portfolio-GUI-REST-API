@@ -5,13 +5,19 @@ pipeline {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
     }
-        environment {
-            FTP_SERVER = 'ftp-portfolio-rest-api.alwaysdata.net'
-            FTP_USER = 'wojcikowski1@gmail.com'
-            FTP_PASS = credentials('alwaysdata_credential')
-            LOCAL_WAR_FILE = 'web/target/web-001-SNAPSHOT.jar'
-            REMOTE_DIRECTORY = '/ścieżka/na/serwerze/ftp/'
-        }
+
+    environment {
+        FTP_SERVER = 'ftp-portfolio-rest-api.alwaysdata.net'
+        FTP_USER = 'wojcikowski1@gmail.com'
+        FTP_PASS = credentials('alwaysdata_credential')
+        LOCAL_WAR_FILE = 'web/target/web-001-SNAPSHOT.jar'
+        REMOTE_DIRECTORY = '/ścieżka/na/serwerze/ftp/'
+    }
+
+    // Import necessary classes
+    imports {
+        import org.apache.commons.net.ftp.FTPClient
+    }
 
     stages {
         stage('Build') {
@@ -29,12 +35,10 @@ pipeline {
                 // Run Maven on a Unix agent.
                 sh "mvn test"
             }
-
         }
 
         stage('Deploy') {
             steps {
-                // Run Maven on a Unix agent.
                 script {
                     try {
                         def ftp = ftpConnect(env.FTP_SERVER, env.FTP_USER, env.FTP_PASS)
@@ -46,7 +50,15 @@ pipeline {
                     }
                 }
             }
-
         }
+    }
+
+    // Define FTP connection function
+    def ftpConnect(server, username, password) {
+        def ftpClient = new FTPClient()
+        ftpClient.connect(server)
+        ftpClient.login(username, password)
+        ftpClient.enterLocalPassiveMode()
+        return ftpClient
     }
 }
