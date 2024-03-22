@@ -44,7 +44,7 @@ pipeline {
                                             makeEmptyDirs: false,
                                             noDefaultExcludes: false,
                                             patternSeparator: '[, ]+',
-                                            remoteDirectory: '/portfolio',
+                                            remoteDirectory: '',
                                             remoteDirectorySDF: false,
                                             sourceFiles: 'web/target/*.war'
                                         ]
