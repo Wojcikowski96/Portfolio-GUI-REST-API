@@ -27,8 +27,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    def warFile = findFiles(glob: 'web/target/*.war').first()
-
                     def publisher = Publishers.getByName("alwaysdata")
                     if (publisher == null) {
                         error("Publish Over FTP plugin not found")
