@@ -51,10 +51,14 @@ pipeline {
                         error("Publish Over FTP plugin not found")
                     }
                     def server = publisher.servers.first()
-                    server.upload {
-                        source: warFile,
-                        remote: "/web-001-SNAPSHOT.jar"
-                    }
+                    def uploadedFile = server.upload(glob: 'web/target/*.war').first()
+
+                    if (uploadedFile != null) {
+                     echo "File uploaded successfully: ${uploadedFile.remote}"
+                     } else {
+                       echo "No files found to upload."
+                      }
+
                 }
             }
         }
