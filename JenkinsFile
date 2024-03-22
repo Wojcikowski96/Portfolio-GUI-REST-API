@@ -15,10 +15,6 @@ pipeline {
     }
 
     // Import necessary classes
-    imports {
-        import org.apache.commons.net.ftp.FTPClient
-    }
-
     stages {
         stage('Build') {
             steps {
@@ -55,7 +51,7 @@ pipeline {
 
     // Define FTP connection function
     def ftpConnect(server, username, password) {
-        def ftpClient = new FTPClient()
+        def ftpClient = org.apache.commons.net.ftp.FTPClient()
         ftpClient.connect(server)
         ftpClient.login(username, password)
         ftpClient.enterLocalPassiveMode()
