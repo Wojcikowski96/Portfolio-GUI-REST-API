@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-21T11:24:43.666918900+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:27:23.257676100+01:00[Europe/Warsaw]")
 @Controller
 @RequestMapping("${openapi.blog.base-path:}")
 public class EmailApiController implements EmailApi {

@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-21T11:23:53.541498400+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:26:26.867259200+01:00[Europe/Warsaw]")
 @Controller
 @RequestMapping("${openapi.blog.base-path:}")
 public class BlogApiController implements BlogApi {
