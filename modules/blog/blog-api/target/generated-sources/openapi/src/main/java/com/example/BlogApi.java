@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:26:26.867259200+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:16.786554900+01:00[Europe/Warsaw]")
 @Validated
 @Tag(name = "blog", description = "the blog API")
 public interface BlogApi {

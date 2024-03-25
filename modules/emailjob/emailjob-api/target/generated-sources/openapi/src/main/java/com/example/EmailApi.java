@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:27:23.257676100+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:01:12.805731300+01:00[Europe/Warsaw]")
 @Validated
 @Tag(name = "email", description = "the email API")
 public interface EmailApi {

@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("getBlogEntries_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:26:26.867259200+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:16.786554900+01:00[Europe/Warsaw]")
 public class GetBlogEntries200Response {
 
   @JsonProperty("pageNo")
@@ -37,6 +37,10 @@ public class GetBlogEntries200Response {
 
   @JsonProperty("totalPages")
   private Integer totalPages;
+
+  @JsonProperty("resultssssssssss")
+  @Valid
+  private List<Object> resultssssssssss = null;
 
   @JsonProperty("results")
   @Valid
@@ -118,6 +122,33 @@ public class GetBlogEntries200Response {
     this.totalPages = totalPages;
   }
 
+  public GetBlogEntries200Response resultssssssssss(List<Object> resultssssssssss) {
+    this.resultssssssssss = resultssssssssss;
+    return this;
+  }
+
+  public GetBlogEntries200Response addResultssssssssssItem(Object resultssssssssssItem) {
+    if (this.resultssssssssss == null) {
+      this.resultssssssssss = new ArrayList<>();
+    }
+    this.resultssssssssss.add(resultssssssssssItem);
+    return this;
+  }
+
+  /**
+   * Get resultssssssssss
+   * @return resultssssssssss
+  */
+  
+  @Schema(name = "resultssssssssss", required = false)
+  public List<Object> getResultssssssssss() {
+    return resultssssssssss;
+  }
+
+  public void setResultssssssssss(List<Object> resultssssssssss) {
+    this.resultssssssssss = resultssssssssss;
+  }
+
   public GetBlogEntries200Response results(List<BlogEntryDTO> results) {
     this.results = results;
     return this;
@@ -158,12 +189,13 @@ public class GetBlogEntries200Response {
         Objects.equals(this.pageSize, getBlogEntries200Response.pageSize) &&
         Objects.equals(this.totalElements, getBlogEntries200Response.totalElements) &&
         Objects.equals(this.totalPages, getBlogEntries200Response.totalPages) &&
+        Objects.equals(this.resultssssssssss, getBlogEntries200Response.resultssssssssss) &&
         Objects.equals(this.results, getBlogEntries200Response.results);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageNo, pageSize, totalElements, totalPages, results);
+    return Objects.hash(pageNo, pageSize, totalElements, totalPages, resultssssssssss, results);
   }
 
   @Override
@@ -174,6 +206,7 @@ public class GetBlogEntries200Response {
     sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
     sb.append("    totalElements: ").append(toIndentedString(totalElements)).append("\n");
     sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
+    sb.append("    resultssssssssss: ").append(toIndentedString(resultssssssssss)).append("\n");
     sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("}");
     return sb.toString();

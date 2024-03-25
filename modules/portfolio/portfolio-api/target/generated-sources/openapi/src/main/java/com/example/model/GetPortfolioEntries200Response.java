@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("getPortfolioEntries_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:27:03.043284800+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:52.134140200+01:00[Europe/Warsaw]")
 public class GetPortfolioEntries200Response {
 
   @JsonProperty("pageNo")
@@ -37,6 +37,10 @@ public class GetPortfolioEntries200Response {
 
   @JsonProperty("totalPages")
   private Integer totalPages;
+
+  @JsonProperty("resultssssssssss")
+  @Valid
+  private List<Object> resultssssssssss = null;
 
   @JsonProperty("results")
   @Valid
@@ -118,6 +122,33 @@ public class GetPortfolioEntries200Response {
     this.totalPages = totalPages;
   }
 
+  public GetPortfolioEntries200Response resultssssssssss(List<Object> resultssssssssss) {
+    this.resultssssssssss = resultssssssssss;
+    return this;
+  }
+
+  public GetPortfolioEntries200Response addResultssssssssssItem(Object resultssssssssssItem) {
+    if (this.resultssssssssss == null) {
+      this.resultssssssssss = new ArrayList<>();
+    }
+    this.resultssssssssss.add(resultssssssssssItem);
+    return this;
+  }
+
+  /**
+   * Get resultssssssssss
+   * @return resultssssssssss
+  */
+  
+  @Schema(name = "resultssssssssss", required = false)
+  public List<Object> getResultssssssssss() {
+    return resultssssssssss;
+  }
+
+  public void setResultssssssssss(List<Object> resultssssssssss) {
+    this.resultssssssssss = resultssssssssss;
+  }
+
   public GetPortfolioEntries200Response results(List<PortfolioEntryDTO> results) {
     this.results = results;
     return this;
@@ -158,12 +189,13 @@ public class GetPortfolioEntries200Response {
         Objects.equals(this.pageSize, getPortfolioEntries200Response.pageSize) &&
         Objects.equals(this.totalElements, getPortfolioEntries200Response.totalElements) &&
         Objects.equals(this.totalPages, getPortfolioEntries200Response.totalPages) &&
+        Objects.equals(this.resultssssssssss, getPortfolioEntries200Response.resultssssssssss) &&
         Objects.equals(this.results, getPortfolioEntries200Response.results);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageNo, pageSize, totalElements, totalPages, results);
+    return Objects.hash(pageNo, pageSize, totalElements, totalPages, resultssssssssss, results);
   }
 
   @Override
@@ -174,6 +206,7 @@ public class GetPortfolioEntries200Response {
     sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
     sb.append("    totalElements: ").append(toIndentedString(totalElements)).append("\n");
     sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
+    sb.append("    resultssssssssss: ").append(toIndentedString(resultssssssssss)).append("\n");
     sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("}");
     return sb.toString();

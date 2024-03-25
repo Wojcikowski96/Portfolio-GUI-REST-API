@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * Sort
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:26:42.945329400+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:34.607742700+01:00[Europe/Warsaw]")
 public class Sort {
 
   /**

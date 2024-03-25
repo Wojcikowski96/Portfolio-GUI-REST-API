@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * PageResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-22T16:26:26.867259200+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:16.786554900+01:00[Europe/Warsaw]")
 public class PageResponse {
 
   @JsonProperty("pageNo")
@@ -35,9 +35,9 @@ public class PageResponse {
   @JsonProperty("totalPages")
   private Integer totalPages;
 
-  @JsonProperty("results")
+  @JsonProperty("resultssssssssss")
   @Valid
-  private List<Object> results = null;
+  private List<Object> resultssssssssss = null;
 
   public PageResponse pageNo(Integer pageNo) {
     this.pageNo = pageNo;
@@ -115,31 +115,31 @@ public class PageResponse {
     this.totalPages = totalPages;
   }
 
-  public PageResponse results(List<Object> results) {
-    this.results = results;
+  public PageResponse resultssssssssss(List<Object> resultssssssssss) {
+    this.resultssssssssss = resultssssssssss;
     return this;
   }
 
-  public PageResponse addResultsItem(Object resultsItem) {
-    if (this.results == null) {
-      this.results = new ArrayList<>();
+  public PageResponse addResultssssssssssItem(Object resultssssssssssItem) {
+    if (this.resultssssssssss == null) {
+      this.resultssssssssss = new ArrayList<>();
     }
-    this.results.add(resultsItem);
+    this.resultssssssssss.add(resultssssssssssItem);
     return this;
   }
 
   /**
-   * Get results
-   * @return results
+   * Get resultssssssssss
+   * @return resultssssssssss
   */
   
-  @Schema(name = "results", required = false)
-  public List<Object> getResults() {
-    return results;
+  @Schema(name = "resultssssssssss", required = false)
+  public List<Object> getResultssssssssss() {
+    return resultssssssssss;
   }
 
-  public void setResults(List<Object> results) {
-    this.results = results;
+  public void setResultssssssssss(List<Object> resultssssssssss) {
+    this.resultssssssssss = resultssssssssss;
   }
 
   @Override
@@ -155,12 +155,12 @@ public class PageResponse {
         Objects.equals(this.pageSize, pageResponse.pageSize) &&
         Objects.equals(this.totalElements, pageResponse.totalElements) &&
         Objects.equals(this.totalPages, pageResponse.totalPages) &&
-        Objects.equals(this.results, pageResponse.results);
+        Objects.equals(this.resultssssssssss, pageResponse.resultssssssssss);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageNo, pageSize, totalElements, totalPages, results);
+    return Objects.hash(pageNo, pageSize, totalElements, totalPages, resultssssssssss);
   }
 
   @Override
@@ -171,7 +171,7 @@ public class PageResponse {
     sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
     sb.append("    totalElements: ").append(toIndentedString(totalElements)).append("\n");
     sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
-    sb.append("    results: ").append(toIndentedString(results)).append("\n");
+    sb.append("    resultssssssssss: ").append(toIndentedString(resultssssssssss)).append("\n");
     sb.append("}");
     return sb.toString();
   }
