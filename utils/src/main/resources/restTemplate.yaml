@@ -79,7 +79,7 @@ components:
             totalPages:
               type: integer
               example: 1
-            resultssssssssss:
+            results:
               type : array
               items: {}
     Sort:
