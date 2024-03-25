@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:38:53.565072300+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T13:07:24.953409300+01:00[Europe/Warsaw]")
 @Controller
 @RequestMapping("${openapi.blog.base-path:}")
 public class PortfolioApiController implements PortfolioApi {
