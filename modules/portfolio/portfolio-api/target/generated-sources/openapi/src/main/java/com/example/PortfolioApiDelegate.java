@@ -18,7 +18,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link PortfolioApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:52.134140200+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:38:53.565072300+01:00[Europe/Warsaw]")
 public interface PortfolioApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {

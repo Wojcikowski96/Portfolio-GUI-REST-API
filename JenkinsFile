@@ -43,9 +43,9 @@ pipeline {
                                             makeEmptyDirs: false,
                                             noDefaultExcludes: false,
                                             patternSeparator: '[, ]+',
-                                            remoteDirectory: '',
+                                            remoteDirectory: '/portfolio',
                                             remoteDirectorySDF: false,
-                                            sourceFiles: 'web/target/*.war'
+                                            sourceFiles: 'web/target/*.jar'
                                         ]
                                     ],
                                     usePromotionTimestamp: false,

@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * PageResponse
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:34.607742700+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:38:23.826146900+01:00[Europe/Warsaw]")
 public class PageResponse {
 
   @JsonProperty("pageNo")

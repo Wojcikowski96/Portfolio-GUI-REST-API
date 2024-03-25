@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("getPortfolioEntries_200_response_allOf")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:00:52.134140200+01:00[Europe/Warsaw]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-03-25T12:38:53.565072300+01:00[Europe/Warsaw]")
 public class GetPortfolioEntries200ResponseAllOf {
 
   @JsonProperty("results")
