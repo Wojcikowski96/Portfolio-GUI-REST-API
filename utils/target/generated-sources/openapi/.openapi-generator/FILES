@@ -1,9 +1,0 @@
-src/main/java/com/example/ApiUtil.java
-src/main/java/com/example/DefaultApi.java
-src/main/java/com/example/DefaultApiController.java
-src/main/java/com/example/DefaultApiDelegate.java
-src/main/java/com/example/model/Error.java
-src/main/java/com/example/model/PageResponse.java
-src/main/java/com/example/model/PageResponseAllOf.java
-src/main/java/com/example/model/Pagination.java
-src/main/java/com/example/model/Sort.java

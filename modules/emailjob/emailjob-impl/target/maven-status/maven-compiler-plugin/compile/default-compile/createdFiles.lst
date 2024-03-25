@@ -1,5 +1,0 @@
-com\example\impl\EmailApiDelegateImpl.class
-com\example\impl\EmailSenderApiImpl.class
-com\example\mapper\EmailMapper.class
-com\example\mapper\EmailMapperImpl.class
-com\example\impl\EmailDomainApiImpl.class
